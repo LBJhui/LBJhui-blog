@@ -1,4 +1,8 @@
 import { defineConfig } from 'vitepress';
+import path from 'path';
+
+import { cssUrl, vueUrl } from './urls';
+import sidebar from './sidebar';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -9,30 +13,17 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     logo: '/svg/my-logo.svg',
     nav: [
-      { text: 'Home', link: '/' },
+      { text: '首页', link: '/' },
       {
         text: '前端基础',
-        items: [
-          { text: 'html', link: '/markdown-examples' },
-          // { text: 'CSS', link: '/css/1.CSS Grid 网格布局教程' },
-          { text: 'JavaScript', link: '/api-examples' },
-        ],
+        items: [{ text: 'CSS', link: `${cssUrl}1.CSS Grid 网格布局教程` }],
       },
       {
         text: '第三方框架&库',
-        items: [
-          { text: 'Vue', link: '/markdown-examples' },
-          { text: 'React', link: '/api-examples' },
-        ],
+        items: [{ text: 'Vue', link: `${vueUrl}1.在Vue3中使用vite配置proxy实现跨域请求` }],
       },
     ],
-    sidebar: {
-      // CSS: [{ text: '1. CSS Grid 网格布局教程', link: '/css/1.CSS Grid 网格布局教程' }],
-      JavaScript: [
-        { text: 'Markdown Examples', link: '/markdown-examples' },
-        { text: 'Runtime API Examples', link: '/api-examples' },
-      ],
-    },
+    sidebar,
     socialLinks: [
       { icon: 'github', link: 'https://github.com/LBJhui/LBJhui-blog' },
       {
@@ -43,14 +34,13 @@ export default defineConfig({
       },
     ],
     footer: {
-      message: 'Released under the MIT License.',
       copyright: 'Copyright © 2024- LBJhui',
     },
     externalLinkIcon: true, // 是否在 markdown 中的外部链接旁显示外部链接图标。
     lastUpdated: {
       text: 'Updated at',
       formatOptions: {
-        dateStyle: 'full',
+        dateStyle: 'short',
         timeStyle: 'medium',
       },
     },
