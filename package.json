@@ -1,0 +1,24 @@
+{
+  "name": "LBJhui-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docs:deploy": "sh deploy.sh",
+    "docs:dev": "vitepress dev docs --open",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:preview": "vitepress preview docs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.4.1",
+    "vitepress": "^1.3.1"
+  },
+  "dependencies": {
+    "markdown-it-katex": "^2.0.3"
+  }
+}
