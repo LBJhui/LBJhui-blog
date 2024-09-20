@@ -1,40 +1,40 @@
-import { urlsObject } from './urls';
-import fs from 'fs';
-import path from 'path';
+import { urlsObject } from './urls'
+import fs from 'fs'
+import path from 'path'
 
 const getFirstFileName = (url: string) => {
-  let result = '';
-  const folders = fs.readdirSync(`./docs${url}`, { withFileTypes: true });
+  let result = ''
+  const folders = fs.readdirSync(`./docs${url}`, { withFileTypes: true })
   if (!folders.length) {
-    return result;
+    return result
   }
   for (let i = 0; i < folders.length; i++) {
     if (path.extname(folders[i].name) === '.md' && folders[i].name.includes('1.')) {
-      result = folders[i].name;
-      break;
+      result = folders[i].name
+      break
     }
   }
   if (!result) {
     for (let i = 0; i < folders.length; i++) {
       if (path.extname(folders[i].name) === '.md') {
-        result = folders[i].name;
-        break;
+        result = folders[i].name
+        break
       }
     }
   }
-  return result;
-};
+  return result
+}
 
 const getLink = (url: string) => {
-  return `${url}${getFirstFileName(url)}`;
-};
+  return `${url}${getFirstFileName(url)}`
+}
 
 const nav = [
   { text: '首页', link: '/' },
   {
     text: '前端基础',
     items: [
-      { text: 'CSS', link: getLink(urlsObject.CSS) },
+      { text: 'CSS', link: getLink(urlsObject.css) },
       { text: 'JavaScript', link: getLink(urlsObject.JavaScript) },
       { text: 'Typescript', link: getLink(urlsObject.Typescript) },
     ],
@@ -64,6 +64,6 @@ const nav = [
       { text: '网址收藏', link: '/guides/others/favorites.md' },
     ],
   },
-];
+]
 
-export default nav;
+export default nav
