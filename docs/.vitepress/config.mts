@@ -1,7 +1,7 @@
-import { defineConfig } from 'vitepress';
-import markdownItKatex from 'markdown-it-katex';
-import nav from './nav';
-import sidebar from './sidebar';
+import { defineConfig } from 'vitepress'
+import markdownItKatex from 'markdown-it-katex'
+import nav from './nav'
+import sidebar from './sidebar'
 const customElements = [
   'math',
   'maction',
@@ -88,12 +88,12 @@ const customElements = [
   'semantics',
   'annotation',
   'annotation-xml',
-];
+]
 
 export default defineConfig({
   markdown: {
     config: (md) => {
-      md.use(markdownItKatex);
+      md.use(markdownItKatex)
     },
   },
   vue: {
@@ -126,4 +126,4 @@ export default defineConfig({
     // 是否在 markdown 中的外部链接旁显示外部链接图标。
     externalLinkIcon: true,
   },
-});
+})

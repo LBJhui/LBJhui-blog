@@ -41,4 +41,13 @@ let obj: Readonly<Obj> = {
 }
 ```
 
-##
+## 使用元祖生成联合类型
+
+```ts
+const colors = ['♥', '♦', '♣', '♠'] as const
+const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'] as const
+type Color = (typeof colors)[number]
+type Value = (typeof values)[number]
+```
+
+#

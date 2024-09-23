@@ -5,7 +5,9 @@ layout: home
 hero:
   name: 'LBJhui-blog'
   text: '随便写写，没什么想法'
-  tagline: My great project tagline
+  # tagline:
+  image:
+    src: './public/bg.jpeg'
   actions:
     - theme: brand
       text: Get Start
@@ -13,14 +15,13 @@ hero:
     # - theme: alt
     #   text: Markdown Examples
     #   link: /markdown-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+# features:
+#   - title: Feature A
+#     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+#   - title: Feature B
+#     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+#   - title: Feature C
+#     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
 <style>

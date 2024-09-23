@@ -37,6 +37,7 @@ const nav = [
       { text: 'CSS', link: getLink(urlsObject.css) },
       { text: 'JavaScript', link: getLink(urlsObject.JavaScript) },
       { text: 'Typescript', link: getLink(urlsObject.Typescript) },
+      { text: 'Git', link: getLink(urlsObject.Git) },
     ],
   },
   {
@@ -45,6 +46,7 @@ const nav = [
       { text: 'Vue', link: getLink(urlsObject.Vue) },
       { text: '前端工程化', link: getLink(urlsObject.engineering) },
       { text: '浏览器', link: getLink(urlsObject.browser) },
+      { text: 'nginx', link: getLink(urlsObject.nginx) },
     ],
   },
   {

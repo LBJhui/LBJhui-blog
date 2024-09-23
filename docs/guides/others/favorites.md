@@ -143,3 +143,5 @@
 [瓦特工具箱(Steam++官网) - Watt Toolkit](https://steampp.net/)
 
 [PixPin 截图/贴图/长截图/文字识别/标注 | PixPin 截图/贴图/长截图/文字识别/标注](https://pixpin.cn/)
+
+[Shoelace: A forward-thinking library of web components.](https://shoelace.style/)
