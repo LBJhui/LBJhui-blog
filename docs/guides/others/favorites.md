@@ -145,3 +145,5 @@
 [PixPin 截图/贴图/长截图/文字识别/标注 | PixPin 截图/贴图/长截图/文字识别/标注](https://pixpin.cn/)
 
 [Shoelace: A forward-thinking library of web components.](https://shoelace.style/)
+
+[Vue Data UI A user-empowering data visualization Vue3 components library for eloquent data storytelling.](https://vue-data-ui.graphieros.com/)

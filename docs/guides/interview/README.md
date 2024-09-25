@@ -16,6 +16,12 @@ console.log(b.x) // { n: 2 }
 })()
 console.log(a) // a is not defined
 console.log(b) // 5
+
+// ③
+let a = 1
+let b = 2
+
+let c = 3 - (a = b + 1) // 0
 ```
 
 ## ++ 运算符
