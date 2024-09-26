@@ -147,3 +147,5 @@
 [Shoelace: A forward-thinking library of web components.](https://shoelace.style/)
 
 [Vue Data UI A user-empowering data visualization Vue3 components library for eloquent data storytelling.](https://vue-data-ui.graphieros.com/)
+
+[Visual Studio Code - Code Editing. Redefined](https://code.visualstudio.com/)
