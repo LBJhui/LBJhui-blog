@@ -32,6 +32,24 @@ console.log(i++ + ++i)
 console.log(i++ + ++i * ++i)
 ```
 
+## 变量遮蔽
+
+```js
+var test = 'hello world'
+;(function () {
+  test = 'LBJhui'
+  console.log(test)
+})()
+;(function test() {
+  test = 'LBJhui'
+  console.log(test)
+})()
+```
+
+- 变量遮蔽：在函数内部引用时，会查找最近的作用域里的 test 的变量或函数，而不会查找外部作用域的。在这种情况下，函数 test 遮蔽了外部的 test 变量
+
+- 函数的名称是只读的：函数的名称是只读的，所以不能在函数内部修改函数的名称。因此，函数内部 test = 'LBJhui' 这行代码其实是无效的
+
 ## 参数归一化
 
 ```js
