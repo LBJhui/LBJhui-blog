@@ -115,4 +115,40 @@ function formate(date, formatter, isPad = false) {
 }
 ```
 
+## 以同步的方式实现事件监听
+
+```js
+function getElement(cssSelector) {
+  // 请完成 getElement 函数，让后续的程序顺利执行
+}
+
+;(async () => {
+  const btn = getElement('button')
+  while (1) {
+    await btn.waitClick
+    console.log('按钮被点击了')
+  }
+})()
+```
+
+```js
+function getElement(cssSelector) {
+  const dom = document.querySelector(cssSelector)
+  const proxy = new Proxy(dom, {
+    get(target, key) {
+      if (!key.startsWith('wait')) {
+        return Reflect.get(target, key)
+      }
+      return new Promise((resolve) => {
+        const eventName = key.replace('wait', '').toLowerCase()
+        target.addEventListener(eventName, resolve, {
+          once: true,
+        })
+      })
+    },
+  })
+  return proxy
+}
+```
+
 #
