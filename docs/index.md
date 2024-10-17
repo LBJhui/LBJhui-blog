@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Get Start
-      link: /guides/language-basic/css/1.CSS Grid 网格布局教程
+      link: /guides/language-basic/CSS/1.CSS Grid 网格布局教程
     # - theme: alt
     #   text: Markdown Examples
     #   link: /markdown-examples
