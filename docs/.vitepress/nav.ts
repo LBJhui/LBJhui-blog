@@ -34,7 +34,7 @@ const nav = [
   {
     text: '前端基础',
     items: [
-      { text: 'CSS', link: getLink(urlsObject.css) },
+      { text: 'CSS', link: getLink(urlsObject.CSS) },
       { text: 'JavaScript', link: getLink(urlsObject.JavaScript) },
       { text: 'Typescript', link: getLink(urlsObject.Typescript) },
       { text: 'Git', link: getLink(urlsObject.Git) },
