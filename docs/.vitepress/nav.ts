@@ -8,8 +8,14 @@ const getFirstFileName = (url: string) => {
   if (!folders.length) {
     return result
   }
+  folders.sort((a, b) => {
+    const aIndex = +a.name.split('.')[0]
+    const bIndex = +b.name.split('.')[0]
+    return aIndex - bIndex
+  })
+
   for (let i = 0; i < folders.length; i++) {
-    if (path.extname(folders[i].name) === '.md' && folders[i].name.includes('1.')) {
+    if (path.extname(folders[i].name) === '.md') {
       result = folders[i].name
       break
     }
