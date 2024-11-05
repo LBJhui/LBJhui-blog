@@ -41,7 +41,7 @@ let obj: Readonly<Obj> = {
 }
 ```
 
-## 把数组的元素值变成类型
+## 使用元祖生成联合类型
 
 ```ts
 const colors = ['♥', '♦', '♣', '♠'] as const
