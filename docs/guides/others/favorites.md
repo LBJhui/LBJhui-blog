@@ -165,3 +165,5 @@
 [Atomizer | An unopinionated CSS utility library for modern websites.](https://acss-io.github.io/atomizer/)
 
 [GeoJSON | GeoJSON](https://geojson.cn/)
+
+[debug](https://www.npmjs.com/package/debug)
