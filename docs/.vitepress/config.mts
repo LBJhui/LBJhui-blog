@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress'
-import markdownItKatex from 'markdown-it-katex'
 import nav from './nav'
 import sidebar from './sidebar'
 const customElements = [
@@ -92,8 +91,10 @@ const customElements = [
 
 export default defineConfig({
   markdown: {
-    config: (md) => {
-      md.use(markdownItKatex)
+    math: true,
+    image: {
+      // 默认禁用图片懒加载
+      lazyLoading: true,
     },
   },
   vue: {
