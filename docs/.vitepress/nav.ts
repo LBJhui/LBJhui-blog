@@ -51,7 +51,7 @@ const nav = [
     items: [
       { text: 'Vue', link: getLink(urlsObject.Vue) },
       { text: '前端工程化', link: getLink(urlsObject.engineering) },
-      { text: '浏览器', link: getLink(urlsObject.browser) },
+      { text: '浏览器', link: getLink(urlsObject['browser&network']) },
       { text: 'nginx', link: getLink(urlsObject.nginx) },
     ],
   },

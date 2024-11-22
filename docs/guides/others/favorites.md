@@ -126,8 +126,6 @@
 
 [前端开发学习资源技术站 web 前端开发学习资源技术站-一个以前端学习资源主的学习平台](http://www.webqdkf.com/)
 
-[前端进阶之旅](https://interview.poetries.top/)
-
 [木易杨前端进阶](https://muyiy.cn/)
 
 [大前端面试宝典 - 图解前端](https://lucifer.ren/fe-interview/#/)
