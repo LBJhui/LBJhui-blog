@@ -134,6 +134,14 @@
 
 [超级 PDF|简单强大的 PDF 在线处理工具](https://xpdf.cn/)
 
+[pdf 转 word*pdf 转换成 excel_pdf 转换成 ppt *纬来 PDF 转换器](https://www.pdfpai.com/)
+
+[在线抠图软件\_图片去除背景 | remove.bg – remove.bg](https://www.remove.bg/zh)
+
+[Photopea | Online Photo Editor](https://www.photopea.com/)
+
+[Convertio — 文件转换器](https://convertio.co/zh/)
+
 [Highlight.js is a syntax highlighter written in JavaScript. It works in the browser as well as on the server. It can work with pretty much any markup, doesn’t depend on any other frameworks, and has automatic language detection.](https://highlightjs.org/)
 
 [Fabric.js is a powerful and simple Javascript HTML5 canvas library](http://fabricjs.com/)
