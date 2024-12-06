@@ -1,26 +1,5 @@
 # CSS 小点知识
 
-## CSS 伪类和伪元素
-
-|        | 语法 | 数量 |    位置    | 类与元素 | 使用场景 |
-| :----: | :--: | :--: | :--------: | :------: | :------: |
-|  伪类  | `:`  | 多个 | 前方和后方 |   修饰   |    多    |
-| 伪元素 | `::` | 单个 |    后方    | 创建对象 |    少    |
-
-**使用场景**
-
-- 伪类
-  - 状态类：`:link` `:visited` `:hover` `:active` `:focus`
-  - 结构类：`:first-child` `:last-child` `:nth-child` `:ninth-of-type`
-  - 表单类：`:checked` `:disabled` `:valid` `:required`
-  - 语言类：`:dir` `:lang`
-- 伪元素
-  - `::before` `::after`
-  - `::first-letter` `::first-line`
-  - `::selection`
-  - `::placeholder`
-  - `::backdrop`
-
 ## 修改 input 中 placeholder 的字体颜色
 
 ```css
@@ -53,4 +32,11 @@
   color: #cccccc;
   font-size: 10px;
 }
+```
+
+## iOS 底部安全距离
+
+```css
+padding-bottom: constant(safe-area-inset-bottom);
+padding-bottom: env(safe-area-inset-bottom);
 ```
