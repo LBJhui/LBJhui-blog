@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Get Start
-      link: /website/language/JavaScript/JavaScript高级程序设计(第4版)/第1章 什么是JavaScript
+      link: /website/language/JavaScript/High-Performance JavaScript/第1章 什么是JavaScript
     # - theme: alt
     #   text: Markdown Examples
     #   link: /markdown-examples

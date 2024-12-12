@@ -32,6 +32,7 @@ export default withMermaid(
     title: 'LBJhui-blog',
     description: '',
     rewrites,
+    cleanUrls: true,
     head: [['link', { rel: 'icon', href: '/LBJhui-blog/my-logo.svg' }]],
     themeConfig: {
       logo: '/my-logo.svg',
