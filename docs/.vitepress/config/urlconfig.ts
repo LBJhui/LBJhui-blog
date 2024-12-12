@@ -20,6 +20,10 @@ const getFolderPath = (folder) => {
   return path.replace(`${DOC}\\`, '').replaceAll('\\', '/')
 }
 
+const getRewritesPath = (key) => {
+  return key.replace('website/', '')
+}
+
 const getNavKey = (key) => {
   return key.slice(key.lastIndexOf('/') + 1)
 }
@@ -55,7 +59,9 @@ for (let i = 0; i < folders.length; i++) {
 
 for (let key in urls) {
   const items = sortList(urls[key])
-  sidebar[key] = {
+  const rewritePath = getRewritesPath(key)
+  rewrites[`${key}/(.*)`] = `${rewritePath}/(.*)`
+  sidebar[rewritePath] = {
     base: key,
     items,
   }
