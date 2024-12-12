@@ -1,5 +1,4 @@
 import * as fs from 'node:fs'
-
 /**
  * sidebar
  *  /website/language/JavaScript/': [
@@ -9,13 +8,13 @@ import * as fs from 'node:fs'
  * nav
  *  [{ text: 'Leetcode算法', link: '/website/Leetcode/0. (no)list.md' },]
  */
-
-const BASE = 'docs/website'
+const DOC = 'docs'
+const FILEDIRECTORYNAME = 'website'
+const BASE = `${DOC}/${FILEDIRECTORYNAME}`
 const folders = fs.readdirSync(BASE, { withFileTypes: true, recursive: true })
 const urls = {}
 const sidebar = {}
 const navLink = {}
-const rewrites = {}
 
 // 删除文件后缀名
 const deleteSuffix = (name) => {
@@ -23,24 +22,19 @@ const deleteSuffix = (name) => {
   return name.slice(0, index)
 }
 
-const formatterPath = (path) => {
-  return path.replace('docs', '').replaceAll('\\', '/')
+const getFolderPath = (folder) => {
+  const { path } = folder
+  return path.replace(`${DOC}\\`, '').replaceAll('\\', '/')
 }
 
-const getFolderPath = (folder) => {
-  return formatterPath(folder.path)
-}
-const getFilePath = (folder) => {
-  const { path, name } = folder
-  return `${formatterPath(path)}/${name}`
+const getRewritesPath = (key) => {
+  const str = key
+  const index = str.replace('/', '').indexOf('/')
+  return index !== -1 ? str.slice(index + 1) : ''
 }
 
 const getNavKey = (key) => {
   return key.slice(key.lastIndexOf('/') + 1)
-}
-
-const getRewrites = (folder) => {
-  return `/${getNavKey(getFolderPath(folder))}/${folder.name}`
 }
 
 const regex = /\d+/g
@@ -57,21 +51,32 @@ const sortList = (list) => {
   })
 }
 
+const rewrites = {}
+
 for (let i = 0; i < folders.length; i++) {
   const item = folders[i]
   if (!item.isDirectory() && item.name.endsWith('.md') && !item.name.includes('(no)')) {
+    const text = deleteSuffix(item.name)
+    const key = getFolderPath(item)
     const sidebarItem = {
-      text: deleteSuffix(item.name),
-      link: getFilePath(item),
+      text,
+      link: `/${text}`,
     }
-    rewrites[getFilePath(item)] = getRewrites(item)
-    urls[getFolderPath(folders[i])] ? urls[getFolderPath(folders[i])].push(sidebarItem) : (urls[getFolderPath(folders[i])] = [sidebarItem])
+    urls[key] ? urls[key].push(sidebarItem) : (urls[key] = [sidebarItem])
   }
 }
 
 for (let key in urls) {
-  sidebar[key] = sortList(urls[key])
-  navLink[getNavKey(key)] = sidebar[key][0].link
+  const items = sortList(urls[key])
+  const a = getRewritesPath(key)
+  if (a) {
+    rewrites[`${key}/(.*)`] = `${a}/(.*)`
+    sidebar[getRewritesPath(key)] = {
+      base: key,
+      items,
+    }
+  }
+  navLink[getNavKey(key)] = `${key}${items[0].link}`
 }
 
 export { sidebar, navLink, rewrites }
