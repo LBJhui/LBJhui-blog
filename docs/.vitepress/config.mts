@@ -26,7 +26,7 @@ export default withMermaid(
     },
     // 可选地使用MermaidPluginConfig为插件本身设置额外的配置
     mermaidPlugin: {
-      class: 'mermaid my-class', // 为父容器设置额外的CSS类
+      // class: '', // 为父容器设置额外的CSS类
     },
     base: '/LBJhui-blog/',
     title: 'LBJhui-blog',
