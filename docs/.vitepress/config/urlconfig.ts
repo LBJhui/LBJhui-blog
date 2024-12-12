@@ -20,10 +20,6 @@ const getFolderPath = (folder) => {
   return path.replace(`${DOC}\\`, '').replaceAll('\\', '/')
 }
 
-const getRewritesPath = (key) => {
-  return key.replace('website/', '')
-}
-
 const getNavKey = (key) => {
   return key.slice(key.lastIndexOf('/') + 1)
 }
@@ -42,8 +38,6 @@ const sortList = (list) => {
   })
 }
 
-const rewrites = {}
-
 for (let i = 0; i < folders.length; i++) {
   const item = folders[i]
   if (!item.isDirectory() && item.name.endsWith('.md') && !item.name.includes('(no)')) {
@@ -59,13 +53,11 @@ for (let i = 0; i < folders.length; i++) {
 
 for (let key in urls) {
   const items = sortList(urls[key])
-  const rewritePath = getRewritesPath(key)
-  rewrites[`${key}/(.*)`] = `${rewritePath}/(.*)`
-  sidebar[rewritePath] = {
+  sidebar[key] = {
     base: key,
     items,
   }
   navLink[getNavKey(key)] = `${key}${items[0].link}`
 }
 
-export { sidebar, navLink, rewrites }
+export { sidebar, navLink }

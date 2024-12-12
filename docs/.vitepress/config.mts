@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 import nav from './config/nav'
-import { sidebar, rewrites } from './config/urlconfig'
+import { sidebar } from './config/urlconfig'
 
 export default withMermaid(
   defineConfig({
@@ -31,7 +31,6 @@ export default withMermaid(
     base: '/LBJhui-blog/',
     title: 'LBJhui-blog',
     description: '',
-    rewrites,
     cleanUrls: true,
     head: [['link', { rel: 'icon', href: '/LBJhui-blog/my-logo.svg' }]],
     themeConfig: {
