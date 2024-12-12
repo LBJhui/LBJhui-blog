@@ -32,11 +32,13 @@ export default withMermaid(
     title: 'LBJhui-blog',
     description: '',
     rewrites,
+    cleanUrls: true,
     head: [['link', { rel: 'icon', href: '/LBJhui-blog/my-logo.svg' }]],
     themeConfig: {
       logo: '/my-logo.svg',
       nav,
       sidebar,
+      outline: [2, 3],
       socialLinks: [
         { icon: 'github', link: 'https://github.com/LBJhui/LBJhui-blog' },
         {
@@ -50,6 +52,10 @@ export default withMermaid(
       externalLinkIcon: true,
       footer: {
         copyright: `Copyright © ${new Date().getFullYear()}- LBJhui`,
+      },
+      docFooter: {
+        prev: false,
+        next: false,
       },
     },
   })

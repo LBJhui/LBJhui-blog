@@ -7,7 +7,7 @@ const nav = [
     items: [
       // { text: 'CSS', link: getLink(urlsObject.CSS) },
       { text: 'JavaScript', link: navLink['JavaScript'] },
-      { text: 'JavaScript高级程序设计(第4版)', link: navLink['javascript高级程序设计(第4版)'] },
+      { text: 'JavaScript高级程序设计(第4版)', link: navLink['High-Performance JavaScript'] },
       // { text: 'Typescript', link: getLink(urlsObject.Typescript) },
       // { text: 'Git', link: getLink(urlsObject.Git) },
     ],
@@ -35,7 +35,7 @@ const nav = [
       // { text: 'code', link: getLink(urlsObject.code) },
       { text: 'python', link: navLink['python'] },
       // { text: '其他', link: getLink(urlsObject.others) },
-      { text: '网址收藏', link: navLink['others'] },
+      { text: '网址收藏', link: navLink['more'] },
     ],
   },
 ]

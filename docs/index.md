@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Get Start
-      link: /guides/language-basic/CSS/1.CSS Grid 网格布局教程
+      link: /website/language/JavaScript/JavaScript高级程序设计(第4版)/第1章 什么是JavaScript
     # - theme: alt
     #   text: Markdown Examples
     #   link: /markdown-examples

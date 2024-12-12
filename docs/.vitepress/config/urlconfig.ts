@@ -1,16 +1,9 @@
 import * as fs from 'node:fs'
-/**
- * sidebar
- *  /website/language/JavaScript/': [
- *    { text: '1. 变量声明(var,let和const)', link: '/website/language/JavaScript/1.变量声明(var,let和const).md' }
- *  ],
- *
- * nav
- *  [{ text: 'Leetcode算法', link: '/website/Leetcode/0. (no)list.md' },]
- */
+
 const DOC = 'docs'
 const FILEDIRECTORYNAME = 'website'
 const BASE = `${DOC}/${FILEDIRECTORYNAME}`
+
 const folders = fs.readdirSync(BASE, { withFileTypes: true, recursive: true })
 const urls = {}
 const sidebar = {}
@@ -28,9 +21,7 @@ const getFolderPath = (folder) => {
 }
 
 const getRewritesPath = (key) => {
-  const str = key
-  const index = str.replace('/', '').indexOf('/')
-  return index !== -1 ? str.slice(index + 1) : ''
+  return key.replace('website/', '')
 }
 
 const getNavKey = (key) => {
@@ -60,7 +51,7 @@ for (let i = 0; i < folders.length; i++) {
     const key = getFolderPath(item)
     const sidebarItem = {
       text,
-      link: `/${text}`,
+      link: `/${item.name}`,
     }
     urls[key] ? urls[key].push(sidebarItem) : (urls[key] = [sidebarItem])
   }
@@ -68,13 +59,11 @@ for (let i = 0; i < folders.length; i++) {
 
 for (let key in urls) {
   const items = sortList(urls[key])
-  const a = getRewritesPath(key)
-  if (a) {
-    rewrites[`${key}/(.*)`] = `${a}/(.*)`
-    sidebar[getRewritesPath(key)] = {
-      base: key,
-      items,
-    }
+  const rewritePath = getRewritesPath(key)
+  rewrites[`${key}/(.*)`] = `${rewritePath}/(.*)`
+  sidebar[rewritePath] = {
+    base: key,
+    items,
   }
   navLink[getNavKey(key)] = `${key}${items[0].link}`
 }
