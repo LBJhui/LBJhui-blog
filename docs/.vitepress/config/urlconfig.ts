@@ -17,11 +17,13 @@ const deleteSuffix = (name) => {
 
 const getFolderPath = (folder) => {
   const { path } = folder
-  return path.replace(`${DOC}\\`, '').replaceAll('\\', '/')
+
+  return `/${path.replace(`${DOC}\\`, '').replaceAll('\\', '/')}/`
 }
 
 const getNavKey = (key) => {
-  return key.slice(key.lastIndexOf('/') + 1)
+  const str = key.substring(0, key.length - 1)
+  return str.slice(str.lastIndexOf('/') + 1)
 }
 
 const regex = /\d+/g
@@ -45,19 +47,20 @@ for (let i = 0; i < folders.length; i++) {
     const key = getFolderPath(item)
     const sidebarItem = {
       text,
-      link: `/${item.name}`,
+      link: `${item.name}`,
     }
     urls[key] ? urls[key].push(sidebarItem) : (urls[key] = [sidebarItem])
   }
 }
 
 for (let key in urls) {
+  const navKey = getNavKey(key)
   const items = sortList(urls[key])
   sidebar[key] = {
     base: key,
     items,
   }
-  navLink[getNavKey(key)] = `${key}${items[0].link}`
+  navLink[navKey] = `${key}${items[0].link}`
 }
 
 export { sidebar, navLink }
