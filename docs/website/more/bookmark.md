@@ -1,3 +1,7 @@
+---
+aside: true
+---
+
 [Vue.js - 渐进式 JavaScript 框架 | Vue.js](https://cn.vuejs.org/)
 
 [一个 Vue 3 UI 框架 | Element Plus](https://element-plus.org/zh-CN/#/zh-CN)

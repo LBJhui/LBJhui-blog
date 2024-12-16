@@ -7,20 +7,20 @@ const nav = [
     items: [
       // { text: 'CSS', link: getLink(urlsObject.CSS) },
       { text: 'JavaScript', link: navLink['JavaScript'] },
-      { text: 'JavaScript高级程序设计(第4版)', link: navLink['High-Performance JavaScript'] },
+      // { text: 'JavaScript高级程序设计(第4版)', link: navLink['High-Performance JavaScript'] },
       // { text: 'Typescript', link: getLink(urlsObject.Typescript) },
-      // { text: 'Git', link: getLink(urlsObject.Git) },
+      { text: 'Git', link: navLink['Git'] },
     ],
   },
-  // {
-  //   text: '框架&库',
-  //   items: [
-  //     { text: 'Vue', link: getLink(urlsObject.Vue) },
-  //     { text: '前端工程化', link: getLink(urlsObject.engineering) },
-  //     { text: '浏览器', link: getLink(urlsObject['browser&network']) },
-  //     { text: 'nginx', link: getLink(urlsObject.nginx) },
-  //   ],
-  // },
+  {
+    text: '框架&库',
+    items: [
+      // { text: 'Vue', link: getLink(urlsObject.Vue) },
+      // { text: '前端工程化', link: getLink(urlsObject.engineering) },
+      { text: '浏览器和网络', link: navLink['browser&network'] },
+      // { text: 'nginx', link: getLink(urlsObject.nginx) },
+    ],
+  },
   // {
   //   text: '面试题',
   //   link: getLink(urlsObject.interview),

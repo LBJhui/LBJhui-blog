@@ -1,3 +1,7 @@
+---
+aside: false
+---
+
 # 第 1 章 什么是 JavaScript
 
 ## JavaScript 实现

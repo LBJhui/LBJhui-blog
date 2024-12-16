@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 import sup from 'markdown-it-sup'
 import nav from './config/nav'
-import { sidebar } from './config/urlconfig'
+import sidebar from './config/sidebar'
 
 export default withMermaid(
   defineConfig({

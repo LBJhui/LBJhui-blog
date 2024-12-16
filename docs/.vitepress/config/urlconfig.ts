@@ -56,7 +56,7 @@ for (let i = 0; i < folders.length; i++) {
 for (let key in urls) {
   const navKey = getNavKey(key)
   const items = sortList(urls[key])
-  sidebar[key] = {
+  sidebar[navKey] = {
     base: key,
     items,
   }
