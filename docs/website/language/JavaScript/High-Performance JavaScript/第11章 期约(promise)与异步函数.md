@@ -30,17 +30,17 @@ ECMAScript 6 新增的引用类型 `Promise`，可以通过 `new` 操作符来�
 
 期约是一个有状态的对象，可能处于如下 3 种状态之一：
 
-❑ 待定（pending）<br />
-❑ 兑现（fulfilled，有时候也称为“解决”, resolved）<br />
-❑ 拒绝（rejected）
+❑ 待定（`pending`）<br />
+❑ 兑现（`fulfilled`，有时候也称为“解决”, `resolved`）<br />
+❑ 拒绝（`rejected`）
 
-**待定**（pending）是期约的最初始状态。在待定状态下，期约可以**落定**（settled）为代表成功的**兑现**（fulfilled）状态，或者代表失败的**拒绝**（rejected）状态。无论落定为哪种状态都是不可逆的。只要从待定转换为兑现或拒绝，期约的状态就不再改变。而且，也不能保证期约必然会脱离待定状态。因此，组织合理的代码无论期约解决（resolve）还是拒绝（reject）​，甚至永远处于待定（pending）状态，都应该具有恰当的行为。
+**待定**（`pending`）是期约的最初始状态。在待定状态下，期约可以**落定**（`settled`）为代表成功的**兑现**（`fulfilled`）状态，或者代表失败的**拒绝**（`rejected`）状态。无论落定为哪种状态都是不可逆的。只要从待定转换为兑现或拒绝，期约的状态就不再改变。而且，也不能保证期约必然会脱离待定状态。因此，组织合理的代码无论期约解决（`resolve`）还是拒绝（`reject`）​，甚至永远处于待定（`pending`）状态，都应该具有恰当的行为。
 
 要的是，期约的状态是私有的，不能直接通过 JavaScript 检测到。这主要是为了避免根据读取到的期约状态，以同步方式处理期约对象。另外，期约的状态也不能被外部 JavaScript 代码修改。这与不能读取该状态的原因是一样的：期约故意将异步行为封装起来，从而隔离外部的同步代码。
 
 #### 2．解决值、拒绝理由及期约用例
 
-期约主要有两大用途。首先是抽象地表示一个异步操作。期约的状态代表期约是否完成。​“待定”表示尚未开始或者正在执行中。​“兑现”表示已经成功完成，而“拒绝”则表示没有成功完成。每个期约只要状态切换为兑现，就会有一个私有的内部值（value）​。类似地，每个期约只要状态切换为拒绝，就会有一个私有的内部理由（reason）​。无论是值还是理由，都是包含原始值或对象的不可修改的引用。二者都是可选的，而且默认值为 undefined。在期约到达某个落定状态时执行的异步代码始终会收到这个值或理由。
+期约主要有两大用途。首先是抽象地表示一个异步操作。期约的状态代表期约是否完成。​“待定”表示尚未开始或者正在执行中。​“兑现”表示已经成功完成，而“拒绝”则表示没有成功完成。每个期约只要状态切换为兑现，就会有一个私有的内部值（`value`）​。类似地，每个期约只要状态切换为拒绝，就会有一个私有的内部理由（`reason`）​。无论是值还是理由，都是包含原始值或对象的不可修改的引用。二者都是可选的，而且默认值为 `undefined`。在期约到达某个落定状态时执行的异步代码始终会收到这个值或理由。
 
 #### 3．通过执行函数控制期约状态
 
@@ -630,3 +630,214 @@ class TrackablePromise extends Promise {
   }
 }
 ```
+
+## 11.3 异步函数
+
+### 11.3.1 异步函数
+
+#### 1．async
+
+`async` 关键字用于声明异步函数。这个关键字可以用在函数声明、函数表达式、箭头函数和方法上：
+
+```javascript
+async function foo() {}
+let bar = async function () {}
+let baz = async () => {}
+class Qux {
+  async qux() {}
+}
+```
+
+使用 `async` 关键字可以让函数具有异步特征，但总体上其代码仍然是同步求值的。而在参数或闭包方面，异步函数仍然具有普通 JavaScript 函数的正常行为。不过，异步函数如果使用 `return` 关键字返回了值（如果没有 `return` 则会返回 `undefined`）​，这个值会被 `Promise.resolve()`包装成一个期约对象。异步函数始终返回期约对象。
+
+```javascript
+// ①
+async function foo() {
+  console.log(1)
+}
+foo()
+console.log(2)
+// 1 2
+
+// ②
+async function foo() {
+  console.log(1)
+  return 3
+}
+foo().then(console.log)
+console.log(2)
+// 1 2 3
+
+// ③ 直接返回一个期约对象也是一样的
+async function foo() {
+  console.log(1)
+  return Promise.resolve(3)
+}
+foo().then(console.log)
+console.log(2)
+// 1 2 3
+```
+
+异步函数的返回值期待（但实际上并不要求）一个实现 thenable 接口的对象，但常规的值也可以。如果返回的是实现 thenable 接口的对象，则这个对象可以由提供给 `then()`的处理程序“解包”​。如果不是，则返回值就被当作已经解决的期约。
+
+在异步函数中抛出错误会返回拒绝的期约，不过，拒绝期约的错误不会被异步函数捕获。
+
+```javascript
+async function foo() {
+  console.log(1)
+  Promise.reject(3)
+  throw 4
+}
+
+foo().catch(console.log)
+console.log(2)
+// 1 2 Uncaught(inpromise): 3 4
+```
+
+#### 2．await
+
+使用 `await` 关键字可以暂停异步函数代码的执行，等待期约解决。
+
+`await` 关键字会暂停执行异步函数后面的代码，让出 JavaScript 运行时的执行线程。这个行为与生成器函数中的 `yield` 关键字是一样的。`await` 关键字同样是尝试“解包”对象的值，然后将这个值传给表达式，再异步恢复异步函数的执行。
+
+`await` 关键字的用法与 JavaScript 的一元操作一样。它可以单独使用，也可以在表达式中使用。
+
+`await` 关键字期待（但实际上并不要求）一个实现 thenable 接口的对象，但常规的值也可以。如果是实现 thenable 接口的对象，则这个对象可以由 `await` 来“解包”​。如果不是，则这个值就被当作已经解决的期约。
+
+等待会抛出错误的同步操作，会返回拒绝的期约：
+
+```javascript
+async function foo() {
+  console.log(1)
+  await (() => {
+    throw 3
+  })()
+}
+// 给返回的期约添加一个拒绝处理程序
+foo().catch(console.log)
+console.log(2)
+// 1 2 3
+```
+
+如前面的例子所示，单独的 `Promise.reject()`不会被异步函数捕获，而会抛出未捕获错误。不过，对拒绝的期约使用 `await` 则会释放（unwrap）错误值（将拒绝期约返回）​：
+
+```javascript
+async function foo() {
+  console.log(1)
+  await Promise.reject(3)
+  console.log(4) // 这行代码不会执行
+}
+// 给返回的期约添加一个拒绝处理程序
+foo().catch(console.log)
+console.log(2)
+// 1 2 3
+```
+
+#### 3．await 的限制
+
+`await` 关键字必须在异步函数中使用，不能在顶级上下文如`<script>`标签或模块中使用。不过，定义并立即调用异步函数是没问题的。下面两段代码实际是相同的：
+
+```javascript
+async function foo() {
+  console.log(await Promise.resolve(3))
+}
+foo()
+// 3
+// 立即调用的异步函数表达式
+;(async function () {
+  console.log(await Promise.resolve(3))
+})()
+// 3
+```
+
+此外，异步函数的特质不会扩展到嵌套函数。因此，`await` 关键字也只能直接出现在异步函数的定义中。在同步函数内部使用 `await` 会抛出 SyntaxError。
+
+### 11.3.2 停止和恢复执行
+
+`async/await` 中真正起作用的是 `await`。`async` 关键字，无论从哪方面来看，都不过是一个标识符。毕竟，异步函数如果不包含 `await` 关键字，其执行基本上跟普通函数没有什么区别。
+
+JavaScript 运行时在碰到 `await` 关键字时，会记录在哪里暂停执行。等到 `await` 右边的值可用了，JavaScript 运行时会向消息队列中推送一个任务，这个任务会恢复异步函数的执行。因此，即使 `await` 后面跟着一个立即可用的值，函数的其余部分也会被异步求值。
+
+如果 `await` 后面是一个期约，则问题会稍微复杂一些。此时，为了执行异步函数，实际上会有两个任务被添加到消息队列并被异步求值。
+
+```javascript
+async function foo() {
+  console.log(2)
+  console.log(await Promise.resolve(6))
+  console.log(7)
+}
+async function bar() {
+  console.log(4)
+  console.log(await 8)
+  console.log(9)
+}
+console.log(1)
+foo()
+console.log(3)
+bar()
+console.log(5)
+// 1 2 3 4 5 6 7 8 9
+```
+
+### 11.3.3 异步函数策略
+
+#### 1．实现 sleep()
+
+```javascript
+async function sleep(delay) {
+  return new Promise((resolve) => setTimeout(resolve, delay))
+}
+async function foo() {
+  const t0 = Date.now()
+  await sleep(1500) // 暂停约1500 毫秒
+  console.log(Date.now() - t0)
+}
+foo() // 1502
+```
+
+#### 2．利用平行执行
+
+如果顺序不是必需保证的，那么可以先一次性初始化所有期约，然后再分别等待它们的结果。
+
+#### 3．串行执行期约
+
+#### 4．栈追踪与内存管理
+
+期约与异步函数的功能有相当程度的重叠，但它们在内存中的表示则差别很大。看看下面的例子，它展示了拒绝期约的栈追踪信息：
+
+```javascript
+function fooPromiseExecutor(resolve, reject) {
+  setTimeout(reject, 1000, 'bar')
+}
+function foo() {
+  new Promise(fooPromiseExecutor)
+}
+foo()
+// Uncaught (in promise) bar
+//    setTimeout
+//    setTimeout (async)
+//   fooPromiseExecutor
+//   foo
+```
+
+根据对期约的不同理解程度，以上栈追踪信息可能会让某些读者不解。栈追踪信息应该相当直接地表现 JavaScript 引擎当前栈内存中函数调用之间的嵌套关系。在超时处理程序执行时和拒绝期约时，我们看到的错误信息包含嵌套函数的标识符，那是被调用以创建最初期约实例的函数。可是，我们知道这些函数已经返回了，因此栈追踪信息中不应该看到它们。
+
+答案很简单，这是因为 JavaScript 引擎会在创建期约时尽可能保留完整的调用栈。在抛出错误时，调用栈可以由运行时的错误处理逻辑获取，因而就会出现在栈追踪信息中。当然，这意味着栈追踪信息会占用内存，从而带来一些计算和存储成本。
+
+如果在前面的例子中使用的是异步函数，那又会怎样呢？比如：
+
+```javascript
+function fooPromiseExecutor(resolve, reject) {
+  setTimeout(reject, 1000, 'bar')
+}
+async function foo() {
+  await new Promise(fooPromiseExecutor)
+}
+foo()
+// Uncaught (in promise) bar
+//   foo
+//   asyncfunction(async)
+//   foo
+```
+
+这样一改，栈追踪信息就准确地反映了当前的调用栈。`fooPromiseExecutor()`已经返回，所以它不在错误信息中。但 `foo()`此时被挂起了，并没有退出。JavaScript 运行时可以简单地在嵌套函数中存储指向包含函数的指针，就跟对待同步函数调用栈一样。这个指针实际上存储在内存中，可用于在出错时生成栈追踪信息。这样就不会像之前的例子那样带来额外的消耗，因此在重视性能的应用中是可以优先考虑的。
