@@ -231,4 +231,64 @@ document.domain = 'p2p.wrox.com' // 收紧，错误！
 
 与 `getElementsByTagName()`一样，`getElementsByName()`方法也返回 `HTMLCollection`。不过在这种情况下，`namedItem()`方法只会取得第一项（因为所有项的 `name` 属性都一样）​。
 
+> _NodeList 和 HTMLCollection 的区别_
+>
+> 一、NodeList：文档节点的集合，只能通过索引获取
+>
+> 1. 获取 NodeList 对象的方法：<br />
+>    （1）一些旧版本浏览器中的方法(如 getElementsByClassName())，返回的是 NodeList 对象，而不是 HTMLCollection 对象。<br />
+>    （2）所有浏览器的 Node.childNodes 属性返回的是 NodeList 对象。<br />
+>    （3）大部分浏览器的 document.querySelectorAll() 返回 NodeList 对象。<br />
+>
+> 2. NodeList 对象中的属性和方法：<br />
+>    （1）item() —— 返回某个元素基于文档树的索引<br />
+>    （2）length —— 返回 NodeList 的节点数量。<br />
+>    （3）NodeList.forEach() 方法用于遍历 NodeList 的所有成员。它接受一个回调函数作为参数，每一轮遍历就执行一次这个回调函数，用法与数组实例的 forEach 方法完全一致。<br />
+>    （4）NodeList.keys()/values()/entries() —— 这三个方法都返回一个 ES6 的遍历器对象，可以通过 for...of 循环遍历获取每一个成员的信息。
+>
+> 二、HTMLCollection：html 元素的集合，可以通过 id、name 或索引获取
+>
+> 1. HTMLCollection 对象中的属性和方法：<br />
+>    （1）item(index) —— 返回 HTMLCollection 中指定索引的元素，不存在返回 null。<br />
+>    （2）length(只读)—— 返回 HTMLCollection 中元素的数量。
+>
+> 三、HTMLCollection 与 NodeList 的区别
+>
+> 1. NodeList 是一个静态集合，其不受 DOM 树元素变化的影响；相当于是 DOM 树快照，节点数量和类型的快照，就是对节点增删，NodeList 感觉不到。但是对节点内部内容修改，是可以感觉到的，比如修改 innerHTML。
+> 2. HTMLCollection 是动态绑定的，是一个的动态集合， DOM 树发生变化，HTMLCollection 也会随之变化，节点的增删是敏感的。只有 NodeList 对象有包含属性节点和文本节点。
+> 3. HTMLCollection 元素可以通过 name，id 或 index 索引来获取。NodeList 只能通过 index 索引来获取。
+> 4. HTMLCollection 和 NodeList 本身无法使用数组的方法：pop()，push()，或 join() 等。除非你把他转为一个数组，你使用上面所介绍的方法将其转换为数组。
+
 #### 4．特殊集合
+
+`document` 对象上还暴露了几个特殊集合，这些集合也都是 `HTMLCollection` 的实例。这些集合是访问文档中公共部分的快捷方式，列举如下。
+
+❑ `document.anchors` 包含文档中所有带 `name` 属性的`<a>`元素。<br />
+❑ `document.applets` 包含文档中所有`<applet>`元素（因为`<applet>`元素已经不建议使用，所以这个集合已经废弃）​。<br />
+❑ `document.forms` 包含文档中所有`<form>`元素（与 `document.getElementsByTagName ("form")`返回的结果相同）​。<br />
+❑ `document.images` 包含文档中所有`<img>`元素（与 `document.getElementsByTagName ("img")`返回的结果相同）​。
+❑ `document.links` 包含文档中所有带 `href` 属性的`<a>`元素。
+
+#### 5．DOM 兼容性检测
+
+#### 6．文档写入
+
+`write()`和 `writeln()`方法都接收一个字符串参数，可以将这个字符串写入网页中。`write()`简单地写入文本，而 `writeln()`还会在字符串末尾追加一个换行符（`\n`）​。这两个方法可以用来在页面加载期间向页面中动态添加内容。
+
+```javascript
+document.write('<strong>' + new Date().toString() + '</strong>')
+```
+
+如果是在页面加载完之后再调用 `document.write()`，则输出的内容会重写整个页面。
+
+`open()`和 `close()`方法分别用于打开和关闭网页输出流。在调用 `write()`和 `writeln()`时，这两个方法都不是必需的。
+
+### 14.1.3 Element 类型
+
+`Element` 表示 XML 或 HTML 元素，对外暴露出访问元素标签名、子节点和属性的能力。`Element` 类型的节点具有以下特征：
+
+❑ nodeType 等于 1；<br />
+❑ nodeName 值为元素的标签名；<br />
+❑ nodeValue 值为 null；<br />
+❑ parentNode 值为 Document 或 Element 对象；<br />
+❑ 子节点可以是 Element、Text、Comment、ProcessingInstruction、CDATASection、EntityReference 类型。
