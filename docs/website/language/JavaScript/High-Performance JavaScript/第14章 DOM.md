@@ -292,3 +292,111 @@ document.write('<strong>' + new Date().toString() + '</strong>')
 ❑ nodeValue 值为 null；<br />
 ❑ parentNode 值为 Document 或 Element 对象；<br />
 ❑ 子节点可以是 Element、Text、Comment、ProcessingInstruction、CDATASection、EntityReference 类型。
+
+可以通过 `nodeName` 或 `tagName` 属性来获取元素的标签名。
+
+```html
+<div id="myDiv"></div>
+<script>
+  let div = document.getElementById('myDiv')
+  console.log(div.tagName) // "DIV"
+  console.log(div.tagName == div.nodeName) // true
+</script>
+```
+
+#### 1．HTML 元素
+
+所有 HTML 元素都通过 `HTMLElement` 类型表示，包括其直接实例和间接实例。另外，`HTMLElement` 直接继承 `Element` 并增加了一些属性。每个属性都对应下列属性之一，它们是所有 HTML 元素上都有的标准属性：
+
+❑ id，元素在文档中的唯一标识符；<br />
+❑ title，包含元素的额外信息，通常以提示条形式展示；<br />
+❑ lang，元素内容的语言代码（很少用）​；<br />
+❑ dir，语言的书写方向（"ltr"表示从左到右，"rtl"表示从右到左，同样很少用）​；<br />
+❑ className，相当于 class 属性，用于指定元素的 CSS 类（因为 class 是 ECMAScript 关键字，所以不能直接用这个名字）​。
+
+所有这些都可以用来获取对应的属性值，也可以用来修改相应的值。
+
+#### 2．取得属性
+
+与属性相关的 DOM 方法主要有 3 个：`getAttribute()`、`setAttribute()`和 `removeAttribute()`。
+
+如果给定的属性不存在，则 `getAttribute()`返回 `null`。`getAttribute()`方法也能取得不是 HTML 语言正式属性的自定义属性的值。
+
+```html
+<div id="myDiv" class="bd" title="Body text" lang="en" my_special_attribute="hello! "></div>
+<script>
+  let div = document.getElementById('myDiv')
+  console.log(div.getAttribute('id')) // 'myDiv'
+  console.log(div.getAttribute('class')) // 'bd'
+  console.log(div.getAttribute('title')) // 'Body text'
+  console.log(div.getAttribute('lang')) // 'en'
+  console.log(div.getAttribute('dir')) // null
+  console.log(div.getAttribute('my_special_attribute')) // 'hello! '
+  div.dir = 'rtl'
+  console.log(div.getAttribute('dir')) // 'rtl'
+</script>
+```
+
+注意，属性名不区分大小写，因此"ID"和"id"被认为是同一个属性。另外，根据 HTML5 规范的要求，自定义属性名应该前缀 data-以方便验证。
+
+元素的所有属性也可以通过相应 `DOM` 元素对象的属性来取得。当然，这包括 `HTMLElement` 上定义的直接映射对应属性的 5 个属性，还有所有公认（非自定义）的属性也会被添加为 `DOM` 对象的属性。比如下面的例子：
+
+```html
+<div id="myDiv" align="left" my_special_attribute="hello"></div>
+```
+
+因为 `id` 和 `align` 在 HTML 中是`<div>`元素公认的属性，所以 `DOM` 对象上也会有这两个属性。但 `my_special_attribute` 是自定义属性，因此不会成为 `DOM` 对象的属性。
+
+通过 `DOM` 对象访问的属性中有两个返回的值跟使用 `getAttribute()`取得的值不一样。首先是 `style` 属性，这个属性用于为元素设定 CSS 样式。在使用 `getAttribute()`访问 `style` 属性时，返回的是 CSS 字符串。而在通过 `DOM` 对象的属性访问时，`style` 属性返回的是一个（CSSStyleDeclaration）对象。`DOM` 对象的 `style` 属性用于以编程方式读写元素样式，因此不会直接映射为元素中 `style` 属性的字符串值。
+
+第二个属性其实是一类，即事件处理程序（或者事件属性）​，比如 `onclick`。在元素上使用事件属性时（比如 `onclick`）​，属性的值是一段 JavaScript 代码。如果使用 `getAttribute()`访问事件属性，则返回的是字符串形式的源代码。而通过 DOM 对象的属性访问事件属性时返回的则是一个 JavaScript 函数（未指定该属性则返回 null）​。这是因为 `onclick` 及其他事件属性是可以接受函数作为值的。
+
+考虑到以上差异，开发者在进行 `DOM` 编程时通常会放弃使用 `getAttribute()`而只使用对象属性。`getAttribute()`主要用于取得自定义属性的值。
+
+#### 3．设置属性
+
+与 `getAttribute()`配套的方法是 `setAttribute()`，这个方法接收两个参数：要设置的属性名和属性的值。如果属性已经存在，则 `setAttribute()`会以指定的值替换原来的值；如果属性不存在，则 `setAttribute()`会以指定的值创建该属性。
+
+`setAttribute()`适用于 HTML 属性，也适用于自定义属性。另外，使用 `setAttribute()`方法设置的属性名会规范为小写形式。
+
+注意，在 `DOM` 对象上添加自定义属性，如下面的例子所示，不会自动让它变成元素的属性：
+
+```javascript
+div.mycolor = 'red'
+console.log(div.getAttribute('mycolor')) // null（IE除外）
+```
+
+最后一个方法 `removeAttribute()`用于从元素中删除属性。这样不单单是清除属性的值，而是会把整个属性完全从元素中去掉。
+
+#### 4．attributes 属性
+
+`Element` 类型是唯一使用 `attributes` 属性的 `DOM` 节点类型。`attributes` 属性包含一个 `NamedNodeMap` 实例，是一个类似 `NodeList` 的“实时”集合。元素的每个属性都表示为一个 `Attr` 节点，并保存在这个 `NamedNodeMap` 对象中。`NamedNodeMap` 对象包含下列方法：
+
+❑ getNamedItem（name）​，返回 nodeName 属性等于 name 的节点；<br />
+❑ removeNamedItem（name）​，删除 nodeName 属性等于 name 的节点；<br />
+❑ setNamedItem（node）​，向列表中添加 node 节点，以其 nodeName 为索引；<br />
+❑ item（pos）​，返回索引位置 pos 处的节点。
+
+`attributes` 属性中的每个节点的 `nodeName` 是对应属性的名字，`nodeValue` 是属性的值。比如，要取得元素 `id` 属性的值，可以使用以下代码：
+
+```html
+<div id="myDiv" class="bd" title="Body text" lang="en" my_special_attribute="hello! "></div>
+<script>
+  let div = document.getElementById('myDiv')
+  console.log(div.attributes.getNamedItem('id').nodeValue) // 'myDiv'
+  console.log(div.attributes['id'].nodeValue) // 'myDiv'
+  div.attributes['id'].nodeValue = 'someOtherId'
+
+  let oldAttr = div.attributes.removeNamedItem('id')
+</script>
+```
+
+#### 5．创建元素
+
+可以使用 `document.createElement()`方法创建新元素。这个方法接收一个参数，即要创建元素的标签名。在 HTML 文档中，标签名是不区分大小写的，而 XML 文档（包括 XHTML）是区分大小写的。
+
+使用 `createElement()`方法创建新元素的同时也会将其 `ownerDocument` 属性设置为 `document`。此时，可以再为其添加属性、添加更多子元素。
+
+在新元素上设置这些属性只会附加信息。因为这个元素还没有添加到文档树，所以不会影响浏览器显示。要把元素添加到文档树，可以使用 `appendChild()`、`insertBefore()`或 `replaceChild()`。元素被添加到文档树之后，浏览器会立即将其渲染出来。之后再对这个元素所做的任何修改，都会立即在浏览器中反映出来。
+
+#### 6．元素后代
