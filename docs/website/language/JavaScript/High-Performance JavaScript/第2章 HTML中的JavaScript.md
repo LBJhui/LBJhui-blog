@@ -20,7 +20,7 @@
 ### 推迟执行脚本
 
 ```html
-<! DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
   <title>Example HTML Page</title>
@@ -28,7 +28,7 @@
   <scriptdefersrc="example2.js"></script>
   </head>
   <body>
-  <! -- 这里是页面内容 -->
+  <!-- 这里是页面内容 -->
   </body>
 </html>
 ```
@@ -46,34 +46,25 @@
 标准模式通过下列几种文档类型声明开启：
 
 ```html
-<! -- HTML 4.01 Strict -->
-<! DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-    "http://www.w3.org/TR/html4/strict.dtd">
-<! -- XHTML 1.0 Strict -->
-<! DOCTYPE html PUBLIC
-    "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<! -- HTML5-->
-<! DOCTYPE html>
+<!-- HTML 4.01 Strict -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- XHTML 1.0 Strict -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- HTML5-->
+<!DOCTYPE html>
 ```
 
 准标准模式通过过渡性文档类型（Transitional）和框架集文档类型（Frameset）来触发：
 
 ```html
-<! -- HTML 4.01 Transitional -->
-<! DOCTYPE HTML PUBLIC
-    "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
-<! -- HTML 4.01 Frameset -->
-<! DOCTYPE HTML PUBLIC
-    "-//W3C//DTD HTML 4.01 Frameset//EN"
-    "http://www.w3.org/TR/html4/frameset.dtd">
-<! -- XHTML 1.0 Transitional -->
+<!-- HTML 4.01 Transitional -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- HTML 4.01 Frameset -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<!-- XHTML 1.0 Transitional -->
 <! DOCTYPE html PUBLIC
     "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<! -- XHTML 1.0 Frameset -->
-<! DOCTYPE html PUBLIC
-    "-//W3C//DTD XHTML 1.0 Frameset//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<!-- XHTML 1.0 Frameset -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 ```
