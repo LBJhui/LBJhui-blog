@@ -140,7 +140,9 @@ HTML5 允许给元素指定非标准的属性，但要使用前缀 `data-`以便
 
 在写入模式下，赋给 `innerHTML` 属性的值会被解析为 `DOM` 子树，并替代元素之前的所有节点。因为所赋的值默认为 `HTML`，所以其中的所有标签都会以浏览器处理 `HTML` 的方式转换为元素（转换结果也会因浏览器不同而不同）​。如果赋值中不包含任何 `HTML` 标签，则直接生成一个文本节点。设置完 `innerHTML`，马上就可以像访问其他节点一样访问这些新节点。
 
-**注意** 设置 `innerHTML` 会导致浏览器将 `HTML` 字符串解析为相应的 `DOM` 树。这意味着设置 `innerHTML` 属性后马上再读出来会得到不同的字符串。这是因为返回的字符串是将原始字符串对应的 `DOM` 子树序列化之后的结果。
+:::tip 注意
+设置 `innerHTML` 会导致浏览器将 `HTML` 字符串解析为相应的 `DOM` 树。这意味着设置 `innerHTML` 属性后马上再读出来会得到不同的字符串。这是因为返回的字符串是将原始字符串对应的 `DOM` 子树序列化之后的结果。
+:::
 
 #### 2．旧 IE 中的 innerHTML
 
@@ -226,3 +228,43 @@ DOM Level 3 的 `compareDocumentPosition()`方法也可以确定节点间的关�
 | 0x4  | 随后（传入的节点在 DOM 树中位于参考节点之后） |
 | 0x8  |      包含（传入的节点是参考节点的祖先）       |
 | 0x10 |     被包含（传入的节点是参考节点的后代）      |
+
+要模仿 ·方法，就需要用到掩码 16（0x10）​。`compareDocumentPosition()`方法的结果可以通过按位与来确定参考节点是否包含传入的节点，比如：
+
+```javascript
+let result = document.documentElement.compareDocumentPosition(document.body)
+console.log(!!(result & 0x10))
+```
+
+### 15.4.3 插入标记
+
+#### 1．innerText 属性
+
+`innerText` 属性对应元素中包含的所有文本内容，无论文本在子树中哪个层级。在用于读取值时，`innerText` 会按照深度优先的顺序将子树中所有文本节点的值拼接起来。在用于写入值时，`innerText` 会移除元素的所有后代并插入一个包含该值的文本节点。
+
+#### 2．outerText 属性
+
+`outerText` 与 `innerText` 是类似的，只不过作用范围包含调用它的节点。要读取文本值时，`outerText` 与 `innerText` 实际上会返回同样的内容。但在写入文本值时，`outerText` 就大不相同了。写入文本值时，`outerText` 不止会移除所有后代节点，而是会替换整个元素。
+
+```javascript
+div.outerText = 'Hello world! '
+
+// 等同于
+let text = document.createTextNode('Hello world! ')
+div.parentNode.replaceChild(text, div)
+```
+
+### 15.4.4 滚动
+
+`scrollIntoViewIfNeeded()`作为 `HTMLElement` 类型的扩展可以在所有元素上调用。`scrollIntoViewIfNeeded(centerIfNeeded)`会在元素不可见的情况下，将其滚动到窗口或包含窗口中，使其可见；如果已经在视口中可见，则这个方法什么也不做。如果将可选的参数 `centerIfNeeded` 设置为 `true`，则浏览器会尝试将其放在视口中央。
+
+```javascript
+const element = document.getElementById('my-el')
+
+element.scrollIntoViewIfNeeded() // 将元素置于可见区域的中心
+element.scrollIntoViewIfNeeded(false) // 将元素与可见区域中最近的边缘对齐
+```
+
+:::danger 提示
+非标准: 该特性是非标准的，请尽量不要在生产环境中使用它！
+:::

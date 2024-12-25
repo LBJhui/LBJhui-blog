@@ -88,7 +88,9 @@ setTimeout(console.log, 0, Promise.resolve(p)) // Promise <pending>
 setTimeout(console.log, 0, p === Promise.resolve(p)) //true
 ```
 
-> **注意**，这个静态方法能够包装任何非期约值，包括错误对象，并将其转换为解决的期约。因此，也可能导致不符合预期的行为：
+:::tip 注意
+这个静态方法能够包装任何非期约值，包括错误对象，并将其转换为解决的期约。因此，也可能导致不符合预期的行为：
+:::
 
 ```javascript
 let p = Promise.resolve(new Error('foo'))

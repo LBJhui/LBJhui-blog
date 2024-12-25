@@ -1,7 +1,9 @@
 
 :root {
   /* --vp-sidebar-width:300px;/ */
+  font-family: 'Microsoft YaHei', SimSun, sans-serif;
 }
+
 
 .collapsed .text{
   overflow: hidden;
@@ -12,4 +14,8 @@
 
 ::-webkit-scrollbar {
   width: 0px;
+}
+
+.vp-doc p {
+  text-align: justify;
 }

@@ -126,7 +126,9 @@ let formerLastChild = someNode.removeChild(someNode.lastChild)
 
 所有节点类型还共享了两个方法。第一个是 `cloneNode()`，会返回与调用它的节点一模一样的节点。`cloneNode()`方法接收一个布尔值参数，表示是否深复制。在传入 `true` 参数时，会进行深复制，即复制节点及其整个子 `DOM` 树。如果传入 `false`，则只会复制调用该方法的节点。复制返回的节点属于文档所有，但尚未指定父节点，所以可称为孤儿节点（orphan）​。可以通过 `appendChild()`、`insertBefore()`或 `replaceChild()`方法把孤儿节点添加到文档中。
 
-> **注意** `cloneNode()`方法不会复制添加到 `DOM` 节点的 JavaScript 属性，比如事件处理程序。这个方法只复制 HTML 属性，以及可选地复制子节点。除此之外则一概不会复制。IE 在很长时间内会复制事件处理程序，这是一个 bug，所以推荐在复制前先删除事件处理程序。
+:::tip 注意
+`cloneNode()`方法不会复制添加到 `DOM` 节点的 JavaScript 属性，比如事件处理程序。这个方法只复制 HTML 属性，以及可选地复制子节点。除此之外则一概不会复制。IE 在很长时间内会复制事件处理程序，这是一个 bug，所以推荐在复制前先删除事件处理程序。
+:::
 
 `normalize()`方法唯一的任务就是处理文档子树中的文本节点。由于解析器实现的差异或 `DOM` 操作等原因，可能会出现并不包含文本的文本节点，或者文本节点之间互为同胞关系。在节点上调用 `normalize()`方法会检测这个节点的所有后代，从中搜索上述两种情形。如果发现空文本节点，则将其删除；如果两个同胞节点是相邻的，则将其合并为一个文本节点。
 
@@ -225,39 +227,43 @@ document.domain = 'p2p.wrox.com' // 收紧，错误！
 
 这样，`HTMLCollection` 就提供了除索引之外的另一种获取列表项的方式，从而为取得元素提供了便利。对于 `name` 属性的元素，还可以直接使用中括号来获取。
 
-> **注意** 对于 `document.getElementsByTagName()`方法，虽然规范要求区分标签的大小写，但为了最大限度兼容原有 HTML 页面，实际上是不区分大小写的。如果是在 XML 页面（如 XHTML）中使用，那么 `document.getElementsByTagName()`就是区分大小写的。
+:::tip 注意
+对于 `document.getElementsByTagName()`方法，虽然规范要求区分标签的大小写，但为了最大限度兼容原有 HTML 页面，实际上是不区分大小写的。如果是在 XML 页面（如 XHTML）中使用，那么 `document.getElementsByTagName()`就是区分大小写的。
+:::
 
 `HTMLDocument` 类型上定义的获取元素的第三个方法是 `getElementsByName()`。顾名思义，这个方法会返回具有给定 `name` 属性的所有元素。
 
 与 `getElementsByTagName()`一样，`getElementsByName()`方法也返回 `HTMLCollection`。不过在这种情况下，`namedItem()`方法只会取得第一项（因为所有项的 `name` 属性都一样）​。
 
-> _NodeList 和 HTMLCollection 的区别_
->
-> 一、NodeList：文档节点的集合，只能通过索引获取
->
-> 1. 获取 NodeList 对象的方法：<br />
->    （1）一些旧版本浏览器中的方法(如 getElementsByClassName())，返回的是 NodeList 对象，而不是 HTMLCollection 对象。<br />
->    （2）所有浏览器的 Node.childNodes 属性返回的是 NodeList 对象。<br />
->    （3）大部分浏览器的 document.querySelectorAll() 返回 NodeList 对象。<br />
->
-> 2. NodeList 对象中的属性和方法：<br />
->    （1）item() —— 返回某个元素基于文档树的索引<br />
->    （2）length —— 返回 NodeList 的节点数量。<br />
->    （3）NodeList.forEach() 方法用于遍历 NodeList 的所有成员。它接受一个回调函数作为参数，每一轮遍历就执行一次这个回调函数，用法与数组实例的 forEach 方法完全一致。<br />
->    （4）NodeList.keys()/values()/entries() —— 这三个方法都返回一个 ES6 的遍历器对象，可以通过 for...of 循环遍历获取每一个成员的信息。
->
-> 二、HTMLCollection：html 元素的集合，可以通过 id、name 或索引获取
->
-> 1. HTMLCollection 对象中的属性和方法：<br />
->    （1）item(index) —— 返回 HTMLCollection 中指定索引的元素，不存在返回 null。<br />
->    （2）length(只读)—— 返回 HTMLCollection 中元素的数量。
->
-> 三、HTMLCollection 与 NodeList 的区别
->
-> 1. NodeList 是一个静态集合，其不受 DOM 树元素变化的影响；相当于是 DOM 树快照，节点数量和类型的快照，就是对节点增删，NodeList 感觉不到。但是对节点内部内容修改，是可以感觉到的，比如修改 innerHTML。
-> 2. HTMLCollection 是动态绑定的，是一个的动态集合， DOM 树发生变化，HTMLCollection 也会随之变化，节点的增删是敏感的。只有 NodeList 对象有包含属性节点和文本节点。
-> 3. HTMLCollection 元素可以通过 name，id 或 index 索引来获取。NodeList 只能通过 index 索引来获取。
-> 4. HTMLCollection 和 NodeList 本身无法使用数组的方法：pop()，push()，或 join() 等。除非你把他转为一个数组，你使用上面所介绍的方法将其转换为数组。
+:::details NodeList 和 HTMLCollection 的区别
+
+一、NodeList：文档节点的集合，只能通过索引获取
+
+1.  获取 NodeList 对象的方法：<br />
+    （1）一些旧版本浏览器中的方法(如 getElementsByClassName())，返回的是 NodeList 对象，而不是 HTMLCollection 对象。<br />
+    （2）所有浏览器的 Node.childNodes 属性返回的是 NodeList 对象。<br />
+    （3）大部分浏览器的 document.querySelectorAll() 返回 NodeList 对象。
+
+2.  NodeList 对象中的属性和方法：<br />
+    （1）item() —— 返回某个元素基于文档树的索引<br />
+    （2）length —— 返回 NodeList 的节点数量。<br />
+    （3）NodeList.forEach() 方法用于遍历 NodeList 的所有成员。它接受一个回调函数作为参数，每一轮遍历就执行一次这个回调函数，用法与数组实例的 forEach 方法完全一致。<br />
+    （4）NodeList.keys()/values()/entries() —— 这三个方法都返回一个 ES6 的遍历器对象，可以通过 for...of 循环遍历获取每一个成员的信息。
+
+二、HTMLCollection：html 元素的集合，可以通过 id、name 或索引获取
+
+3.  HTMLCollection 对象中的属性和方法：<br />
+    （1）item(index) —— 返回 HTMLCollection 中指定索引的元素，不存在返回 null。<br />
+    （2）length(只读)—— 返回 HTMLCollection 中元素的数量。
+
+三、HTMLCollection 与 NodeList 的区别
+
+1. NodeList 是一个静态集合，其不受 DOM 树元素变化的影响；相当于是 DOM 树快照，节点数量和类型的快照，就是对节点增删，NodeList 感觉不到。但是对节点内部内容修改，是可以感觉到的，比如修改 innerHTML。
+2. HTMLCollection 是动态绑定的，是一个的动态集合， DOM 树发生变化，HTMLCollection 也会随之变化，节点的增删是敏感的。只有 NodeList 对象有包含属性节点和文本节点。
+3. HTMLCollection 元素可以通过 name，id 或 index 索引来获取。NodeList 只能通过 index 索引来获取。
+4. HTMLCollection 和 NodeList 本身无法使用数组的方法：pop()，push()，或 join() 等。除非你把他转为一个数组，你使用上面所介绍的方法将其转换为数组。
+
+:::
 
 #### 4．特殊集合
 
@@ -337,7 +343,9 @@ document.write('<strong>' + new Date().toString() + '</strong>')
 </script>
 ```
 
-注意，属性名不区分大小写，因此"ID"和"id"被认为是同一个属性。另外，根据 HTML5 规范的要求，自定义属性名应该前缀 data-以方便验证。
+:::tip 注意
+属性名不区分大小写，因此"ID"和"id"被认为是同一个属性。另外，根据 HTML5 规范的要求，自定义属性名应该前缀 data-以方便验证。
+:::
 
 元素的所有属性也可以通过相应 `DOM` 元素对象的属性来取得。当然，这包括 `HTMLElement` 上定义的直接映射对应属性的 5 个属性，还有所有公认（非自定义）的属性也会被添加为 `DOM` 对象的属性。比如下面的例子：
 
@@ -359,7 +367,9 @@ document.write('<strong>' + new Date().toString() + '</strong>')
 
 `setAttribute()`适用于 HTML 属性，也适用于自定义属性。另外，使用 `setAttribute()`方法设置的属性名会规范为小写形式。
 
-注意，在 `DOM` 对象上添加自定义属性，如下面的例子所示，不会自动让它变成元素的属性：
+:::tip 注意
+在 `DOM` 对象上添加自定义属性，如下面的例子所示，不会自动让它变成元素的属性：
+:::
 
 ```javascript
 div.mycolor = 'red'
@@ -626,7 +636,9 @@ console.log(element.getAttributeNode('align').value) // 'left'
 console.log(element.getAttribute('align')) // 'left'
 ```
 
-**注意** 将属性作为节点来访问多数情况下并无必要。推荐使用 `getAttribute()`、`removeAttribute()`和 `setAttribute()`方法操作属性，而不是直接操作属性节点。
+:::tip 注意
+将属性作为节点来访问多数情况下并无必要。推荐使用 `getAttribute()`、`removeAttribute()`和 `setAttribute()`方法操作属性，而不是直接操作属性节点。
+:::
 
 ## 14.2 DOM 编程
 
@@ -654,7 +666,9 @@ script.appendChild(document.createTextNode("function sayHi(){alert('hi'); }"))
 document.body.appendChild(script)
 ```
 
-**注意**，通过 innerHTML 属性创建的`<script>`元素永远不会执行。浏览器会尽责地创建`<script>`元素，以及其中的脚本文本，但解析器会给这个`<script>`元素打上永不执行的标签。只要是使用 `innerHTML` 创建的`<script>`元素，以后也没有办法强制其执行。
+:::tip 注意
+通过 innerHTML 属性创建的`<script>`元素永远不会执行。浏览器会尽责地创建`<script>`元素，以及其中的脚本文本，但解析器会给这个`<script>`元素打上永不执行的标签。只要是使用 `innerHTML` 创建的`<script>`元素，以后也没有办法强制其执行。
+:::
 
 [动态执行 JS](../5.动态执行JS.md)<a href="https://blog.csdn.net/qq_36081714/article/details/144576161" v-if="false">动态执行 JS</a>
 
@@ -798,7 +812,9 @@ console.log('Changed body class')
 // '<body> attributes changed'
 ```
 
-**注意**，回调中的 `console.log()`是后执行的。这表明回调并非与实际的 DOM 变化同步执行。
+:::tip 注意
+回调中的 `console.log()`是后执行的。这表明回调并非与实际的 DOM 变化同步执行。
+:::
 
 #### 2．回调与 MutationRecord
 
@@ -951,7 +967,9 @@ setTimeout(() => {
 | characterDataOldValue |            布尔值，表示 MutationRecord 是否记录变化之前的字符数据<br />把这个值设置为 true 也会将 characterData 的值转换为 true<br />默认为 false             |
 |       childList       |                                                布尔值，表示修改目标节点的子节点是否触发变化事件，默认为 false                                                 |
 
-**注意** 在调用 `observe()`时，`MutationObserverInit` 对象中的 `attribute`、`characterData` 和 `childList` 属性必须至少有一项为 `true`（无论是直接设置这几个属性，还是通过设置 `attributeOldValue` 等属性间接导致它们的值转换为 `true`）​。否则会抛出错误，因为没有任何变化事件可能触发回调。
+:::tip 注意
+在调用 `observe()`时，`MutationObserverInit` 对象中的 `attribute`、`characterData` 和 `childList` 属性必须至少有一项为 `true`（无论是直接设置这几个属性，还是通过设置 `attributeOldValue` 等属性间接导致它们的值转换为 `true`）​。否则会抛出错误，因为没有任何变化事件可能触发回调。
+:::
 
 #### 1．观察属性
 
