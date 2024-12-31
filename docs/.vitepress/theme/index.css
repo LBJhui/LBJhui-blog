@@ -16,6 +16,15 @@
   width: 0px;
 }
 
+.vp-doc h2{
+  margin: 30px 0 16px;
+}
+
+.vp-doc h3{
+  margin: 20px 0 0;
+}
+
 .vp-doc p {
   text-align: justify;
+  line-height: 1.5em;
 }
