@@ -181,3 +181,5 @@ aside: true
 [Arc from The Browser Company](https://arc.net/)
 
 [Bun - 快速、全能的 JS 运行时 Bun.js 中文网](https://www.bun.sh.cn/)
+
+[WeaveFox 一个前端大模型的智能研发平台,基于蚂蚁自研的百灵多模态模型训练,具备将设计图生成前端源代码的能力,旨在大幅提升研发效率。](https://weavefox.alipay.com/)
