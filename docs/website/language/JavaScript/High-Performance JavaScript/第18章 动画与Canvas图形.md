@@ -240,7 +240,7 @@ context.fillText('Font size is ' + fontSize + 'px', 10, 50)
 ❑ translate(x, y)：把原点移动到(x, y)。执行这个操作后，坐标(0, 0)就会变成(x, y)。<br />
 ❑ transform(m1_1, m1_2, m2_1, m2_2, dx, dy)：像下面这样通过矩阵乘法直接修改矩阵。
 
-```matrix
+```
 m1_1 m1_2 dx
 m2_1 m2_2 dy
 0     0     1

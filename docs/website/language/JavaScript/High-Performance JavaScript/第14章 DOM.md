@@ -672,7 +672,7 @@ document.body.appendChild(script)
 
 [动态执行 JS](../5.动态执行JS.md)<a href="https://blog.csdn.net/qq_36081714/article/details/144576161" v-if="false">动态执行 JS</a>
 
-### 14.2.2 动态样式
+### 14.2.2 动态样式{#动态样式}
 
 CSS 样式在 HTML 页面中可以通过两个元素加载。`<link>`元素用于包含 CSS 外部文件，而`<style>`元素用于添加嵌入样式。与动态脚本类似，动态样式也是页面初始加载时并不存在，而是在之后才添加到页面中的。
 
