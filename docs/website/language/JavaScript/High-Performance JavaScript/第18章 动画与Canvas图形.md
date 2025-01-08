@@ -1,3 +1,7 @@
+---
+outline: [2, 4]
+---
+
 # 第 18 章 动画与 Canvas 图形
 
 ## 18.1 使用 requestAnimationFrame

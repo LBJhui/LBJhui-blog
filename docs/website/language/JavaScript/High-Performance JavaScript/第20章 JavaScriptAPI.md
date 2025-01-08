@@ -1,3 +1,7 @@
+---
+outline: [2, 4]
+---
+
 # 第 20 章 JavaScriptAPI
 
 ## 20.1 Atomics 与 SharedArrayBuffer

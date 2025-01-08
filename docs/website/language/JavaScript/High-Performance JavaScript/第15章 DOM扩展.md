@@ -1,3 +1,7 @@
+---
+outline: [2, 4]
+---
+
 # 第 15 章 DOM 扩展
 
 ## 15.1 Selectors API
