@@ -17,7 +17,6 @@ const deleteSuffix = (name) => {
 
 const getFolderPath = (folder) => {
   const { path } = folder
-
   return `/${path.replace(`${DOC}\\`, '').replaceAll('\\', '/')}/`
 }
 
@@ -47,7 +46,7 @@ for (let i = 0; i < folders.length; i++) {
     const key = getFolderPath(item)
     const sidebarItem = {
       text,
-      link: `${item.name}`,
+      link: `${item.name}`
     }
     urls[key] ? urls[key].push(sidebarItem) : (urls[key] = [sidebarItem])
   }
@@ -58,7 +57,7 @@ for (let key in urls) {
   const items = sortList(urls[key])
   sidebar[navKey] = {
     base: key,
-    items,
+    items
   }
   navLink[navKey] = `${key}${items[0].link}`
 }
