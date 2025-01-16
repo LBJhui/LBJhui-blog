@@ -291,6 +291,17 @@ document.write('<strong>' + new Date().toString() + '</strong>')
 
 如果是在页面加载完之后再调用 `document.write()`，则输出的内容会重写整个页面。
 
+:::details document.write()和 innerHTML 的区别
+
+|          |           document.write()           |          innerHTML          |
+| :------: | :----------------------------------: | :-------------------------: |
+|   类型   |        document 对象中的方法         | 存在于 ELement 对象中的属性 |
+| 插入位置 |        脚本元素 script 的位置        |        指定的元素内         |
+| 拼接方法 |               多次调用               |           利用+=            |
+| 覆盖问题 | 文档解析完在调用会覆盖<br />否则不会 |    直接调用会覆盖原内容     |
+
+:::
+
 `open()`和 `close()`方法分别用于打开和关闭网页输出流。在调用 `write()`和 `writeln()`时，这两个方法都不是必需的。
 
 ### 14.1.3 Element 类型

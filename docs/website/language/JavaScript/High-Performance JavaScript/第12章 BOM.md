@@ -421,6 +421,42 @@ location.reload(true) // 重新加载，从服务器加载
 |           vibrate()           |                                                   触发设备振动                                                    |
 |           webdriver           |                                        返回浏览器当前是否被自动化程序控制                                         |
 
+:::details Web 网页 阻止息屏 Screen Wake Lock API
+
+```javascript{3,10,19,24}
+navigator.wakeLock.request('screen')
+
+// 当前页面最小化，或者非当前显示标签页，屏幕的 Wake 锁定行为会被释放
+document.addEventListener('visibility', () => {
+  if (document.visibilityState === 'visible') {
+    navigator.wakeLock.request('screen')
+  }
+})
+
+// wakeLock 是个 WakeLockSentinel 对象
+let wakeLock = null
+navigator.wakeLock.request('screen').then((result) => {
+  wakeLock = result
+})
+;async () => {
+  wakeLock = await navigator.wakeLock.request('screen')
+}
+
+// 释放锁
+wakeLock.release().then(() => {
+  wakeLock = null
+})
+
+// 知道何时释放
+wakeLock.addEventListener('release', () => {
+  console.log('唤醒锁定已释放')
+})
+```
+
+此 API 要想生效，需要是 https 协议，或者是 localhost 本地环境。
+
+:::
+
 ### 12.3.1 检测插件(弃用)
 
 ### 12.3.2 注册处理程序

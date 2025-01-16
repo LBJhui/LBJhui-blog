@@ -17,14 +17,15 @@ const nav = [
     items: [
       // { text: 'Vue', link: getLink(urlsObject.Vue) },
       // { text: '前端工程化', link: getLink(urlsObject.engineering) },
-      { text: '浏览器和网络', link: navLink['browser&network'] }
+      { text: '浏览器和网络', link: navLink['browser&network'] },
+      { text: '小程序', link: navLink['miniprogram'] }
       // { text: 'nginx', link: getLink(urlsObject.nginx) },
     ]
   },
-  // {
-  //   text: '面试题',
-  //   link: getLink(urlsObject.interview),
-  // },
+  {
+    text: '面试题',
+    link: navLink['interview']
+  },
   {
     text: 'Leetcode算法',
     link: navLink['Leetcode']
