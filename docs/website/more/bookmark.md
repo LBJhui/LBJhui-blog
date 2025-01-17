@@ -187,3 +187,5 @@ aside: true
 [Sequelize 简介 | Sequelize 中文文档 | Sequelize 中文网](https://www.sequelize.cn/)
 
 [A complete guide to using CSS filters with SVGs - LogRocket Blog](https://blog.logrocket.com/complete-guide-using-css-filters-svgs)
+
+[动画库：GSAP scrolltrigger](https://gsap.com/)
