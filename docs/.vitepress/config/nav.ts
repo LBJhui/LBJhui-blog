@@ -7,8 +7,6 @@ const nav = [
     items: [
       // { text: 'CSS', link: getLink(urlsObject.CSS) },
       { text: 'JavaScript', link: navLink['JavaScript'] },
-      { text: 'Node.js', link: navLink['Node.js'] },
-      // { text: 'Typescript', link: getLink(urlsObject.Typescript) },
       { text: 'Git', link: navLink['Git'] }
     ]
   },
@@ -16,7 +14,7 @@ const nav = [
     text: '框架&库',
     items: [
       // { text: 'Vue', link: getLink(urlsObject.Vue) },
-      // { text: '前端工程化', link: getLink(urlsObject.engineering) },
+      { text: '前端工程化', link: navLink['engineering'] },
       { text: '浏览器和网络', link: navLink['browser&network'] },
       { text: '小程序', link: navLink['miniprogram'] }
       // { text: 'nginx', link: getLink(urlsObject.nginx) },
