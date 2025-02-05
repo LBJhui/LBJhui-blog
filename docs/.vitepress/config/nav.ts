@@ -13,7 +13,7 @@ const nav = [
   {
     text: '框架&库',
     items: [
-      // { text: 'Vue', link: getLink(urlsObject.Vue) },
+      { text: 'Vue', link: navLink['Vue'] },
       { text: '前端工程化', link: navLink['engineering'] },
       { text: '浏览器和网络', link: navLink['browser&network'] },
       { text: '小程序', link: navLink['miniprogram'] }

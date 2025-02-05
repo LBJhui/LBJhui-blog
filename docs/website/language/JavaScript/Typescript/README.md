@@ -1,27 +1,5 @@
 # Typescript 小点知识总结
 
-## Typescript 对象遍历三种方法
-
-```Typescript
-const obj = { a: 1, b: 2, c: 3 }
-
-for (const key in obj) {
-  if (obj.hasOwnProperty(key)) {
-    const value = obj[key]
-    console.log(`${key}: ${value}`)
-  }
-}
-
-Object.keys(obj).forEach((key) => {
-  const value = obj[key]
-  console.log(`${key}: ${value}`)
-})
-
-Object.entries(obj).forEach(([key, value]) => {
-  console.log(`${key}: ${value}`)
-})
-```
-
 ## 用发布订阅模式解耦
 
 ```Typescript
