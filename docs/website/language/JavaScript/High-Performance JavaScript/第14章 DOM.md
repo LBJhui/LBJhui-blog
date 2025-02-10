@@ -126,6 +126,20 @@ let formerLastChild = someNode.removeChild(someNode.lastChild)
 
 与 `replaceChild()`方法一样，通过 `removeChild()`被移除的节点从技术上说仍然被同一个文档所拥有，但文档中已经没有它的位置。
 
+:::details moveBefore
+Chrome 133 版本（将于 2 月 4 日发布稳定版）引入了一个新的 DOM 操作方法：`Node.prototype.moveBefore`。这一方法虽然看似简单，但其意义重大，因为它能够在移动 DOM 元素时保留元素的状态。传统的 DOM 移动操作通常需要先移除元素再重新插入，这会导致元素的状态重置，而 `moveBefore` 则避免了这一问题。
+
+`moveBefore` 方法能够在移动 DOM 元素时保留其状态，这意味着：内嵌框架 (iframe) 会保持加载状态，活动元素会保持焦点，弹出窗口、全屏模式、模态对话框会保持打开状态，CSS 过渡和动画会继续执行。
+
+```javascript
+// 把 box2 节点移动到 box1 节点之前
+const box1 = document.querySelector('.box1')
+const box2 = document.querySelector('.box2')
+document.body.moveBefore(box2, box1)
+```
+
+:::
+
 #### 4．其他方法
 
 所有节点类型还共享了两个方法。第一个是 `cloneNode()`，会返回与调用它的节点一模一样的节点。`cloneNode()`方法接收一个布尔值参数，表示是否深复制。在传入 `true` 参数时，会进行深复制，即复制节点及其整个子 `DOM` 树。如果传入 `false`，则只会复制调用该方法的节点。复制返回的节点属于文档所有，但尚未指定父节点，所以可称为孤儿节点（orphan）​。可以通过 `appendChild()`、`insertBefore()`或 `replaceChild()`方法把孤儿节点添加到文档中。
