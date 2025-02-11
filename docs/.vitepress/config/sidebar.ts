@@ -10,6 +10,7 @@ const map = new Map([
   [
     'JavaScript',
     [
+      { file: 'Handwritten code', text: '手写代码' },
       { file: 'High-Performance JavaScript', text: 'JavaScript高级程序设计(第4版)' },
       { file: 'Node.js', text: 'Node.js' },
       { file: 'Typescript', text: 'Typescript' }
