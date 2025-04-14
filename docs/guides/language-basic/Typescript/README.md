@@ -37,7 +37,7 @@ interface Obj {
 // Readonly 浅的不可变类型
 let obj: Readonly<Obj> = {
   a: 1,
-  b: '2',
+  b: '2'
 }
 ```
 
@@ -49,5 +49,3 @@ const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'
 type Color = (typeof colors)[number]
 type Value = (typeof values)[number]
 ```
-
-#

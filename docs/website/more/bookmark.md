@@ -189,3 +189,7 @@ aside: true
 [A complete guide to using CSS filters with SVGs - LogRocket Blog](https://blog.logrocket.com/complete-guide-using-css-filters-svgs)
 
 [动画库：GSAP scrolltrigger](https://gsap.com/)
+
+[CSS-Tricks - A Website About Making Websites](https://css-tricks.com/)
+
+[Midscene.js - AI 驱动，带来愉悦的 UI 自动化体验 - Midscene.js](https://midscenejs.com/zh/)
