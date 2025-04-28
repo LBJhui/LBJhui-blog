@@ -234,6 +234,8 @@ document.domain = 'p2p.wrox.com' // 收紧，错误！
 
 `HTMLCollection` 对象还有一个额外的方法 `namedItem()`，可通过标签的 `name` 属性取得某一项的引用。
 
+使用传统方法 `getElementsByClassName()`和 `getElementsByTagName()`获取的 `HTMLCollection` 对象是一个动态集合，集合会随着选择元素的改变而改变。而使用 selectors API 中的方法 `queryselectorAll()`获取的 `NodeList` 对象是一个静态集合，只要选取出来，就和选取的元素没有任何关系。
+
 ```html
 <img src="myimage.gif" name="myImage" />
 <script>
