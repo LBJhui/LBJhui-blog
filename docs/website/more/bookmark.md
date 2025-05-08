@@ -193,3 +193,9 @@ aside: true
 [CSS-Tricks - A Website About Making Websites](https://css-tricks.com/)
 
 [Midscene.js - AI 驱动，带来愉悦的 UI 自动化体验 - Midscene.js](https://midscenejs.com/zh/)
+
+[CSS Loaders: A collection of more than 600 loading animations](https://css-loaders.com/)
+
+[loading.io - Your SVG + GIF + PNG Ajax Loading Icons and Animation Generator](https://loading.io/)
+
+[Epic Spinners](https://epic-spinners.vuestic.dev/)
