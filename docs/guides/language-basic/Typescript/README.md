@@ -26,8 +26,8 @@ declare function addImpl<T extends JSTypeNames[]>(...args: [...T, (...args: Args
 ## 不可变类型
 
 ```ts
-type DeepReadonly<T extends Record<string | symbol, any>> = {
-  readonly [P in keyof T]: DeepReadonly<T[P]>
+type DeepReadonly = {
+  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P]
 }
 
 interface Obj {
