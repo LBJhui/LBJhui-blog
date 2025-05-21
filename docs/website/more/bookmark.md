@@ -2,15 +2,23 @@
 aside: true
 ---
 
+:::detail 官方文档
+
 [Vue.js - 渐进式 JavaScript 框架 | Vue.js](https://cn.vuejs.org/)
 
 [一个 Vue 3 UI 框架 | Element Plus](https://element-plus.org/zh-CN/#/zh-CN)
 
-[课程介绍 · 语雀](https://www.yuque.com/ant-h5/sourcecode/nbg7gg)
-
 [微信官方文档 | 微信开放文档](https://developers.weixin.qq.com/doc/)
 
 [Vant 4](https://vant-ui.github.io/vant/#/zh-CN/home)
+
+[wangEditor 5 开源 Web 富文本编辑器，开箱即用，配置简单](https://www.wangeditor.com/)
+
+[ECMAScript 2015 Language Specification – ECMA-262 6th Edition](https://262.ecma-international.org/6.0/)
+
+:::
+
+[课程介绍 · 语雀](https://www.yuque.com/ant-h5/sourcecode/nbg7gg)
 
 [随机图片](https://picsum.photos/)
 
@@ -25,12 +33,6 @@ aside: true
 [TinyEngine 低代码引擎 使能开发者定制低代码平台](https://opentiny.design/tiny-engine#/home)
 
 [azw3*mobi_epub_kindle 电子书免费下载*爱悦读网](https://www.iyd.wang/)
-
-[wangEditor 5 开源 Web 富文本编辑器，开箱即用，配置简单](https://www.wangeditor.com/)
-
-[vuejsexamples](https://vuejsexamples.com/)
-
-[ECMAScript 2015 Language Specification – ECMA-262 6th Edition](https://262.ecma-international.org/6.0/)
 
 [Learn Git Branching](https://learngitbranching.js.org/?locale=zh_CN)
 
@@ -199,3 +201,7 @@ aside: true
 [loading.io - Your SVG + GIF + PNG Ajax Loading Icons and Animation Generator](https://loading.io/)
 
 [Epic Spinners](https://epic-spinners.vuestic.dev/)
+
+[DeepWiki | AI documentation you can talk to, for every repo](https://deepwiki.com/)
+
+[Free HTML Website Templates on HTMLrev](https://htmlrev.com/)
