@@ -22,6 +22,8 @@ aside: true
 
 [随机图片](https://picsum.photos/)
 
+[Lorem Ipsum - All the facts - Lipsum generator](https://www.lipsum.com/)
+
 [CODELF(变量命名神器)](https://unbug.github.io/codelf/)
 
 [StyleX：Meta 公司开源的 CSS-in-JS 解决方案](https://stylexjs.com/)
