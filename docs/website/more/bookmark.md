@@ -207,3 +207,5 @@ aside: true
 [DeepWiki | AI documentation you can talk to, for every repo](https://deepwiki.com/)
 
 [Free HTML Website Templates on HTMLrev](https://htmlrev.com/)
+
+[LibreTranslate - 免费开源的机器翻译 API 🌐](https://libretranslate.com/)
