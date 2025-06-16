@@ -209,3 +209,35 @@ aside: true
 [Free HTML Website Templates on HTMLrev](https://htmlrev.com/)
 
 [LibreTranslate - 免费开源的机器翻译 API 🌐](https://libretranslate.com/)
+
+[渐变小工具](https://gradient.domanart.pl/)
+
+[自定义形状分隔线](https://www.shapedivider.app/)
+
+[蜻蜓工具](https://33tool.com/)
+
+[Algorithms](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
+
+[开发者搜索](https://kaifa.baidu.com/)
+
+[职级对标|中国领先的职级薪酬信息平台](https://duibiao.info/)
+
+[ProcessOn 思维导图流程图-在线画思维导图流程图\_在线作图实时协作](https://www.processon.com/)
+
+[招生目录](https://gsas.fudan.edu.cn/sszsml2023/index.html)
+
+[JavaScript 正则表达式可视化工具](<https://jex.im/regulex/#!flags=&re=%5E(a%7Cb)*%3F%24>)
+
+[开发文档](https://devdocs.io/)
+
+[Slidev 有很多功能丰富的、通用的、所见即所得的幻灯片制作工具](https://sli.dev/)
+
+[容联云通讯-短信平台、手机验证码、语音验证码、IM 即时通讯、云呼叫系统等互联网通信服务](https://www.yuntongxun.com/)
+
+[Node.js Toolbox](https://nodejstoolbox.com/)
+
+[CSS 网格生成器](https://cssgrid-generator.netlify.app/)
+
+[cubic-bezier](https://easings.co/)
+
+[PurgeCSS is a tool to remove unused CSS from your project](https://purgecss.com/)
