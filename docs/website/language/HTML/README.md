@@ -90,3 +90,17 @@
 开头不能为0，且不能输入小数
 <input type="text" onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" />
 ```
+
+## ruby 拼音标记
+
+<ruby style="ruby-align: center;ruby-position: under;"> 汉 <rp>(</rp><rt>Han</rt><rp>)</rp> 字 <rp>(</rp><rt>zi</rt><rp>)</rp> </ruby>
+
+```html
+<style>
+  ruby {
+    ruby-align: center;
+    ruby-position: under;
+  }
+</style>
+<ruby> 汉 <rp>(</rp><rt>Han</rt><rp>)</rp> 字 <rp>(</rp><rt>zi</rt><rp>)</rp> </ruby>
+```
