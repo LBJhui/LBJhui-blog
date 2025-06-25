@@ -141,3 +141,6 @@ let jsonText = JSON.stringify(book)
 let bookCopy = JSON.parse(jsonText, (key, value) => (key == 'releaseDate' ? new Date(value) : value))
 console.log(bookCopy.releaseDate.getFullYear()) // 2017
 ```
+
+[JSON 转换中的精度问题](../10.JSON%20转换中的精度问题.md)
+<a href="https://blog.csdn.net/qq_36081714/article/details/148892015" v-if="false">JSON 转换中的精度问题</a>
