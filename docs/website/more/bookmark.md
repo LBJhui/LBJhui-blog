@@ -110,7 +110,7 @@ aside: true
 
 [Vue I18n](https://kazupon.github.io/vue-i18n/zh/)
 
-[webpack](https://webpack.docschina.org/)
+[webpack](https://webpack.js.org/)
 
 [Vuex 是什么？ | Vuex](https://vuex.vuejs.org/zh/)
 

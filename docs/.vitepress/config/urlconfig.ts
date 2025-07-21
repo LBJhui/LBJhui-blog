@@ -16,8 +16,8 @@ const deleteSuffix = (name) => {
 }
 
 const getFolderPath = (folder) => {
-  const { path } = folder
-  return `/${path.replace(`${DOC}\\`, '').replaceAll('\\', '/')}/`
+  const { path, parentPath } = folder
+  return `/${(path || parentPath).replace(`${DOC}\\`, '').replaceAll('\\', '/')}/`
 }
 
 const getNavKey = (key) => {
