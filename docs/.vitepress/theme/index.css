@@ -31,3 +31,7 @@
   background-color: rgba(0, 154, 97, 0.3);
   mix-blend-mode: multiply;
 }
+
+img {
+  margin: auto;
+}

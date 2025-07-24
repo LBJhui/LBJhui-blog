@@ -1,8 +1,8 @@
 # tips
 
-inital: 默认值
-unset 清除浏览器样式
-revert 使用浏览器的样式
+- inital: 默认值
+- unset 清除浏览器样式
+- revert 使用浏览器的样式
 
 ## 修改 input 中 placeholder 的字体颜色
 
