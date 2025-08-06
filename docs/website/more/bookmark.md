@@ -245,3 +245,17 @@ aside: true
 [图片 DataURL 生成器和预览工具 | 开发者工具箱](https://devtool.tech/dataurl)
 
 [Excalidraw | Online whiteboard collaboration made easy](https://plus.excalidraw.com/)
+
+[Napkin AI 是一个基于自然语言理解的流程图生成器](https://app.napkin.ai)
+
+[Astro 是最适合构建像博客、营销网站、电子商务网站这样的以内容驱动的网站的 Web 框架。](https://astrojs.com.cn/)
+
+[Vue Bits - Animated UI Components For Vue](https://vue-bits.dev/)
+
+[CodeImage：在线代码截图工具](https://app.codeimage.dev/)
+
+[snappify：在线代码截图工具](https://snappify.com/editor)
+
+[chalk：在线代码截图工具](https://chalk.ist/)
+
+[codetoimg：在线代码截图工具](https://codetoimg.com/)

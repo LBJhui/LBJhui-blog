@@ -127,6 +127,7 @@ let formerLastChild = someNode.removeChild(someNode.lastChild)
 与 `replaceChild()`方法一样，通过 `removeChild()`被移除的节点从技术上说仍然被同一个文档所拥有，但文档中已经没有它的位置。
 
 :::details moveBefore
+
 Chrome 133 版本（将于 2 月 4 日发布稳定版）引入了一个新的 DOM 操作方法：`Node.prototype.moveBefore`。这一方法虽然看似简单，但其意义重大，因为它能够在移动 DOM 元素时保留元素的状态。传统的 DOM 移动操作通常需要先移除元素再重新插入，这会导致元素的状态重置，而 `moveBefore` 则避免了这一问题。
 
 `moveBefore` 方法能够在移动 DOM 元素时保留其状态，这意味着：内嵌框架 (iframe) 会保持加载状态，活动元素会保持焦点，弹出窗口、全屏模式、模态对话框会保持打开状态，CSS 过渡和动画会继续执行。
