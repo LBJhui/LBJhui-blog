@@ -259,3 +259,5 @@ aside: true
 [chalk：在线代码截图工具](https://chalk.ist/)
 
 [codetoimg：在线代码截图工具](https://codetoimg.com/)
+
+[JavaScript drag and drop, resizing, and multi-touch gestures for modern browsers (and also IE9+)](https://interactjs.io/)
