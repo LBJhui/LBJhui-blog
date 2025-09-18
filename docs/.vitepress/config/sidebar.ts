@@ -16,7 +16,14 @@ const map = new Map([
       { file: 'Typescript', text: 'Typescript' }
     ]
   ],
-  ['engineering', [{ file: 'webpack', text: 'webpack' }]]
+  ['engineering', [{ file: 'webpack', text: 'webpack' }]],
+  [
+    'browser&network',
+    [
+      { file: 'network', text: '网络' },
+      { file: '前端安全', text: '前端安全' }
+    ]
+  ]
 ])
 
 for (const key in sidebarList) {

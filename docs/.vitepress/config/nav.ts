@@ -5,6 +5,7 @@ const nav = [
   {
     text: '前端基础',
     items: [
+      { text: 'HTML', link: navLink['HTML'] },
       { text: 'CSS', link: navLink['CSS'] },
       { text: 'JavaScript', link: navLink['JavaScript'] },
       { text: 'Git', link: navLink['Git'] }
