@@ -36861,3 +36861,17 @@ vite 优势
 
 - snapdom
 - vanilla.js
+
+
+
+```markdown
+
+## module
+
+```html
+<script type="module" src="./index.js"></script>
+```
+
+可以做浏览器兼容，一般高版本的浏览器才会加载 `type=module` 文件
+
+```
