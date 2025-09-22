@@ -17,8 +17,7 @@ const nav = [
       { text: 'Vue', link: navLink['Vue'] },
       { text: '前端工程化', link: navLink['engineering'] },
       { text: '浏览器和网络', link: navLink['browser&network'] },
-      { text: '小程序', link: navLink['miniprogram'] }
-      // { text: 'nginx', link: getLink(urlsObject.nginx) },
+      { text: '微信环境', link: navLink['wx'] }
     ]
   },
   {
