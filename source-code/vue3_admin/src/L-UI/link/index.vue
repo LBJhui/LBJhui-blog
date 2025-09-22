@@ -5,7 +5,6 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 const props = defineProps(['type'])
-console.log('%c 🍡 props', 'font-size:16px;color:#fca650', props)
 </script>
 
 <style scoped lang="scss">

@@ -53,9 +53,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  max,
-  min,
-  step,
+  // max,
+  // min,
+  // step,
   resize: String,
   autofocus: {
     type: Boolean,

@@ -1,22 +1,19 @@
 <template>
   <div id="app">
-    <l-input type="number" maxlength="10" show-word-limit v-model="state.formData.value" @input="handleInput" placeholder="请输出内容"></l-input>
-    <l-input type="number" v-model="state.formData.value" @input="handleInput" placeholder="请输出内容"></l-input>
-    <el-input type="text" maxlength="10" show-word-limit v-model="state.formData.value" @input="handleInput" placeholder="请输出内容"></el-input>
-    <el-input type="text" maxlength="10" show-word-limit v-model="state.formData.value" @input="handleInput" placeholder="请输出内容"></el-input>
+    <l-star :size="state.size" :num="state.starNum" @getStarNum="getStarNum"></l-star>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue'
 const state = reactive({
-  formData: {
-    value: '',
-  },
+  size: 30,
+  starNum: 3,
 })
 
-const handleInput = () => {
-  console.log('app handleInput')
+const getStarNum = (number: number) => {
+  state.starNum = number
+  console.log(state.starNum)
 }
 </script>
 
