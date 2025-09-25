@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { viteMockServe } from 'vite-plugin-mock'
+import VueDevTools from 'vite-plugin-vue-devtools'
+import AutoImport from 'unplugin-auto-import/vite' //模块自动导入
+import { preLoadImages } from './plugin/preLoadImages.ts'
 import path from 'path'
 
 // https://vite.dev/config/
@@ -10,6 +13,18 @@ export default defineConfig(({ command }) => {
       vue(),
       viteMockServe({
         enable: command === 'serve',
+      }),
+      VueDevTools(),
+      AutoImport({
+        imports: ['vue', 'vue-router'], // 第三方
+        // dirs: ['./src/api'], // 本地
+        dts: 'src/types/auto-imports.d.ts', // 生成 ts 声明文件
+      }),
+      preLoadImages({
+        dir: '*.{jpg,png,svg}',
+        attrs: {
+          rel: 'preload',
+        },
       }),
     ],
     resolve: {
