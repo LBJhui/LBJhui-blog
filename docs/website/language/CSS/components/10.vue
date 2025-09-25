@@ -1,0 +1,43 @@
+<template>
+  <div class="container">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+</template>
+
+<style scoped lang="scss">
+.container {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 10px;
+  transition: 0.5s;
+}
+
+@for $i from 0 through 8 {
+  .item:nth-child(#{$i + 1}) {
+    background: hsl($i * 40%, 100%, 74%);
+  }
+
+  .container:has(.item:nth-child(#{$i + 1}):hover) {
+    $r: floor($i / 3 + 1); // 1-3
+    $c: $i % 3+ 1;
+    $arr: 1fr 1fr 1fr;
+    $rows: set-nth($arr, $r, 2fr);
+    $cols: set-nth($arr, $c, 2fr);
+    grid-template-columns: $cols;
+    grid-template-rows: $rows;
+  }
+}
+</style>

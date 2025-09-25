@@ -18,7 +18,6 @@ onMounted(() => {
      */
     const cal = () => {
       const containerWidth = waterfallRef.value.clientWidth //容器的宽度
-      console.log('%c 🧀 containerWidth', 'font-size:16px;color:#465975', containerWidth)
       //计算列的数量
       const columns = Math.floor(containerWidth / imgWidth)
       //计算间隙

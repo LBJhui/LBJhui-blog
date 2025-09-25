@@ -7,6 +7,7 @@ type mapItem = {
 }
 
 const map = new Map([
+  ['CSS', [{ file: 'code', text: 'CSS code' }]],
   [
     'JavaScript',
     [
