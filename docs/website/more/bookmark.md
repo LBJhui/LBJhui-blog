@@ -16,6 +16,8 @@ aside: true
 
 [ECMAScript 2015 Language Specification – ECMA-262 6th Edition](https://262.ecma-international.org/6.0/)
 
+[Pinia 中文文档](https://pinia.web3doc.top/)
+
 :::
 
 [课程介绍 · 语雀](https://www.yuque.com/ant-h5/sourcecode/nbg7gg)
@@ -267,3 +269,5 @@ aside: true
 [Obsidian - Sharpen your thinking](https://obsidian.md/)
 
 [boardmix 博思白板官网, AIGC 在线生成, 多人协同思维导图, 流程图工具](https://boardmix.cn/)
+
+[帆软报表软件](https://sem.fanruan.com/)
