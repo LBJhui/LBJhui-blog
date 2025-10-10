@@ -2,7 +2,6 @@
 [渡一大师课](https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2)
 [前端 EventSource（SSE）实时通信使用指南（EventSource-polyfill）](https://blog.csdn.net/sd1sd2/article/details/148627571)
 [es6](https://es6.ruanyifeng.com/)
-[Pinia 中文文档](https://pinia.web3doc.top/)
 [蚂蚁金服前端团队](https://www.yuque.com/ant-h5)
 [张鑫旭](https://www.zhangxinxu.com/)
 [大厂面试题每日一题](https://q.shanyue.tech/)
@@ -10,23 +9,19 @@
 ```
 
 ```text
-https://sem.fanruan.com/
 图片裁剪上传原理
 https://www.zhangxinxu.com/wordpress/2025/04/dom-sethtmlunsafe-parsehtmlunsafe/
 深拷贝structuredClone https://www.zhangxinxu.com/wordpress/2025/01/js-api-structuredclone/
 [Vue3 之 script-setup 全面解析](https://www.jianshu.com/p/5096bfb42e5a)
 纯前端图片压缩 图转base64读出宽高，canvas画图
 对等依赖 peerDependencies(package.json) npm i --legacy-peer-deps
-函数管道
 vue3 h函数
 effectScope 嵌套 https://www.jianshu.com/p/1a1731806e19
 `box-shadow` `filter: drop-shadow(0 0 10px #fff)`
 协同处理 yjs+crdt算法+oj
 依赖倒置原则
-prefetch preload
 https://www.zhangxinxu.com/wordpress/2024/11/js-selectionchange-event/
 https://www.zhangxinxu.com/wordpress/2022/07/css-font-palette/
-免费课合集：https://qmdqi.xetlk.com/s/376rbn
 https://www.zhangxinxu.com/wordpress/2024/09/js-scrollend-event/
 https://www.zhangxinxu.com/wordpress/2024/09/js-object-groupby/
 https://www.zhangxinxu.com/wordpress/2024/09/css-math-round-function/
@@ -46,7 +41,6 @@ ESModule 的工作原理
 transform 从右到左 translate3d
 依赖检查工具 depcheck
 mask-image
-vue3 expose defineExpose markRaw、withModifiers
 正则匹配的贪婪模式和惰性模式有什么区别
 BFF 层 backends for frontends
 函数签名 = 函数名称 + 函数参数 + 函数参数类型 + 返回值类型
@@ -2765,7 +2759,6 @@ Array.prototype.forEach = function (callback) {
 - mix-blend-mode
 - setup
 - defer 执行时间在 contentloaded 之前
-- defineExpose defineProps defineEmits
 - 前端路由
 - pushState
 - sass @extend @minin %占位符
@@ -3210,13 +3203,11 @@ Array.prototype.forEach = function (callback) {
 - 介绍 localstorage 的 API
 - html 语义化的理解
 - 语义化版本 https://zhuanlan.zhihu.com/p/10972167086
-- `<b>`和`<strong>`的区别
 - 对闭包的理解
 - 工程中闭包使用场景
 - 介绍 this 和原型
 - 使用原型最大的好处
 - 单例、工厂、观察者项目中实际场景
-- 项目中树的使用场景以及了解
 - 添加原生事件不移除为什么会内存泄露
 - 还有哪些地方会内存泄露
 - setInterval 需要注意的点
@@ -10693,7 +10684,7 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
   - CSS Scope
   - BEM
   - attribute
-  - calc(100%/3)
+  - calc(100% / 3)
   - flex: 1
   - grid
   - 布局三等分
@@ -16565,16 +16556,10 @@ a()
 - 自定义属性 dataset
 - mix-blend-mode
 - setup
-  资源提示符
-  defer 执行时间在 contentloaded 之前
-- defineExpose
-- defineProps
-- defineEmits
 - 前端路由
 - instanceof
 - pushState
 - MutationObserver
-- 函数的 length 属性
 - sass @extend @minin %占位符
 - PageSpy
 - getComputedStyle
@@ -16592,12 +16577,10 @@ a()
 - 函数式组件 v-model.lazy
 - box-decoration-break
 - resizeobserver
-- ruby
 - lattics
 - width：fit-content
 - 隐式转换
 - 异步代码同步化
-- vite
 - lint-staged
 - cspell
 - commitizen
@@ -16623,15 +16606,9 @@ a()
 
 [es6](https://es6.ruanyifeng.com/)
 
-[Pinia 中文文档](https://pinia.web3doc.top/)
-
 [webpack](https://www.webpackjs.com/)
 
 [vite](https://vitejs.cn/)
-
-[MDN](https://developer.mozilla.org/zh-CN/)
-
-[蚂蚁金服前端团队](https://www.yuque.com/ant-h5)
 
 [sequelize](https://www.sequelize.cn/)
 
@@ -17423,8 +17400,6 @@ Exposer.methodToExpose; // undefined
 
 #### 蘑菇街
 
-- html 语义化的理解
-- `<b>`和`<strong>`的区别
 - 对闭包的理解
 - 工程中闭包使用场景
 - 介绍 this 和原型
@@ -17437,7 +17412,6 @@ Exposer.methodToExpose; // undefined
 - Redux 数据回溯设计思路
 - 单例、工厂、观察者项目中实际场景
 - 项目中树的使用场景以及了解
-- 工作收获
 
 #### 酷家乐
 
@@ -36858,20 +36832,19 @@ vite 优势
 3. 配置简单，开箱即用
 ```
 
-
 - snapdom
 - vanilla.js
 
-
-
-```markdown
-
+````markdown
 ## module
 
 ```html
 <script type="module" src="./index.js"></script>
 ```
+````
 
 可以做浏览器兼容，一般高版本的浏览器才会加载 `type=module` 文件
+
+```
 
 ```
