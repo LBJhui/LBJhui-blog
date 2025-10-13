@@ -36848,3 +36848,13 @@ vite 优势
 ```
 
 ```
+
+
+```text
+requestPictureInPicture
+disablePictureInPicture
+enterpictureinpicture   leavepictureinpicture
+exitPictureInPicture
+pictureInPictureElement   pictureInPictureEnabled
+PictureInPictureWindow
+```
