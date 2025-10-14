@@ -271,3 +271,5 @@ aside: true
 [boardmix 博思白板官网, AIGC 在线生成, 多人协同思维导图, 流程图工具](https://boardmix.cn/)
 
 [帆软报表软件](https://sem.fanruan.com/)
+
+[PinMe - Free IPFS Hosting for Static Websites | Decentralized Frontend Deployment](https://pinme.eth.limo/)
