@@ -36849,7 +36849,6 @@ vite 优势
 
 ```
 
-
 ```text
 requestPictureInPicture
 disablePictureInPicture
@@ -36858,3 +36857,23 @@ exitPictureInPicture
 pictureInPictureElement   pictureInPictureEnabled
 PictureInPictureWindow
 ```
+
+```markdown
+%——百分比
+in——寸
+cm——厘米
+mm——毫米
+pt——point，大约 1/72 寸；
+pc——pica，大约 6pt，1/6 寸；
+px——屏幕的一个像素点；
+em——元素的 font-size；
+ex——font-size 的 x-height 值，为小写字母 x 的高度，通常相当于 font-size 的一半。
+
+ch——字符 0(零)的宽度；
+rem——根元素(html 元素)的 font-size；
+vw——viewpoint width，视窗宽度，1vw 等于视窗宽度的 1%；
+vh——viewpoint height，视窗高度，1vh 等于视窗高度的 1%；
+vmin——vw 和 vh 中较小的那个。
+```
+
+- insertAdjacentHTML insertAdjacentText
