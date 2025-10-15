@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, defineModel } from 'vue'
 let value = defineModel()
 
 const props = defineProps({

@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { viteMockServe } from 'vite-plugin-mock'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite' //模块自动导入
-import { preLoadImages } from './plugin/preLoadImages.ts'
+import { preLoadImages } from './src/plugin/preLoadImages.ts'
 import path from 'path'
 
 // https://vite.dev/config/
