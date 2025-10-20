@@ -840,3 +840,8 @@ pnpm install axios
 [lottie: 跨平台的动画库](https://github.com/airbnb/lottie-web)
 
 [pinyin](https://github.com/hotoo/pinyin)
+
+```powerShell
+pnpm i --save lodash
+pnpm install @types/lodash -D
+```

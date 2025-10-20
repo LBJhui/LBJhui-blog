@@ -1,5 +1,4 @@
 ```markdown
-[渡一大师课](https://fe.duyiedu.com/p/t_pc/goods_pc_detail/goods_detail/course_2VKbErGXkTSzvbl9aQ9HgndEtIz?type=2)
 [前端 EventSource（SSE）实时通信使用指南（EventSource-polyfill）](https://blog.csdn.net/sd1sd2/article/details/148627571)
 [es6](https://es6.ruanyifeng.com/)
 [蚂蚁金服前端团队](https://www.yuque.com/ant-h5)
