@@ -2752,7 +2752,6 @@ Array.prototype.forEach = function (callback) {
 - 场景题：假设一个组件没有版本号的概念，假设 1.0 和 2.0 版本的数据结构有差异，怎么解决？
 - 当你的页面组件无限增加的话，怎么做？
 - requestidlecallback
-- resizeObserver
 - 幻影依赖
 - pnpm
 - mix-blend-mode
@@ -2773,7 +2772,6 @@ Array.prototype.forEach = function (callback) {
 - addEventListener passive：false
 - 函数式组件 v-model.lazy
 - box-decoration-break
-- resizeobserver
 - lattics
 - 隐式转换
 - 异步代码同步化
@@ -16548,8 +16546,8 @@ a()
 ```
 
 ````markdown
-- 真随机 伪随机
-  IntersectionObserver
+IntersectionObserver
+
 - 幻影依赖
 - pnpm
 - 自定义属性 dataset
@@ -16575,7 +16573,6 @@ a()
 - nvm volta
 - 函数式组件 v-model.lazy
 - box-decoration-break
-- resizeobserver
 - lattics
 - width：fit-content
 - 隐式转换
@@ -36876,3 +36873,47 @@ vmin——vw 和 vh 中较小的那个。
 ```
 
 - insertAdjacentHTML insertAdjacentText
+
+```javascript
+// 调用系统原生分享功能
+// 浏览器支持率：92%（要求 HTTPS 环境）
+// 典型场景：移动端快速分享文章内容至微信、微博等社交平台
+if (navigator.share) {
+  navigator.share({
+    title: '我的新文章',
+    text: '快来看看',
+    url: location.href
+  })
+}
+
+// 智能数字格式化
+// 浏览器支持率：100%
+// 典型场景：金融场景中的价格展示、股票数据呈现、报表数字格式化
+new Intl.NumberFormat('zh-CN').format(1234567) // 1,234,567
+
+// 监听元素尺寸变化
+// 浏览器支持率：94%（Chrome 64+）
+// 典型场景：响应式图表重绘、虚拟滚动列表动态渲染
+const ro = new ResizeObserver((entries) => {
+  entries.forEach((e) => console.log('尺寸变化', e.contentRect))
+})
+ro.observe(chartContainer)
+
+// 现代化剪贴板操作
+// 浏览器支持率：95%（要求 HTTPS 环境）
+// 典型场景：实现邀请码、优惠券码的一键复制功能
+await navigator.clipboard.writeText('COUPON2025')
+
+// 智能URL参数解析
+// 浏览器支持率：100%
+// 典型场景：路由参数获取、埋点参数解析、搜索条件处理
+const params = new URLSearchParams(location.search)
+params.get('id') // ?id=123
+
+// 可控的网络请求中断
+// 浏览器支持率：100%
+// 典型场景：取消过期接口请求、实现搜索防抖优化
+const controller = new AbortController()
+fetch(url, { signal: controller.signal })
+controller.abort() // 立即中断
+```
