@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>保持元素宽高比</title>
+    <style>
+      .item {
+        background: #f40;
+        width: 50%;
+        margin: 0 auto;
+        /* height: ?; */
+        /* aspect-ratio: 4/3; 有兼容性问题 */
+      }
+      .inner {
+        width: 100%;
+        /* padding和margin的百分比的像素基准是其父元素的宽度。 */
+        padding-bottom: 75%;
+        height: 0;
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="item">
+      <div class="inner"></div>
+    </div>
+  </body>
+</html>

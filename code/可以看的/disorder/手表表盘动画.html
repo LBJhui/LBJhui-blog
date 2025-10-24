@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>手表表盘动画</title>
+    <style>
+      canvas {
+        display: block;
+        margin: auto;
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 手绘表盘 canvas 元素 -->
+    <canvas id="watchCanvas" width="300" height="300"></canvas>
+    <script>
+      // 获取 canvas 元素
+      const watchCanvas = document.getElementById('watchCanvas')
+      const ctx = watchCanvas.getContext('2d')
+      // 画布中心坐标
+      const centerX = watchCanvas.width / 2
+      const centerY = watchCanvas.height / 2
+      // 手表半径
+      const radius = 100
+      // 绘制手表的函数
+      function drawWatch() {
+        // 清空 canvas
+        ctx.clearRect(0, 0, watchCanvas.width, watchCanvas.height)
+        // 绘制表盘
+        ctx.beginPath()
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI)
+        ctx.fillStyle = '#fff'
+        ctx.fill()
+        ctx.lineWidth = 5
+        ctx.strokeStyle = '#333'
+        ctx.stroke()
+        // 绘制刻度
+        for (let i = 0; i < 60; i++) {
+          const tickAngle = i * 6
+          const tickLength = i % 5 === 0 ? 10 : 5
+          // 计算重要和次要刻度的起始坐标点
+          const tickX = centerX + (radius - tickLength) * Math.cos((tickAngle - 90) * (Math.PI / 180))
+          const tickY = centerY + (radius - tickLength) * Math.sin((tickAngle - 90) * (Math.PI / 180))
+          // 计算末端坐标
+          const endX = centerX + radius * Math.cos((tickAngle - 90) * (Math.PI / 180))
+          const endY = centerY + radius * Math.sin((tickAngle - 90) * (Math.PI / 180))
+          // 绘制刻度线
+          ctx.beginPath()
+          ctx.moveTo(tickX, tickY)
+          ctx.lineTo(endX, endY)
+          ctx.lineWidth = 2
+          ctx.strokeStyle = '#333'
+          ctx.stroke()
+
+          // 绘制刻度值
+          if (i % 5 === 0) {
+            const number = i / 5 === 0 ? 12 : i / 5
+            const numberX = centerX + (radius - 20) * Math.cos((tickAngle - 90) * (Math.PI / 180))
+            const numberY = centerY + (radius - 20) * Math.sin((tickAngle - 90) * (Math.PI / 180))
+            ctx.font = 'bold 12px Arial'
+            ctx.fillStyle = '#333'
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+            ctx.fillText(number, numberX, numberY)
+          }
+        }
+        // 获取当前时间
+        const now = new Date()
+        const seconds = now.getSeconds()
+        const minutes = now.getMinutes()
+        const hours = now.getHours() % 12
+        // 绘制时分秒指针
+        drawHand(hours * 30 + (minutes / 60) * 30, 40, 6, '#333')
+        drawHand(minutes * 6 + (seconds / 60) * 6, 70, 4, '#555')
+        drawHand(seconds * 6, 90, 2, '#f00')
+        // 绘制当前日志
+        const dateText = formDate(now)
+        ctx.font = 'bold 12px Arial'
+        ctx.fillStyle = '#333'
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(dateText, centerX, centerY + 50)
+        requestAnimationFrame(drawWatch)
+      }
+      // 绘画指针的函数
+      function drawHand(angle, length, width, color) {
+        ctx.beginPath()
+        const radians = (angle - 90) * (Math.PI / 180)
+        const x = centerX + length * Math.cos(radians)
+        const y = centerY + length * Math.sin(radians)
+        ctx.moveTo(centerX, centerY)
+        ctx.lineTo(x, y)
+        ctx.lineWidth = width
+        ctx.lineCap = 'round'
+        ctx.strokeStyle = color
+        ctx.stroke()
+      }
+      // 日期格式函数
+      function formDate(date) {
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const day = String(date.getDate()).padStart(2, '0')
+        return `${year}:${month}:${day}`
+      }
+      // 初始化绘制函数
+      drawWatch()
+    </script>
+  </body>
+</html>

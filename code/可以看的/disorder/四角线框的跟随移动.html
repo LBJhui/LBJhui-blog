@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>四角线框的跟随移动</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #655643;
+      }
+      .container {
+        position: relative;
+        display: grid;
+        width: 90%;
+        margin: 80px auto;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 50px;
+      }
+      .item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        display: block;
+      }
+      .pointer {
+        position: absolute;
+        --t: 3px; /* 线条的粗细 */
+        --l: 30px; /* 线条的长度 */
+        --g: 15px; /* 线条与图片的间隔 */
+        --s: 96px; /* 图片的尺寸 */
+        --x: 0px;
+        --y: 0px;
+        width: calc(var(--s) + var(--g) * 2);
+        height: calc(var(--s) + var(--g) * 2);
+        border: var(--t) solid #fff;
+        margin-left: calc(var(--g) * -1);
+        margin-top: calc(var(--g) * -1);
+        transform: translate(var(--x), var(--y));
+        transition: 0.5s;
+        mask: conic-gradient(at var(--l) var(--l), transparent 75%, blue 75% 100%) 0 0 / calc(100% - var(--l)) calc(100% - var(--l));
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">
+        <img src="https://picsum.photos/id/371/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/372/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/373/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/374/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/375/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/376/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/377/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/378/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/379/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/380/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/381/400/400" alt="" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/382/400/400" alt="" />
+      </div>
+      <div class="pointer"></div>
+    </div>
+    <script>
+      const imgs = document.querySelectorAll('.container img')
+      const pointer = document.querySelector('.pointer')
+      for (const img of imgs) {
+        img.onmouseenter = () => {
+          const s = img.offsetWidth
+          const x = img.offsetLeft
+          const y = img.offsetTop
+          pointer.style.setProperty('--s', s + 'px')
+          pointer.style.setProperty('--x', x + 'px')
+          pointer.style.setProperty('--y', y + 'px')
+        }
+      }
+    </script>
+  </body>
+</html>

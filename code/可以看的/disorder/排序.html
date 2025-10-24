@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+
+  <script>
+    const arr = [29, 10, 14, 37, 4, 10]
+    // 冒泡排序
+    function bubbleSort(arr) {
+      for (let i = 0; i < arr.length - 1; i++) {
+        for (let j = 0; j < arr.length - 1 - i; j++) {
+          if (arr[j] > arr[j + 1]) {
+            let temp = arr[j]
+            arr[j] = arr[j + 1]
+            arr[j + 1] = temp
+          }
+        }
+      }
+      return arr
+    }
+    // 选择排序
+    function selectSort(arr) {
+      let indexMin = 0
+      for (let i = 0; i < arr.length - 1; i++) {
+        indexMin = i
+        for (let j = i + 1; j < arr.length; j++) {
+          if (arr[j] < arr[indexMin]) {
+            indexMin = j
+          }
+        }
+        let temp = arr[i]
+        arr[i] = arr[indexMin]
+        arr[indexMin] = temp
+      }
+      return arr
+    }
+    // 插入排序
+    function inserSort(arr) {
+      for (let i = 1; i < arr.length; i++) {
+        let temp = arr[i]
+        let j = i - 1
+        while (j >= 0 && arr[j] > temp) {
+          arr[j + 1] = arr[j]
+          j--
+        }
+        arr[j + 1] = temp
+      }
+      return arr
+    }
+    // 归并排序
+    function mergeSort(arr) {
+      if (arr.length < 2) return arr
+      let mid = Math.floor(arr.length / 2)
+      let merge = function (leftArr, rightArr) {
+        let resultArr = []
+        while (leftArr.length && rightArr.length) {
+          resultArr.push(leftArr[0] <= rightArr[0] ? leftArr.shift() : rightArr.shift())
+        }
+        while (leftArr.length) {
+          resultArr.push(leftArr.shift())
+        }
+        while (rightArr.length) {
+          resultArr.push(rightArr.shift())
+        }
+        return resultArr
+      }
+      return merge(mergeSort(arr.slice(0, mid)), mergeSort(arr.slice(mid)))
+    }
+    // 快速排序
+    function quickSort(arr) {
+      if (arr.length <= 1) return arr
+      let mid = Math.floor(arr.length / 2)
+      console.log('%c 🍰 mid', 'font-size:16px;color:#42b983', mid)
+      let pivot = arr.splice(mid, 1)[0]
+      let left = []
+      let right = []
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] < pivot) {
+          left.push(arr[i])
+        } else {
+          right.push(arr[i])
+        }
+      }
+      return quickSort(left).concat([pivot], quickSort(right))
+    }
+    // 二分搜索
+    function search(arr, target) {
+      let count = 1
+      let start = 0
+      let end = arr.length - 1
+      while (start <= end) {
+        let middle = Math.floor((start + end) / 2)
+        if (arr[middle] === target) {
+          return middle
+        } else if (arr[middle] > target) {
+          end = middle - 1
+        } else {
+          start = middle + 1
+        }
+        count++
+      }
+      return -1
+    }
+  </script>
+</html>

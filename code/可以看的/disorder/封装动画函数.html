@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>封装动画函数</title>
+  </head>
+  <body>
+    <button class="btn">打折</button>
+    <label>价格：4599.00</label>
+    <script>
+      const label = document.querySelector('label')
+      const btn = document.querySelector('.btn')
+      function animation(duration, from, to, onProgress) {
+        const speed = (to - from) / duration
+        const startTime = Date.now()
+        let value = from
+        function _run() {
+          // 让value发生变化
+          const now = Date.now()
+          const time = now - startTime
+          if (time > duration) {
+            value = to
+            onProgress && onProgress(value)
+            return
+          }
+          value = (from + speed * time).toFixed(2)
+          onProgress && onProgress(value)
+          // 注册下一次变化
+          requestAnimationFrame(_run)
+        }
+        _run()
+      }
+      btn.onclick = function () {
+        animation(1000, 4599, 59, (val) => {
+          label.textContent = `价格：${val}`
+        })
+      }
+    </script>
+  </body>
+</html>

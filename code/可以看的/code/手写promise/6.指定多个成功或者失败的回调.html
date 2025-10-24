@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.指定多个成功或者失败的回调</title>
+  </head>
+  <body></body>
+  <script>
+    // 立即执行函数（IIFE）
+    // 好处：可以避免堆外部的变量造成污染
+    ;(function (window) {
+      // 只要是给构造函数的实例化对象身上添加属性/方法，那么直接在函数中 this 对象的地址引用身上直接添加
+      function Promise(executor) {
+        // 给 Promise 构造函数所产生的实例化对象身上添加属性
+        this.PromiseState = 'pending'
+        this.PromiseResult = undefined
+        this.callbackFn = []
+        // 方法1：可以保存想要的函数中 this 指向，在哪一个需要的函数进行直接使用即可
+        // 定义 resolve 函数
+        // 箭头函数是没有自己的 this 指向的，取决于当前函数所声明的位置的 this 指向（外层函数中的 this 指向）
+        const _resolve = (value) => {
+          // 只要当前 Promise 实例化对象的状态不是 pending，那么就有可能已经是 fulfilled 或者是 rejected
+          // 所以就不再更改了，只要还为 pending 就有可能根据调用不同的方法来进行更改状态
+          if (this.PromiseState !== 'pending') return
+          this.PromiseState = 'fulfilled'
+          this.PromiseResult = value
+          // 执行当 Promise 实例化对象的状态为 pending 的时候，回调函数
+          this.callbackFn.forEach((item) => {
+            item.onfulfilled()
+          })
+        }
+        // 定义 reject 函数
+        const _reject = (value) => {
+          if (this.PromiseState !== 'pending') return
+          this.PromiseState = 'rejected'
+          this.PromiseResult = value
+          this.callbackFn.forEach((item) => {
+            item.onrejected()
+          })
+        }
+        try {
+          executor(_resolve, _reject)
+        } catch (error) {
+          if (this.PromiseState !== 'pending') return
+          typeof error === 'object' ? (this.PromiseResult = error.message) : (this.PromiseResult = error)
+          this.PromiseState = 'rejected'
+        }
+      }
+      // 借助 Object.assign 方法使用一个对象和 prototype 对象进行合并
+      Object.assign(Promise.prototype, {
+        // onfulfilled 成功的回调函数
+        // onrejected 失败的回调函数
+        // 方法中的 this 取决于方法的调用者，谁调用了这个方法，那么函数中的 this 就指向哪一个对象
+        then(onfulfilled, onrejected) {
+          // 如果成功的回调函数并不是一个函数，则增加（补充）成功的回调函数默认值
+          if (!(onfulfilled instanceof Function)) {
+            onfulfilled = (value) => value
+          }
+          // 如果失败的回调函数并不是一个函数，则增加（补充）失败的回调函数默认值
+          if (!(onrejected instanceof Function)) {
+            onrejected = (reason) => {
+              throw reason
+            }
+          }
+
+          // 调用 then  方法会得到一个返回值，为新的 Promise 实例化对象
+          return new Promise((resolve, reject) => {
+            // 封装函数
+            const _common = function (callback) {
+              setTimeout(() => {
+                try {
+                  const value = callback(this.PromiseResult)
+                  if (value instanceof Promise) {
+                    value.then(resolve, reject)
+                  } else {
+                    resolve(value)
+                  }
+                } catch (error) {
+                  reject(error)
+                }
+              })
+            }
+            // 判断
+            if (this.PromiseState === 'fulfilled') {
+              // 调用成功时候的回调函数
+              // 立即执行，立即调用
+              // 如果想要让成功的回调函数慢于同步执行的代码，只需要调用定时器即可
+              // 异步调用
+              // 调用公共的封装函数
+              _common.call(this, onfulfilled)
+            } else if (this.PromiseState === 'rejected') {
+              // 调用失败时候的回调函数
+              _common.call(this, onrejected)
+            } else {
+              // 如果 executor 执行器函数当中执行的是异步程序
+              // 当结果还没有完全执行完毕（时间还没有完全到达）
+              // 此时 Promise 实例化对象的状态为 pending 的状态
+              this.callbackFn.push({
+                // 添加两个回调函数
+                onfulfilled: _common.bind(this, onfulfilled),
+                onrejected: _common.bind(this, onrejected),
+              })
+            }
+          })
+        },
+      })
+      window.Promise = Promise
+    })(window)
+  </script>
+  <script>
+    let p = new Promise((resolve, reject) => {
+      resolve(100)
+    })
+    const p2 = p.then()
+    const p3 = p.then()
+    const p4 = p.then()
+    const p5 = p.then()
+    console.log('%c Line:106 🍩 p2', 'font-size:16px;color:#33a5ff', p2)
+    console.log('%c p3', 'font-size:16px;color:#33a5ff', p3)
+  </script>
+</html>

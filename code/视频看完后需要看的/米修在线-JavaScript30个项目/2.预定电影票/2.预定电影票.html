@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>预定电影票</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #242333;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+      }
+      .movie-container {
+        margin: 20px 0;
+      }
+      .movie-container select {
+        background-color: #fff;
+        border: 0;
+        border-radius: 5px;
+        font-size: 14px;
+        margin-left: 10px;
+        padding: 5px 15px;
+      }
+      .seat {
+        background-color: #444451;
+        width: 15px;
+        height: 12px;
+        margin: 3px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+      .seat.selected {
+        background-color: #6feaf6;
+      }
+      .seat.occupied {
+        background-color: #fff;
+      }
+      .seat:nth-of-type(2) {
+        margin-right: 18px;
+      }
+      .seat:nth-last-of-type(2) {
+        margin-left: 18px;
+      }
+      .seat:not(.occupied):hover {
+        cursor: pointer;
+        transform: scale(1.2);
+      }
+      .showcase .seat:not(.occupied):hover {
+        cursor: default;
+        transform: scale(1);
+      }
+      .showcase {
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #777;
+        list-style-type: none;
+        display: flex;
+        justify-content: space-between;
+      }
+      .showcase li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+      }
+      .showcase li small {
+        margin-left: 2px;
+      }
+      .container {
+        perspective: 1000px;
+        margin-bottom: 30px;
+      }
+      .screen {
+        background-color: #fff;
+        height: 70px;
+        width: 100%;
+        margin: 15px 0;
+        transform: rotateX(-45deg);
+        box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+      }
+      .row {
+        display: flex;
+      }
+      .text {
+        margin: 5px 0;
+      }
+      .text span {
+        color: #6feaf6;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>欢迎来到LBJhui在线影院</h1>
+    <div class="movie-container">
+      <label>选择影片：</label>
+      <select id="movie">
+        <option value="32">寄生虫(票价:32元)</option>
+        <option value="35">小丑(票价:35元)</option>
+        <option value="38">好莱坞往事(票价:38元)</option>
+        <option value="50">网剧总动员(票价:50元)</option>
+      </select>
+    </div>
+    <ul class="showcase">
+      <li>
+        <div class="seat"></div>
+        <small>可选</small>
+      </li>
+      <li>
+        <div class="seat selected"></div>
+        <small>已选</small>
+      </li>
+      <li>
+        <div class="seat occupied"></div>
+        <small>不可选</small>
+      </li>
+    </ul>
+    <div class="container">
+      <div class="screen"></div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat occupied"></div>
+        <div class="seat occupied"></div>
+        <div class="seat"></div>
+      </div>
+    </div>
+    <p class="text">
+      您已经选择了:<span id="count">0</span>个座位,总计票价为:<span id="total"
+        >0</span
+      >元
+    </p>
+  </body>
+  <script>
+    const container = document.querySelector('.container')
+    const seats = document.querySelectorAll('.row .seat:not(.occupied)')
+    const count = document.getElementById('count')
+    const total = document.getElementById('total')
+    const movieSelect = document.getElementById('movie')
+    let ticketPrice = movieSelect.value
+
+    populateUI()
+    // 更新座位数及总票价
+    function updateSelectCount() {
+      const selectedSeats = document.querySelectorAll('.row .seat.selected')
+
+      const seatsIndex = [...selectedSeats].map((seat) =>
+        [...seats].indexOf(seat)
+      )
+      localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex))
+
+      const selectedSeatsCount = selectedSeats.length
+      count.innerText = selectedSeatsCount
+      total.innerText = selectedSeatsCount * ticketPrice
+    }
+    // 保存电影索引值和票价
+    function setMoiveData(movieIndex, moviePrice) {
+      localStorage.setItem('selectedMovieIndex', movieIndex)
+      localStorage.setItem('selectedMoviePrice', moviePrice)
+    }
+    // 获取本地数据并渲染样式
+    function populateUI() {
+      const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'))
+      if (selectedSeats !== null && selectedSeats.length) {
+        seats.forEach((seat, index) => {
+          if (selectedSeats.indexOf(index) > -1) {
+            seat.classList.add('selected')
+          }
+        })
+      }
+
+      const selectedMovieIndex = localStorage.getItem('selectedMovieIndex')
+      if (selectedMovieIndex !== null) {
+        movieSelect.selectedIndex = selectedMovieIndex
+      }
+    }
+    // 电影下拉框事件监听
+    movieSelect.addEventListener('change', (e) => {
+      ticketPrice = +e.target.value
+      setMoiveData(e.target.selectedIndex, e.target.value)
+      updateSelectCount()
+    })
+    // 座位点击事件
+    container.addEventListener('click', (e) => {
+      if (
+        e.target.classList.contains('seat') &&
+        !e.target.classList.contains('occupied')
+      ) {
+        e.target.classList.toggle('selected')
+        updateSelectCount()
+      }
+    })
+
+    // 设置初始座位和总票价
+    updateSelectCount()
+  </script>
+</html>

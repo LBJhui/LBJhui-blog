@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>环形旋转效果</title>
+    <link rel="stylesheet" href="./demo.css" />
+    <!-- <style>
+      $size: 300px;
+      $imgSize: 80px;
+      .container {
+        width: $size;
+        height: $size;
+        outline: 1px solid #000;
+        margin: 0 auto;
+        position: relative;
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        border-radius: 50%;
+        animation: rotate linear infinite 20s;
+        .item {
+          width: $imgSize;
+          height: $imgSize;
+          position: absolute;
+          margin-top: -40px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      $n: 5;
+      $pDeg: 360deg / $n;
+      .item {
+        transform-origin: center $size / 2 + $imgSize / 2;
+        @for $i from 1 through $n {
+          &:nth-child(#{$i}) {
+            $deg: $pDeg * ($i - 1);
+            transform: rotate($deg);
+            img {
+              --initDeg: #{$deg};
+              transform: rotate(-$deg);
+              animation: rotation linear infinite 20s reverse;
+            }
+          }
+        }
+      }
+
+      .container {
+        animation: rotation linear infinite 20s;
+      }
+
+      @keyframes rotation {
+        to {
+          transform: rotate(calc(360deg - var(--initDeg, 0deg)));
+        }
+      }
+    </style> -->
+
+    <style>
+      .container {
+        width: 300px;
+        height: 300px;
+        outline: 1px solid #000;
+        margin: 0 auto;
+        position: relative;
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        border-radius: 50%;
+        animation: rotate linear infinite 20s;
+      }
+      .container .item {
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        margin-top: -40px;
+      }
+      .container .item img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .item {
+        transform-origin: center 190px;
+      }
+      .item:nth-child(1) {
+        transform: rotate(0deg);
+      }
+      .item:nth-child(1) img {
+        --initDeg: 0deg;
+        transform: rotate(0deg);
+        animation: rotation linear infinite 20s reverse;
+      }
+      .item:nth-child(2) {
+        transform: rotate(72deg);
+      }
+      .item:nth-child(2) img {
+        --initDeg: 72deg;
+        transform: rotate(-72deg);
+        animation: rotation linear infinite 20s reverse;
+      }
+      .item:nth-child(3) {
+        transform: rotate(144deg);
+      }
+      .item:nth-child(3) img {
+        --initDeg: 144deg;
+        transform: rotate(-144deg);
+        animation: rotation linear infinite 20s reverse;
+      }
+      .item:nth-child(4) {
+        transform: rotate(216deg);
+      }
+      .item:nth-child(4) img {
+        --initDeg: 216deg;
+        transform: rotate(-216deg);
+        animation: rotation linear infinite 20s reverse;
+      }
+      .item:nth-child(5) {
+        transform: rotate(288deg);
+      }
+      .item:nth-child(5) img {
+        --initDeg: 288deg;
+        transform: rotate(-288deg);
+        animation: rotation linear infinite 20s reverse;
+      }
+
+      .container {
+        animation: rotation linear infinite 20s;
+      }
+
+      @keyframes rotation {
+        to {
+          transform: rotate(calc(360deg - var(--initDeg, 0deg)));
+        }
+      } /*# sourceMappingURL=demo.css.map */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">
+        <img src="https://picsum.photos/id/51/100" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/52/100" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/53/100" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/54/100" />
+      </div>
+      <div class="item">
+        <img src="https://picsum.photos/id/55/100" />
+      </div>
+    </div>
+    <script></script>
+  </body>
+</html>

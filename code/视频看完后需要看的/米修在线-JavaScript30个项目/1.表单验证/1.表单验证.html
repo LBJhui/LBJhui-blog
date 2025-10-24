@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表单验证</title>
+    <style>
+      :root {
+        --success-color: #2ecc71;
+        --error-color: #e74c3c;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #f9fafb;
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .container {
+        width: 400px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+      h2 {
+        text-align: center;
+        margin: 0 0 20px;
+      }
+      .form {
+        padding: 30px 40px;
+      }
+      .form-control {
+        margin-bottom: 10px;
+        padding-bottom: 20px;
+        position: relative;
+      }
+      .form-control label {
+        color: #777;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-control input {
+        width: 100%;
+        border: 2px solid #f0f0f0;
+        display: block;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 14px;
+      }
+      .form-control input:focus {
+        border-color: #777;
+        outline: 0;
+      }
+      .form-control.success input {
+        border-color: var(--success-color);
+      }
+      .form-control.error input {
+        border-color: var(--error-color);
+      }
+      .form-control small {
+        color: var(--error-color);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        visibility: hidden;
+      }
+      .form-control.error small {
+        visibility: visible;
+      }
+      .form button {
+        cursor: pointer;
+        background-color: #3495db;
+        border: 2px solid #3495db;
+        color: #fff;
+        display: block;
+        font-size: 16px;
+        padding: 10px;
+        margin-top: 20px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form id="form" class="form">
+        <h2>注册</h2>
+        <div class="form-control">
+          <label for="username">用户名</label>
+          <input type="text" id="username" placeholder="请输入用户名" />
+          <small>错误提示</small>
+        </div>
+        <div class="form-control">
+          <label for="email">邮箱</label>
+          <input type="text" id="email" placeholder="请输入邮箱" />
+          <small>错误提示</small>
+        </div>
+        <div class="form-control">
+          <label for="password">密码</label>
+          <input type="password" id="password" placeholder="请输入密码" />
+          <small>错误提示</small>
+        </div>
+        <div class="form-control">
+          <label for="password2">确认密码</label>
+          <input type="password" id="password2" placeholder="请输入确认密码" />
+          <small>错误提示</small>
+        </div>
+        <button>提交</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    // get element
+    const form = document.getElementById('form')
+    const username = document.getElementById('username')
+    const email = document.getElementById('email')
+    const password = document.getElementById('password')
+    const password2 = document.getElementById('password2')
+
+    // show input error message
+    function showError(input, message) {
+      const formControl = input.parentElement
+      formControl.className = 'form-control error'
+      const small = formControl.querySelector('small')
+      small.innerText = message
+    }
+
+    // show success
+    function showSuceess(input) {
+      const formControl = input.parentElement
+      formControl.className = 'form-control success'
+    }
+
+    // check email is valid
+    function isValidEmail(email) {
+      const reg = new RegExp(
+        '^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$'
+      )
+      return reg.test(String(email))
+    }
+
+    function checkEmail(input) {
+      const reg = new RegExp(
+        '^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$'
+      )
+      if (reg.test(String(input.value).trim())) {
+        showSuceess(input)
+      } else {
+        showError(input, '邮箱格式错误')
+      }
+    }
+
+    // checkRequired input
+    function checkRequired(inputArr) {
+      inputArr.forEach((input) => {
+        if (input.value.trim() === '') {
+          showError(input, `${getKeyWords(input)}为必填项`)
+        } else {
+          showSuceess(input)
+        }
+      })
+    }
+
+    function getKeyWords(input) {
+      return input.placeholder.slice(3)
+    }
+
+    function checkLength(input, min, max) {
+      if (input.value.length < min) {
+        showError(input, `${getKeyWords(input)}至少${min}个字符`)
+      } else if (input.value.length > max) {
+        showError(input, `${getKeyWords(input)}少于${max}个字符`)
+      } else {
+        showSuceess(input)
+      }
+    }
+
+    function checkPasswordMatch(input1, input2) {
+      if (input1.value !== input2.value) {
+        showError(input2, '密码不匹配')
+      }
+    }
+
+    // event listener
+    form.addEventListener('submit', function (e) {
+      e.preventDefault()
+      // username.value
+      //   ? showSuceess(username)
+      //   : showError(username, '用户名为必填项')
+      // !email.value
+      //   ? showError(email, '邮箱为必填项')
+      //   : isValidEmail(email.value)
+      //   ? showSuceess(email)
+      //   : showError(email, '邮箱格式错误')
+      // password.value
+      //   ? showSuceess(password)
+      //   : showError(password, '密码为必填项')
+      // password2.value
+      //   ? showSuceess(password2)
+      //   : showError(password2, '确认密码为必填项')
+      checkRequired([username, email, password, password2])
+      checkLength(username, 3, 15)
+      checkLength(password, 6, 15)
+      checkLength(password2, 6, 15)
+      checkEmail(email)
+      checkPasswordMatch(password, password2)
+    })
+  </script>
+</html>

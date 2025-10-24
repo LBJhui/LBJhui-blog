@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>多行文本擦除效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 100%;
+        height: 100vh;
+        background: #000;
+        color: #fff;
+      }
+      .container {
+        width: 80%;
+        margin: 1em auto;
+        font-family: '行楷-简', Courier, monospace;
+        line-height: 2;
+        text-indent: 2em;
+        position: relative;
+      }
+      .eraser {
+        position: absolute;
+        inset: 0;
+      }
+      .text {
+        color: transparent;
+        background: linear-gradient(to right, transparent var(--p), #000 calc(var(--p) + 30px));
+        animation: erase 5s linear forwards;
+      }
+      @property --p {
+        syntax: '<percentage>';
+        initial-value: 0%;
+        inherits: false;
+      }
+      /* 动画生效的条件
+        1. 数字类
+        2. 属性
+      */
+      @keyframes erase {
+        to {
+          --p: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta natus est, dignissimos itaque minus cumque magni laborum molestiae quia consequuntur vitae doloribus! Possimus, voluptates!
+        Quos, dolore esse accusantium aperiam inventore quidem ullam et aliquid officiis porro quas, rem maiores, ipsum animi hic in nesciunt quae aliquam maxime iusto eligendi! Eligendi vel officia
+        eveniet possimus provident itaque cum! Totam, facilis explicabo.
+      </p>
+      <p class="eraser">
+        <span class="text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta natus est, dignissimos itaque minus cumque magni laborum molestiae quia consequuntur vitae doloribus! Possimus, voluptates!
+          Quos, dolore esse accusantium aperiam inventore quidem ullam et aliquid officiis porro quas, rem maiores, ipsum animi hic in nesciunt quae aliquam maxime iusto eligendi! Eligendi vel officia
+          eveniet possimus provident itaque cum! Totam, facilis explicabo.
+        </span>
+      </p>
+    </div>
+  </body>
+</html>

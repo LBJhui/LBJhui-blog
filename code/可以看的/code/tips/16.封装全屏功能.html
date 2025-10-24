@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>封装全屏功能</title>
+    <style>
+      #box {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button id="btn">全屏</button>
+      <div id="box">全屏</div>
+    </div>
+    <script>
+      const btn = document.getElementById('btn')
+      const box = document.getElementById('box')
+      btn.onclick = () => {
+        enter(box)
+      }
+      // 进入全屏
+      const enter = (ele) => {
+        if (ele.requestFullscreen) {
+          ele.requestFullscreen()
+        } else if (ele.mozRequestFullscreen) {
+          ele.mozRequestFullscreen()
+        } else if (ele.webkitRequestFullscreen) {
+          ele.webkitRequestFullscreen()
+        } else if (ele.msRequestFullscreen) {
+          ele.msRequestFullscreen()
+        }
+      }
+      // 退出全屏
+      const exit = () => {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (document.mozCancelFullscreen) {
+          document.mozCancelFullscreen()
+        } else if (document.webkitCancelFullscreen) {
+          document.webkitCancelFullscreen()
+        } else if (document.msCancelFullscreen) {
+          document.msCancelFullscreen()
+        }
+      }
+      // 当前处于全屏的元素
+      const fullscreenElement = () => {
+        return document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null
+      }
+      // 当前是否处于全屏状态
+      const isFull = () => {
+        return !!fullscreenElement()
+      }
+      const toggle = (ele) => {
+        isFull() ? exit() : enter(ele)
+      }
+    </script>
+  </body>
+</html>

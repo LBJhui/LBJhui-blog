@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>斜线表头</title>
+    <style>
+      /* 基本表格元素 */
+      table {
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid #e6e6e6;
+        padding: 5px;
+        text-align: center;
+        /* font-weight: 400; */
+      }
+
+      /* tr td {
+            width: 48px;
+        }
+
+        tr td:first-child {
+            width: 48px;
+        } */
+      .index_td {
+        width: 48px;
+      }
+
+      /* th单元格 */
+      .slash-wrap {
+        position: relative;
+        box-sizing: border-box;
+        width: 150px;
+        height: 80px;
+      }
+
+      /* 斜线 */
+      .slash1 {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        /* 斜边边长 */
+        /* Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2)) */
+        /* Math.sqrt(Math.pow(150, 2) + Math.pow(80, 2)) = 170 */
+        width: 100px;
+        height: 1px;
+        background-color: #e6e6e6;
+        /* 旋转角度计算公式 */
+        /*  Math.atan(height / width) * 180 / Math.PI  */
+        /*  Math.atan(80 / 150) * 180 / Math.PI  = 28.072486935852954 */
+        transform: rotate(53.13010235415598deg);
+        transform-origin: top left;
+      }
+
+      /* 斜线 */
+      .slash2 {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        /* 斜边边长 */
+        /* Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2)) */
+        /* Math.sqrt(Math.pow(150, 2) + Math.pow(80, 2)) = 170 */
+        width: 170px;
+        height: 1px;
+        background-color: #e6e6e6;
+        /* 旋转角度计算公式 */
+        /*  Math.atan(height / width) * 180 / Math.PI  */
+        /*  Math.atan(80 / 150) * 180 / Math.PI  = 28.072486935852954 */
+        transform: rotate(28.072486935852954deg);
+        transform-origin: top left;
+      }
+
+      /* 左下角文字 */
+      .left {
+        position: absolute;
+        /* 左下角 left:0; bottom: 0; */
+        left: 3px;
+        bottom: 4px;
+      }
+
+      /* 右上角文字 */
+      .mid {
+        position: absolute;
+        /* 右上角 right:0; top: 0; */
+        left: 42px;
+        bottom: 5px;
+      }
+
+      /* 右上角文字 */
+      .right {
+        position: absolute;
+        /* 右上角 right:0; top: 0; */
+        right: 8px;
+        top: 15px;
+        letter-spacing: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table>
+      <tr>
+        <th class="slash-wrap" rowspan="2" colspan="2">
+          <span class="left"><i style="display: block; width: 18px">序</i><i style="width: 18px; display: block; padding-left: 14px">号</i></span>
+          <span class="slash1"></span>
+          <span class="mid"><i style="display: block; width: 18px">米</i><i style="width: 18px; display: block; padding-left: 26px">数</i></span>
+          <span class="slash2"></span>
+          <span class="right">尺码</span>
+        </th>
+        <th colspan="2">25#</th>
+        <th colspan="2">26#</th>
+        <th colspan="2">27#</th>
+        <th colspan="2">28#</th>
+        <th colspan="2">29#</th>
+        <th colspan="2">30#</th>
+        <th colspan="2">31#</th>
+        <th colspan="2">32#</th>
+        <th rowspan="2">余米</th>
+      </tr>
+      <tr>
+        <td>扎号</td>
+        <td>件数</td>
+        <td>扎号</td>
+        <td>件数</td>
+        <td>扎号</td>
+        <td>件数</td>
+        <td>扎号</td>
+        <td>件数</td>
+        <td>扎号</td>
+        <td>件数</td>
+        <td>扎号</td>
+        <td>件数</td>
+        <td>扎号</td>
+        <td>件数</td>
+        <td>扎号</td>
+        <td>件数</td>
+      </tr>
+      <tr>
+        <td class="index_td">1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图片裁剪上传原理</title>
+    <style>
+      img {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" /><br />
+    <img src="" alt="" class="preview" />
+    <script>
+      const input = document.querySelector('input')
+      const preview = document.querySelector('.preview')
+      // 预览
+      input.onchange = (e) => {
+        const file = e.target.files[0]
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          preview.src = e.target.result
+        }
+        reader.readAsDataURL(file)
+      }
+
+      // 交互
+
+      // 上传
+      // 获取裁剪后的 file 对象
+      function cut() {
+        const cutInfo = {
+          x: 2000,
+          y: 1000,
+          oWidth: 1000,
+          oHeight: 1000,
+          width: 200,
+          height: 200
+        }
+        const cvs = document.createElement('canvas')
+        const ctx = cvs.getContext('2d')
+        cvs.width = cutInfo.width
+        cvs.height = cutInfo.height
+        ctx.drawImage(preview, cutInfo.x, cutInfo.y, cutInfo.oWidth, cutInfo.oHeight, 0, 0, cutInfo.width, cutInfo.height)
+        cvs.toBlob((blob) => {
+          const file = new File([blob], 'cut.png', {
+            type: 'image/png'
+          })
+        })
+      }
+    </script>
+  </body>
+</html>

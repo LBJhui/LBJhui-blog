@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登录页案例</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+        background: linear-gradient(to right, #ffd194, #70e1f5);
+      }
+      .login-container {
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        padding: 40px;
+        block-size: border-box;
+        text-align: center;
+      }
+      .login-container:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+      .login-container h1 {
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 24px;
+        transition: color 0.3s ease;
+      }
+      .login-container:hover h1 {
+        color: #555;
+      }
+      .login-input-container {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      .login-input {
+        width: calc(100% - 30px);
+        padding: 15px;
+        border: none;
+        border-bottom: 2px solid #3498db;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+        color: #333;
+        background-color: transparent;
+        transition: border-color 0.3s ease;
+      }
+      .login-input:focus,
+      .login-input:valid {
+        border-color: red;
+        outline: none;
+      }
+      .input-label {
+        position: absolute;
+        left: 15px;
+        top: 18px;
+        color: #999;
+        font-size: 16px;
+        pointer-events: none;
+        transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+      }
+      .login-input:focus ~ .input-label,
+      .login-input:valid ~ .input-label {
+        top: -5px;
+        font-size: 12px;
+        color: #2980b9;
+      }
+      .login-button {
+        width: 200px;
+        background-color: #3498db;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+      }
+      .login-button:hover {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h1>账号密码登录</h1>
+      <form action="#" method="post">
+        <div class="login-input-container">
+          <input class="login-input" type="text" name="username" required />
+          <label class="input-label">username</label>
+        </div>
+        <div class="login-input-container">
+          <input class="login-input" type="password" name="password" required />
+          <label class="input-label">password</label>
+        </div>
+        <button class="login-button" type="submit">Login</button>
+      </form>
+    </div>
+  </body>
+  <script></script>
+</html>

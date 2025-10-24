@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>链式调用和延迟执行</title>
+  </head>
+  <body></body>
+  <script>
+    function arrange(name) {
+      const tasks = []
+      tasks.push(() => {
+        console.log(`${name} is notified`)
+      })
+      function wait(time) {
+        tasks.push(
+          () =>
+            new Promise((resolve) => {
+              setTimeout(resolve, time * 1000)
+            })
+        )
+        return this
+      }
+      function doSomething(taskName) {
+        tasks.push(() => {
+          console.log(`Start to ${taskName}`)
+        })
+        return this
+      }
+      function waitFirst(time) {
+        tasks.unshift(
+          () =>
+            new Promise((resolve) => {
+              setTimeout(resolve, time * 1000)
+            })
+        )
+        return this
+      }
+      async function execute() {
+        for (const t of tasks) {
+          await t()
+        }
+        return this
+      }
+      return {
+        wait,
+        do: doSomething,
+        waitFirst,
+        execute,
+      }
+    }
+
+    arrange('LBJhui').wait(5).do('commit').waitFirst(3).execute()
+    // 等待 3 秒
+    // > LBJhui is notified
+    // 等待 5 秒
+    // > Start to commit
+  </script>
+</html>

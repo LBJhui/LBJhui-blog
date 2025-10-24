@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>丝滑的标题动画</title>
+    <style>
+      body {
+        font-family: 'Fjalla one', sans-serif;
+        background: linear-gradient(to bottom, #405166 0%, #656f6f 100%);
+      }
+      div {
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .title {
+        font-size: 42px;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        transform: rotate(-10deg);
+        display: flex;
+      }
+      .title span {
+        transform: skew(-10deg);
+        display: block;
+        text-shadow: 1px 1px #533d4a, 2px 2px #533d4a, 3px 3px #533d4a, 4px 4px #533d4a, 5px 5px #533d4a, 6px 6px #533d4a;
+        opacity: 0;
+        animation: move 1s cubic-bezier(0.56, 0.09, 0.49, 1.37) forwards var(--delay);
+      }
+      @keyframes move {
+        from {
+          opacity: 0;
+          transform: skew(-10deg) translateY(300%);
+        }
+        to {
+          opacity: 1;
+          transform: skew(-10deg) translateY(0);
+        }
+      }
+      .title:nth-child(1) {
+        color: #e55643;
+      }
+      .title:nth-child(2) {
+        color: #2b9f5e;
+      }
+      .title:nth-child(3) {
+        color: #f1c83c;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p class="title">This is</p>
+      <p class="title">a long</p>
+      <p class="title">long title</p>
+    </div>
+  </body>
+  <script>
+    document.querySelectorAll('.title').forEach((title) => {
+      title.innerHTML = title.textContent
+        .split('')
+        .map((c) => `<span class='letter'>${c.trim() ? c : '&nbsp;'}</span>`)
+        .join('')
+    })
+
+    const letters = document.querySelectorAll('.letter')
+    for (let i = 0; i < letters.length; i++) {
+      letters[i].style.setProperty('--delay', `${i * 0.1}s`)
+    }
+  </script>
+</html>

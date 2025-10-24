@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>五子棋的胜负判断逻辑</title>
+  </head>
+  <body></body>
+  <script>
+    function isValid(board, point, color) {
+      const rows = board.length
+      const cols = board[0].length
+      const [x, y] = point
+      if (x < 0 || x >= rows || y < 0 || y >= cols) {
+        return false
+      }
+      return board[x][y] === color
+    }
+
+    const createIsWin = (p1Movement, p2Mocement) => {
+      return (board, point, color) => {
+        let count = 1
+        let p1 = p1Movement(point)
+        let p2 = p2Movement(point)
+        while (true) {
+          let p1Valid = false
+          let p2Valid = false
+          if (isValid(board, p1, color)) {
+            count++
+            p1Valid = true
+            p1 = p1Movement(p1)
+          }
+          if (isValid(board, p2, color)) {
+            count++
+            p2Valid = true
+            p2 = p2Movement(p2)
+          }
+          if (count >= 5) {
+            return true
+          }
+          if (!p1Valid && !p2Valid) {
+            return false
+          }
+        }
+      }
+    }
+
+    const isWinHorizontal = createIsWin(
+      ([x, y]) => [x + 1, y],
+      ([x, y]) => [x - 1, y]
+    )
+    const isWinVertical = createIsWin(
+      ([x, y]) => [x, y + 1],
+      ([x, y]) => [x, y - 1]
+    )
+    const isWinSlash = createIsWin(
+      ([x, y]) => [x + 1, y + 1],
+      ([x, y]) => [x - 1, y - 1]
+    )
+    const isWinBackslash = createIsWin(
+      ([x, y]) => [x + 1, y - 1],
+      ([x, y]) => [x - 1, y + 1]
+    )
+
+    // 五子棋的胜负判断逻辑
+    function isWin(board, point, color) {
+      return isWinHorizontal(board, point, color) || isWinVertical(board, point, color) || isWinSlash(board, point, color) || isWinBackslash(board, point, color)
+    }
+  </script>
+</html>
