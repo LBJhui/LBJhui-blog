@@ -333,12 +333,16 @@ Status ClearList(LinkList *L)
 
 #### 静态链表
 
+#### 循环链表
+
+#### 双向链表
+
 ```c
-/* 线性表的静态链表存储结构 */
-#define MAXSIZE 1000         /* 假设链表的最大长度是1000 */
-typedef struct
+/* 线性表的双向链表存储结构 */
+typedef struct DulNode
 {
   ElemType data;
-  int cur;                /* 游标（Cursor），为0时表示无指向 */
-} Component,StaticLinkList[MAXSIZE];
+  struct DuLNode *prior;      /* 直接前驱指针 */
+  struct DuLNode *next;       /* 直接后继指针 */
+} DulNode, *DuLinkList;
 ```

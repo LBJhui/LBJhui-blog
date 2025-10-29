@@ -273,3 +273,5 @@ aside: true
 [帆软报表软件](https://sem.fanruan.com/)
 
 [PinMe - Free IPFS Hosting for Static Websites | Decentralized Frontend Deployment](https://pinme.eth.limo/)
+
+[BootCDN - Bootstrap 中文网开源项目免费 CDN 加速服务 铂特优选](https://www.bootcdn.cn/)
