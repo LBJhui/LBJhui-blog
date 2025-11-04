@@ -803,3 +803,68 @@ int Index(String S, String T, int pos)
     return 0;
 }
 ```
+
+[KMP 算法](https://www.bilibili.com/video/BV1PD4y1o7nd)
+
+## 树
+
+树（Tree）是 n（n≥0）个结点的有限集。n=0 时称为空树。在任意一棵非空树中：​（1）有且仅有一个特定的称为根（Root）的结点；​（2）当 n ＞ 1 时，其余结点可分为 m（m ＞ 0）个互不相交的有限集 T~1~、T~2~、……、T~m~，其中每一个集合本身又是一棵树，并且称为根的子树（SubTree）。
+
+树的结点包含一个数据元素及若干指向其子树的分支。结点拥有的子树数称为结点的度（Degree）​。度为 0 的结点称为叶结点（Leaf）或终端结点；度不为 0 的结点称为非终端结点或分支结点。除根结点之外，分支结点也称为内部结点。树的度是树内各结点的度的最大值。
+
+结点的子树的根称为该结点的孩子（Child）​，相应地，该结点称为孩子的双亲（Parent）。同一个双亲的孩子之间互称兄弟（Sibling）​。结点的祖先是从根到该结点所经分支上的所有结点。反之，以某结点为根的子树中的任一结点都称为该结点的子孙。
+
+树中结点的最大层次称为树的深度（Depth）或高度。
+
+如果将树中结点的各子树看成从左至右是有次序的，不能互换的，则称该树为有序树，否则称为无序树。
+
+森林（Forest）是 m（m≥0）棵互不相交的树的集合。
+
+```c
+ADT 树(tree)
+
+Data
+  树是由一个根结点和若干棵子树构成。树中结点具有相同数据类型及层次关系。
+
+Operation
+  InitTree(*T): 构造空树 T。
+  DestroyTree(*T): 销毁树 T。
+  CreateTree(*T, definition): 按 definition 中给出树的定义来构造树。
+  ClearTree(*T): 若树 T 存在，则将树 T 清为空树。
+  TreeEmpty(T): 若 T 为空树，返回 true，否则返回 false。
+  TreeDepth(T): 返回 T 的深度。
+  Root(T): 返回 T 的根结点。
+  Value(T, cur_e): cur_e 是树 T 中一个结点，返回此结点的值。
+  Assign(T, cur_e, value): 给树 T 的结点 cur_e 赋值为 value。
+  Parent(T, cur_e): 若 cur_e 是树 T 的非根结点，则返回它的双亲，否则返回空。
+  LeftChild(T, cur_e): 若 cur_e 是树 T 的非叶结点，则返回它的最左孩子，否则返回空。
+  RightSibling(T, cur_e): 若 cur_e 有右兄弟，则返回它的右兄弟，否则返回空。
+  InsertChild(*T, *p, i, c): 其中 p 指向树 T 的某个结点，i 为所指结点 p 的度加上 1，
+    非空树 c 与 T 不相交，操作结果为插入 c 为树 T 中 p 指结点的第 i 棵子树。
+  DeleteChild(*T, *p, i): 其中 p 指向树 T 的某个结点，i 为所指结点 p 的度，操作
+    结果为删除 T 中 p 所指结点的第 i 棵子树。
+
+endADT
+```
+
+### 树的存储结构
+
+#### 双亲表示法
+
+```c
+/* 树的双亲表示法结点结构定义 */
+#define MAX_TREE_SIZE 100
+typedef int TElemType;  /* 树结点的数据类型，目前暂定为整型 */
+
+typedef struct PTNode   /* 结点结构 */
+{
+  TElemType data;       /* 结点数据 */
+  int parent;           /* 双亲位置 */
+} PTNode;
+
+typedef struct          /* 树结构 */
+{
+  PTNode nodes[MAX_TREE_SIZE];  /* 结点数组 */
+  int r, n;             /* 根的位置和结点数 */
+} PTree;
+```
