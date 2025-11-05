@@ -35,6 +35,8 @@ endADT
 - 从删除元素位置开始遍历到最后一个元素位置，分别将它们都向前移动一个位置
 - 表长减 1
 
+**静态分配**
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -171,6 +173,144 @@ int main() {
 - 插入和删除操作需要移动大量元素
 - 当线性表长度变化较大时，难以确定存储空间的容量
 - 造成存储空间的 “碎片”
+
+**动态分配**
+
+```c
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define SIZE 5
+
+typedef struct Table {
+  int *head;  // 声明了一个名为head的长度不确定的数组，也叫“动态数组”
+  int length; // 记录当前顺序表的长度
+} TABLE, *PTABLE;
+
+// 初始化
+void initTable(PTABLE t);
+// 遍历
+void displayTable(PTABLE t);
+// 插入函数，其中，elem为插入的元素，add为插入到顺序表的位置
+void addTable(PTABLE t, int elem, int add);
+// 删除指定位置
+void delTable(PTABLE t, int add);
+// 查找函数，其中，elem表示要查找的数据元素的值
+int searchTable(PTABLE t, int elem);
+// 销毁
+void destoryList(PTABLE t);
+// 清空
+void ClearList(PTABLE t);
+// 判断是否空
+int ListEmpty(PTABLE t);
+// 获取长度
+int GetLen(PTABLE t);
+
+int main() {
+  TABLE t;
+  initTable(&t);
+  for (int i = 0; i < SIZE; i++) {
+    t.head[i] = i + 1;
+    t.length++;
+  }
+
+  addTable(&t, 8, 5);
+  printf("顺序表中存储的元素分别是：\n");
+  displayTable(&t);
+  printf("\n删除后：\n");
+  delTable(&t, 5);
+  displayTable(&t);
+  int ret = searchTable(&t, 4);
+  printf("\n查找结果为:%d", ret);
+  return 0;
+}
+
+// 初始化
+void initTable(PTABLE t) {
+  t->head = (int *)malloc(sizeof(int) * SIZE);
+  // 如果申请失败，作出提示并直接退出程序
+  if (t->head == NULL) {
+    printf("初始化失败");
+    exit(0);
+  }
+  t->length = 0; // 空表的长度初始化为0
+}
+
+// 遍历
+void displayTable(PTABLE t) {
+  for (int i = 0; i < t->length; i++) {
+    printf("%d ", t->head[i]);
+  }
+}
+
+// 插入函数，其中，elem为插入的元素，add为插入到顺序表的位置
+void addTable(PTABLE t, int elem, int add) {
+  // 判断插入本身是否存在问题（如果插入位置比整张表的长度+1还大（如果相等，是尾随的情况），或者插入的位置本身不存在，程序作为提示并自动退出）
+  if (add > t->length + 1 || add < 1) {
+    printf("插入位置有问题");
+    exit(0);
+  }
+  // 插入操作，需要将从插入位置开始的后续元素，逐个后移
+  for (int i = t->length - 1; i >= add - 1; i--) {
+    t->head[i + 1] = t->head[i];
+  }
+  // 后移完成后，直接将所需插入元素，添加到顺序表的相应位置
+  t->head[add - 1] = elem;
+  // 由于添加了元素，所以长度+1
+  t->length++;
+}
+
+// 删除指定位置
+void delTable(PTABLE t, int add) {
+  if (add > t->length || add < 1) {
+    printf("被删除元素的位置有误");
+    exit(0);
+  }
+  // 需要用后面的把要删除的位置覆盖
+  for (int i = add; i < t->length; i++) {
+    t->head[i - 1] = t->head[i];
+  }
+  t->length--;
+}
+
+// 查找函数，其中，elem表示要查找的数据元素的值
+int searchTable(PTABLE t, int elem) {
+  for (int i = 0; i < t->length; i++) {
+    if (t->head[i] == elem) {
+      return i + 1;
+    }
+  }
+  return -1;
+}
+
+// 销毁
+void destoryList(PTABLE t) {
+  if (t->head != NULL) {
+    free(t->head);
+  }
+  t->head = NULL;
+  printf("释放动态数组内存\n");
+}
+
+// 清空
+void ClearList(PTABLE t) {
+  t->length = 0; // 将顺序表的长度置为 0
+}
+
+// 顺序表判空
+int ListEmpty(PTABLE t) {
+  if (t->length == 0) {
+    return 1;
+  } else {
+    return -1;
+  }
+}
+
+// 获取顺序表的长度
+int GetLen(PTABLE t) {
+  return t->length;
+}
+```
 
 ### 线性表的链式存储结构
 
@@ -868,3 +1008,476 @@ typedef struct          /* 树结构 */
   int r, n;             /* 根的位置和结点数 */
 } PTree;
 ```
+
+#### 孩子表示法
+
+每个结点有多个指针域，其中每个指针指向一棵子树的根结点，我们把这种方法叫做多重链表表示法。
+
+把每个结点的孩子结点排列起来，以单链表作存储结构，则 n 个结点有 n 个孩子链表，如果是叶子结点则此单链表为空。然后 n 个头指针又组成一个线性表，采用顺序存储结构，存放进一个一维数组中。
+
+```c
+/* 树的孩子表示法结构定义 */
+#define MAX_TREE_SIZE 100
+
+typedef struct CTNode /* 孩子结点 */
+{
+  int child;
+  struct CTNode *next;
+} *ChildPtr;
+
+typedef struct /* 表头结构 */
+{
+  TElemType data;
+  ChildPtr firstchild;
+} CTBox;
+
+typedef struct /* 树结构 */
+{
+  CTBox nodes[MAX_TREE_SIZE]; /* 结点数组 */
+  int r, n;                  /* 根的位置和结点数 */
+} CTree;
+```
+
+#### 孩子兄弟表示法
+
+任意一棵树，它的结点的第一个孩子如果存在就是唯一的，它的右兄弟如果存在也是唯一的。因此，我们设置两个指针，分别指向该结点的第一个孩子和此结点的右兄弟。
+
+```c
+/* 树的孩子兄弟表示法结构定义 */
+typedef struct CSNode
+{
+  TElemType data;
+  struct CSNode *firstchild, *rightsib;
+} CSNode, *CSTree;
+```
+
+### 二叉树
+
+二叉树（Binary Tree）是 n（n≥0）个结点的有限集合，该集合或者为空集（称为空二叉树）​，或者由一个根结点和两棵互不相交的、分别称为根结点的左子树和右子树的二叉树组成。
+
+二叉树的特点有：
+
+■ 　每个结点最多有两棵子树，所以二叉树中不存在度大于 2 的结点。注意不是只有两棵子树，而是最多有。没有子树或者有一棵子树都是可以的。
+■ 　左子树和右子树是有顺序的，次序不能任意颠倒。
+■ 　即使树中某结点只有一棵子树，也要区分它是左子树还是右子树。
+
+二叉树具有五种基本形态：
+
+1. 空二叉树。
+2. 只有一个根结点。
+3. 根结点只有左子树。
+4. 根结点只有右子树。
+5. 根结点既有左子树又有右子树。
+
+**特殊二叉树**
+
+所有的结点都只有左子树的二叉树叫左斜树。所有结点都是只有右子树的二叉树叫右斜树。这两者统称为**斜树**。
+
+在一棵二叉树中，如果所有分支结点都存在左子树和右子树，并且所有叶子都在同一层上，这样的二叉树称为**满二叉树**。
+
+对一棵具有 n 个结点的二叉树按层序编号，如果编号为 i（1≤i≤n）的结点与同样深度的满二叉树中编号为 i 的结点在二叉树中位置完全相同，则这棵二叉树称为**完全二叉树**。
+
+完全二叉树的特点：
+
+（1）叶子结点只能出现在最下两层。<br />
+（2）最下层的叶子一定集中在左部连续位置。<br />
+（3）倒数二层，若有叶子结点，一定都在右部连续位置。<br />
+（4）如果结点度为 1，则该结点只有左孩子，即不存在只有右子树的情况。<br />
+（5）同样结点数的二叉树，完全二叉树的深度最小。
+
+**二叉树的性质**
+
+性质 1：在二叉树的第 i 层上至多有 2^i－1^ 个结点（i≥1）​。
+
+性质 2：深度为 k 的二叉树至多有 2^k^-1 个结点（k≥1）​。
+
+性质 3：对任何一棵二叉树 T，如果其终端结点数为 n~0~，度为 2 的结点数为 n~2~，则 n~0~=n~2~+1。
+
+性质 4：具有 n 个结点的完全二叉树的深度为⌊log~2~n⌋+1（⌊x⌋表示不大于 x 的最大整数）​。
+
+性质 5：如果对一棵有 n 个结点的完全二叉树（其深度为⌊log~2~n⌋+1）的结点按层序编号（从第 1 层到第⌊log~2~n⌋+1 层，每层从左到右）​，对任一结点 i（1≤i≤n）有：
+
+1. 如果 i=1，则结点 i 是二叉树的根，无双亲；如果 i>1，则其双亲是结点⌊i/2⌋。
+2. 如果 2i>n，则结点 i 无左孩子（结点 i 为叶子结点）​；否则其左孩子是结点 2i。
+3. 如果 2i+1>n，则结点 i 无右孩子；否则其右孩子是结点 2i+1。
+
+二叉树每个结点最多有两个孩子，所以为它设计一个数据域和两个指针域是比较自然的想法，我们称这样的链表叫做二叉链表。
+
+```c
+/* 二叉树的二叉链表结点结构定义 */
+// 二叉树结点结构体定义
+typedef struct BiTNode {
+  TElemType data;               // 结点数据
+  struct BiTNode *lchild, *rchild; // 左右孩子指针
+} BiTNode, *BiTree;
+
+// 创建二叉树（先序遍历顺序，'#'表示空结点）
+void createBTree(BiTree *T) {
+  char ch;
+  scanf("%c", &ch);
+  if (ch == '#') {
+    *T = NULL;
+  } else {
+    *T = (BiTree)malloc(sizeof(BiTNode));
+    if (!(*T)) {
+      return;
+    }
+    (*T)->data = ch;            // 生成根结点
+    createBTree(&(*T)->lchild); // 构造左子树
+    createBTree(&(*T)->rchild); // 构造右子树
+  }
+}
+
+// 计算二叉树的深度
+int Depth(BiTree T) {
+  if (T == NULL) {
+    return 0;
+  } else {
+    int m = Depth(T->lchild);
+    int n = Depth(T->rchild);
+    return (m > n ? m : n) + 1; // 返回左右子树深度的较大值+1
+  }
+}
+
+// 计算叶子结点的个数
+int count(BiTree T) {
+  if (T == NULL) {
+    return 0;
+  }
+  if ((!T->lchild) && (!T->rchild)) {
+    return 1; // 当前结点是叶子结点
+  }
+  return count(T->lchild) + count(T->rchild); // 返回左右子树叶子结点数之和
+}
+```
+
+二叉树的遍历（traversing binary tree）是指从根结点出发，按照某种次序依次访问二叉树中所有结点，使得每个结点被访问一次且仅被访问一次。
+
+#### 二叉树的遍历方法
+
+**前序遍历**
+
+规则是若二叉树为空，则空操作返回，否则先访问根结点，然后前序遍历左子树，再前序遍历右子树。
+
+```c
+/* 二叉树的前序遍历递归算法 */
+void PreOrderTraverse(BiTree T)
+{
+  if (T == NULL)
+    return;
+  printf("%c", T->data); /* 显示结点数据，可以更改为其他对结点操作 */
+  PreOrderTraverse(T->lchild); /* 再前序遍历左子树 */
+  PreOrderTraverse(T->rchild); /* 最后前序遍历右子树 */
+}
+```
+
+**中序遍历**
+
+规则是若树为空，则空操作返回，否则从根结点开始（注意并不是先访问根结点）​，中序遍历根结点的左子树，然后是访问根结点，最后中序遍历右子树。
+
+```c
+/* 二叉树的中序遍历递归算法 */
+void InOrderTraverse(BiTree T)
+{
+  if (T == NULL)
+    return;
+  InOrderTraverse(T->lchild); /* 中序遍历左子树 */
+  printf("%c", T->data);      /* 显示结点数据，可以更改为其他对结点操作 */
+  InOrderTraverse(T->rchild); /* 最后中序遍历右子树 */
+}
+```
+
+**后序遍历**
+
+规则是若树为空，则空操作返回，否则从左到右先叶子后结点的方式遍历访问左右子树，最后是访问根结点。
+
+```c
+/* 二叉树的后序遍历递归算法 */
+void PostOrderTraverse(BiTree T)
+{
+  if (T == NULL)
+    return;
+  PostOrderTraverse(T->lchild); /* 先后序遍历左子树 */
+  PostOrderTraverse(T->rchild); /* 再后序遍历右子树 */
+  printf("%c", T->data);        /* 显示结点数据，可以更改为其他对结点操作 */
+}
+```
+
+**层序遍历**
+
+规则是若树为空，则空操作返回，否则从树的第一层，也就是根结点开始访问，从上而下逐层遍历，在同一层中，按从左到右的顺序对结点逐个访问。
+
+■ 　已知前序遍历序列和中序遍历序列，可以唯一确定一棵二叉树。
+■ 　已知后序遍历序列和中序遍历序列，可以唯一确定一棵二叉树。
+
+#### 线索二叉树
+
+指向前驱和后继的指针称为线索，加上线索的二叉链表称为线索链表，相应的二叉树就称为线索二叉树（Threaded Binary Tree）。
+
+对二叉树以某种次序遍历使其变为线索二叉树的过程称做是线索化。
+
+<div style="display: flex;border:1px solid #000;width:500px;text-align: center;margin:0 auto">
+  <span style="flex:1;border-right:1px solid #000">lchild</span>
+  <span style="flex:1;border-right:1px solid #000">ltag</span>
+  <span style="flex:1;border-right:1px solid #000">data</span>
+  <span style="flex:1;border-right:1px solid #000">rtag</span>
+  <span style="flex:1">rchild</span>
+</div>
+
+■ 　 ltag 为 0 时指向该结点的左孩子，为 1 时指向该结点的前驱。
+■ 　 rtag 为 0 时指向该结点的右孩子，为 1 时指向该结点的后继。
+
+```c
+/* 二叉树的二叉线索存储结构定义 */
+typedef enum
+{
+  Link,    /* Link==0 表示指向左右孩子指针 */
+  Thread   /* Thread==1 表示指向前驱或后继的线索 */
+} PointerTag;
+
+typedef struct BiThrNode  /* 二叉线索存储结点结构 */
+{
+  TElemType data;         /* 结点数据 */
+  struct BiThrNode *lchild, *rchild; /* 左右孩子指针 */
+  PointerTag LTag;        /* 左标志 */
+  PointerTag RTag;        /* 右标志 */
+} BiThrNode, *BiThrTree;
+```
+
+线索化的过程就是在遍历的过程中修改空指针的过程。
+
+中序遍历线索化的递归函数代码如下：
+
+```c
+BiThrTree pre; /* 全局变量，始终指向刚刚访问过的结点 */
+
+/* 中序遍历进行中序线索化 */
+void InThreading(BiThrTree p)
+{
+  if (p)
+  {
+    InThreading(p->lchild); /* 递归左子树线索化 */
+
+    if (!p->lchild)         /* 没有左孩子 */
+    {
+      p->LTag = Thread;     /* 前驱线索 */
+      p->lchild = pre;      /* 左孩子指针指向前驱 */
+    }
+
+    if (!pre->rchild)       /* 前驱没有右孩子 */
+    {
+      pre->RTag = Thread;   /* 后继线索 */
+      pre->rchild = p;      /* 前驱右孩子指针指向后继（当前结点 p） */
+    }
+
+    pre = p;                /* 保持 pre 指向 p 的前驱 */
+    InThreading(p->rchild); /* 递归右子树线索化 */
+  }
+}
+```
+
+如果所用的二叉树需经常遍历或查找结点时需要某种遍历序列中的前驱和后继，那么采用线索二叉链表的存储结构就是非常不错的选择。
+
+中序线索化二叉树的中序遍历函数：
+
+```c
+/*
+ * T 指向头结点，头结点左链 lchild 指向根结点，头结点右链 rchild 指向中序遍历的最后一个结点。
+ * 中序遍历二叉线索链表表示的二叉树 T。
+ */
+Status InOrderTraverse_Thr(BiThrTree T)
+{
+  BiThrTree p;
+  p = T->lchild;  /* p 指向根结点 */
+
+  while (p != T)  /* 空树或遍历结束时，p == T */
+  {
+    /* 当 LTag == Link 时，循环到中序序列的第一个结点 */
+    while (p->LTag == Link)
+    {
+      p = p->lchild;
+    }
+
+    /* 显示结点数据，可以更改为其他对结点操作 */
+    printf("%c", p->data);
+
+    /*
+     * 当 RTag == Thread 且 rchild 不是指向头结点时，
+     * 利用线索找到后继结点
+     */
+    while (p->RTag == Thread && p->rchild != T)
+    {
+      p = p->rchild;
+      printf("%c", p->data);
+    }
+
+    p = p->rchild;  /* p 进至其右子树根（可能是线索或子树） */
+  }
+
+  return OK;
+}
+```
+
+#### 树、森林与二叉树的转换
+
+**树转换为二叉树**
+
+将树转换为二叉树的步骤如下：
+
+1. 加线。在所有兄弟结点之间加一条连线。
+2. 去线。对树中每个结点，只保留它与第一个孩子结点的连线，删除它与其他孩子结点之间的连线。
+3. 层次调整。以树的根结点为轴心，将整棵树顺时针旋转一定的角度，使之结构层次分明。注意第一个孩子是二叉树结点的左孩子，兄弟转换过来的孩子是结点的右孩子。
+
+**森林转换为二叉树**
+
+森林是由若干棵树组成的，所以完全可以理解为，森林中的每一棵树都是兄弟，可以按照兄弟的处理办法来操作。步骤如下：
+
+1. 把每个树转换为二叉树。
+2. 第一棵二叉树不动，从第二棵二叉树开始，依次把后一棵二叉树的根结点作为前一棵二叉树的根结点的右孩子，用线连接起来。当所有的二叉树连接起来后就得到了由森林转换来的二叉树。
+
+**二叉树转换为树**
+
+1. 加线。若某结点的左孩子结点存在，则将这个左孩子的右孩子结点、右孩子的右孩子结点、右孩子的右孩子的右孩子结点……哈，反正就是左孩子的 n 个右孩子结点都作为此结点的孩子。将该结点与这些右孩子结点用线连接起来。
+2. 去线。删除原二叉树中所有结点与其右孩子结点的连线。
+3. 层次调整。使之结构层次分明。
+
+**二叉树转换为森林**
+
+1. 从根结点开始，若右孩子存在，则把与右孩子结点的连线删除，再查看分离后的二叉树，若右孩子存在，则连线删除……，直到所有右孩子连线都删除为止，得到分离的二叉树。
+2. 再将每棵分离后的二叉树转换为树即可。
+
+### 哈夫曼树
+
+**哈夫曼树的构造**
+
+```c
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+  int weight;  // 权值
+  // 双亲节点的坐标，左孩子坐标，右孩子坐标
+  int parent, lch, rch;
+} HTNode, *HuffmanTree;
+
+// 创建哈夫曼树 n:初始结点数
+void CreateHuffmanTree(HuffmanTree *HT, int n) {
+  if (n <= 1) {
+    return;
+  } else {
+    // 总结点数
+    int m = 2 * n - 1;
+    // 因为不用0下标，所有开辟空间+1
+    // HT[m]是根结点
+    *HT = (HuffmanTree)malloc(sizeof(HTNode) * (m + 1));
+    // 初始化 将2n-1个元素置为0
+    for (int i = 1; i <= m; i++) {
+      (*HT)[i].weight = 0;
+      (*HT)[i].parent = 0;
+      (*HT)[i].lch = 0;
+      (*HT)[i].rch = 0;
+    }
+    // 权值赋值
+    for (int i = 1; i <= n; i++) {
+      scanf("%d", &(*HT)[i].weight);
+    }
+
+    // 创建非叶子节点，建哈夫曼树
+    for (int i = n + 1; i <= m; i++) {
+      // 选出权值最小的两个节点,并返回它们的下标（序号）
+      // Select(HT, i-1, s1, s2);
+      int s1, s2;
+      // 此时的i是当前新创建节点的序号
+      (*HT)[s1].parent = i;
+      (*HT)[s2].parent = i;
+      (*HT)[i].lch = s1;
+      (*HT)[i].rch = s2;
+      (*HT)[i].weight = (*HT)[s1].weight + (*HT)[s2].weight;
+    }
+  }
+}
+```
+
+## 图
+
+图（Graph）是由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为：G（V,E）​，其中，G 表示一个图，V 是图 G 中顶点的集合，E 是图 G 中边的集合。
+
+对于图的定义，我们需要明确几个注意的地方。
+
+■ 　线性表中我们把数据元素叫元素，树中将数据元素叫结点，在图中数据元素，我们则称之为顶点（Vertex）。
+■ 　线性表中可以没有数据元素，称为空表。树中可以没有结点，叫做空树。那么对于图呢？在图结构中，不允许没有顶点。在定义中，若 V 是顶点的集合，则强调了顶点集合 V 有穷非空。
+■ 　线性表中，相邻的数据元素之间具有线性关系，树结构中，相邻两层的结点具有层次关系，而图中，任意两个顶点之间都可能有关系，顶点之间的逻辑关系用边来表示，边集可以是空的。
+
+无向边：若顶点 v~i~ 到 v~j~ 之间的边没有方向，则称这条边为无向边（Edge）​，用无序偶对（v~i~,v~j~）来表示。如果图中任意两个顶点之间的边都是无向边，则称该图为**无向图**（Undirected graphs）​。
+
+有向边：若从顶点 v~i~ 到 v~j~ 的边有方向，则称这条边为有向边，也称为弧（Arc）​。用有序偶<v~i~, v~j~>来表示，v~i~ 称为弧尾（Tail）​，v~j~ 称为弧头（Head）​。如果图中任意两个顶点之间的边都是有向边，则称该图为**有向图**（Directed graphs）。
+
+在图中，若不存在顶点到其自身的边，且同一条边不重复出现，则称这样的图为**简单图**。
+
+在无向图中，如果任意两个顶点之间都存在边，则称该图为**无向完全图**。含有 n 个顶点的无向完全图有 $\frac{n(n-1)}{2}$ 条边。
+
+在有向图中，如果任意两个顶点之间都存在方向互为相反的两条弧，则称该图为**有向完全图**。含有 n 个顶点的无向完全图有 $n(n-1)$ 条边。
+
+有很少条边或弧的图称为**稀疏图**，反之称为**稠密图**。
+
+有些图的边或弧具有与它相关的数字，这种与图的边或弧相关的数叫做**权**（Weight）。这些权可以表示从一个顶点到另一个顶点的距离或耗费。这种带权的图通常称为网（Network）​。
+
+假设有两个图 G=（V,{E}）和 G’=（V’,{E’}）​，如果 V’⊆V 且 E’⊆E，则称 G’为 G 的子图（Subgraph）。
+
+对于无向图 G=（V,{E}）​，如果边（v,v’）∈E，则称顶点 v 和 v’互为邻接点（Adjacent）​，即 v 和 v’相邻接。边（v,v’）依附（incident）于顶点 v 和 v’，或者说（v,v’）与顶点 v 和 v’相关联。顶点 v 的度（Degree）是和 v 相关联的边的数目，记为 TD（v）。
+
+对于有向图 G=（V,{E}）​，如果弧<v,v’>∈E，则称顶点 v 邻接到顶点 v’，顶点 v’邻接自顶点 v。弧<v,v’>和顶点 v，v’相关联。以顶点 v 为头的弧的数目称为 v 的入度（InDegree）​，记为 ID（v）​；以 v 为尾的弧的数目称为 v 的出度（OutDegree）​，记为 OD（v）​；顶点 v 的度为 TD（v）=ID（v）+OD（v）。
+
+无向图 G=（V,{E}）中从顶点 v 到顶点 v’的路径（Path）是一个顶点序列（v=v~i~,0,v~i~,1,…,v~i~,m=v’）​，其中（v~i~,j-1,v~i~,j）∈E，1≤j≤m。
+
+路径的长度是路径上的边或弧的数目。
+
+第一个顶点到最后一个顶点相同的路径称为回路或环（Cycle）​。序列中顶点不重复出现的路径称为简单路径。除了第一个顶点和最后一个顶点之外，其余顶点不重复出现的回路，称为简单回路或简单环。
+
+在无向图 G 中，如果从顶点 v 到顶点 v’有路径，则称 v 和 v’是连通的。如果对于图中任意两个顶点 vi、vj∈E，vi 和 vj 都是连通的，则称 G 是连通图（Connected Graph）。
+
+无向图中的极大连通子图称为连通分量。注意连通分量的概念，它强调：
+
+■ 　要是子图；
+■ 　子图要是连通的；
+■ 　连通子图含有极大顶点数；
+■ 　具有极大顶点数的连通子图包含依附于这些顶点的所有边。
+
+在有向图 G 中，如果对于每一对 v~i~、v~j~∈V、v~i~≠v~j~，从 v~i~ 到 v~j~ 和从 v~j~ 到 v~i~ 都存在路径，则称 G 是强连通图。有向图中的极大强连通子图称做有向图的强连通分量。
+
+一个连通图的生成树是一个极小的连通子图，它含有图中全部的 n 个顶点，但只有足以构成一棵树的 n－1 条边。
+
+如果一个有向图恰有一个顶点的入度为 0，其余顶点的入度均为 1，则是一棵有向树。
+
+一个有向图的生成森林由若干棵有向树组成，含有图中全部顶点，但只有足以构成若干棵不相交的有向树的弧。
+
+```c
+ADT 图（Graph）
+
+Data
+  顶点的有穷非空集合和边的集合。
+
+Operation
+  CreateGraph(*G, V, VR)：按照顶点集 V 和边弧集 VR 的定义构造图 G。
+  DestroyGraph(*G)：图 G 存在则销毁。
+  LocateVex(G, u)：若图 G 中存在顶点 u，则返回图中的位置。
+  GetVex(G, v)：返回图 G 中顶点 v 的值。
+  PutVex(G, v, value)：将图 G 中顶点 v 赋值 value。
+  FirstAdjVex(G, *v)：返回顶点 v 的一个邻接顶点，若顶点在 G 中无邻接顶点返回空。
+  NextAdjVex(G, v, *w)：返回顶点 v 相对于顶点 w 的下一个邻接顶点，若 w 是 v 的最后一个邻接点则返回“空”。
+  InsertVex(*G, v)：在图 G 中增添新顶点 v。
+  DeleteVex(*G, v)：删除图 G 中顶点 v 及其相关的弧。
+  InsertArc(*G, v, w)：在图 G 中增添弧<v, w>，若 G 是无向图，还需要增添对称弧<w, v>。
+  DeleteArc(*G, v, w)：在图 G 中删除弧<v, w>，若 G 是无向图，则还删除对称弧<w, v>。
+  DFSTraverse(G)：对图 G 中进行深度优先遍历，在遍历过程对每个顶点调用。
+  HFSTraverse(G)：对图 G 中进行广度优先遍历，在遍历过程对每个顶点调用。
+
+endADT
+```
+
+### 图的存储结构
+
+#### 邻接矩阵
+
+图的邻接矩阵（Adjacency Matrix）存储方式是用两个数组来表示图。一个一维数组存储图中顶点信息，一个二维数组（称为邻接矩阵）存储图中的边或弧的信息。
