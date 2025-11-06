@@ -1481,3 +1481,142 @@ endADT
 #### 邻接矩阵
 
 图的邻接矩阵（Adjacency Matrix）存储方式是用两个数组来表示图。一个一维数组存储图中顶点信息，一个二维数组（称为邻接矩阵）存储图中的边或弧的信息。
+
+```c
+typedef char VertexType;       /* 顶点类型应由用户定义 */
+typedef int EdgeType;          /* 边上的权值类型应由用户定义 */
+#define MAXVEX 100             /* 最大顶点数，应由用户定义 */
+#define INFINITY 65535         /* 用65535来代表∞ */
+
+typedef struct {
+  VertexType vexs[MAXVEX];     /* 顶点表 */
+  EdgeType arc[MAXVEX][MAXVEX];/* 邻接矩阵，可看作边表 */
+  int numVertexes, numEdges;   /* 图中当前的顶点数和边数 */
+} MGraph;
+
+/* 建立无向网图的邻接矩阵表示 */
+void CreateMGraph(MGraph *G)
+{
+  int i, j, k, w;
+
+  printf("输入顶点数和边数:\n");
+  scanf("%d,%d", &G->numVertexes, &G->numEdges); /* 输入顶点数和边数 */
+
+  for (i = 0; i < G->numVertexes; i++)  /* 读入顶点信息，建立顶点表 */
+    scanf(&G->vexs[i]);  // **注意：这里应该是字符输入，正确写法应为 `scanf(" %c", &G->vexs[i]);`**
+
+  for (i = 0; i < G->numVertexes; i++)
+    for (j = 0; j < G->numVertexes; j++)
+      G->arc[i][j] = INFINITY;  /* 邻接矩阵初始化 */
+
+  for (k = 0; k < G->numEdges; k++)  /* 读入 numEdges 条边，建立邻接矩阵 */
+  {
+    printf("输入边（vi,vj）上的下标 i, 下标 j 和权 w:\n");
+    scanf("%d,%d,%d", &i, &j, &w); /* 输入边（vi,vj）上的权 w */
+
+    G->arc[i][j] = w;
+    G->arc[j][i] = G->arc[i][j]; /* 因为是无向图，矩阵对称 */
+  }
+}
+```
+
+#### 邻接表
+
+将结点存入数组，并对结点的孩子进行链式存储，把这种数组与链表相结合的存储方法称为邻接表（Adjacency List）。
+
+```c
+typedef char VertexType;  /* 顶点类型应由用户定义 */
+typedef int EdgeType;     /* 边上的权值类型应由用户定义 */
+
+/* 边表结点 */
+typedef struct EdgeNode {
+  int adjvex;             /* 邻接点域，存储该顶点对应的下标 */
+  EdgeType weight;        /* 用于存储权值，对于非网图可以不需要 */
+  struct EdgeNode *next;  /* 链域，指向下一个邻接点 */
+} EdgeNode;
+
+/* 顶点表结点 */
+typedef struct VertexNode {
+  VertexType data;        /* 顶点域，存储顶点信息 */
+  EdgeNode *firstedge;    /* 边表头指针 */
+} VertexNode, AdjList[MAXVEX];  // 定义邻接表类型
+
+/* 图结构（邻接表表示） */
+typedef struct {
+  AdjList adjList;        // 邻接表数组
+  int numVertexes;        // 图中当前顶点数
+  int numEdges;           // 图中当前边数
+} GraphAdjList;
+
+/* 建立图的邻接表结构 */
+void CreateALGraph(GraphAdjList *G)
+{
+  int i, j, k;
+  EdgeNode *e;
+
+  printf("输入顶点数和边数:\n");
+  scanf("%d,%d", &G->numVertexes, &G->numEdges); /* 输入顶点数和边数 */
+
+  for (i = 0; i < G->numVertexes; i++)  /* 读入顶点信息，建立顶点表 */
+  {
+    scanf(" %c", &G->adjList[i].data);  /* 输入顶点信息，注意空格跳过换行符 */
+    G->adjList[i].firstedge = NULL;     /* 将边表置为空表 */
+  }
+
+  for (k = 0; k < G->numEdges; k++)  /* 建立边表 */
+  {
+    printf("输入边（vi,vj）上的顶点序号:\n");
+    scanf("%d,%d", &i, &j);  /* 输入边（vi,vj）上的顶点序号 */
+
+    /* 向内存申请空间，生成边表结点（对应顶点 j） */
+    e = (EdgeNode *)malloc(sizeof(EdgeNode));
+    e->adjvex = j;                      /* 邻接序号为 j */
+    e->next = G->adjList[i].firstedge;  /* 将 e 指向当前顶点 i 指向的结点 */
+    G->adjList[i].firstedge = e;        /* 将当前顶点 i 的指针指向 e */
+
+    /* 向内存申请空间，生成边表结点（对应顶点 i） */
+    e = (EdgeNode *)malloc(sizeof(EdgeNode));
+    e->adjvex = i;                      /* 邻接序号为 i */
+    e->next = G->adjList[j].firstedge;  /* 将 e 指向当前顶点 j 指向的结点 */
+    G->adjList[j].firstedge = e;        /* 将当前顶点 j 的指针指向 e */
+  }
+}
+```
+
+#### 十字链表
+
+把邻接表与逆邻接表结合起来。
+
+顶点表结点结构
+
+<div style="display: flex;border:1px solid #000;width:300px;text-align: center;margin:0 auto">
+  <span style="flex:1;border-right:1px solid #000">data</span>
+  <span style="flex:1;border-right:1px solid #000">firstin</span>
+  <span style="flex:1">firstout</span>
+</div>
+
+其中 firstin 表示入边表头指针，指向该顶点的入边表中第一个结点，firstout 表示出边表头指针，指向该顶点的出边表中的第一个结点。
+
+边表结点结构
+
+<div style="display: flex;border:1px solid #000;width:300px;text-align: center;margin:0 auto">
+  <span style="flex:1;border-right:1px solid #000">tailvex</span>
+  <span style="flex:1;border-right:1px solid #000">headvex</span>
+  <span style="flex:1;border-right:1px solid #000">headlink</span>
+  <span style="flex:1">taillink</span>
+</div>
+
+其中 tailvex 是指弧起点在顶点表的下标，headvex 是指弧终点在顶点表中的下标，headlink 是指入边表指针域，指向终点相同的下一条边，taillink 是指边表指针域，指向起点相同的下一条边。如果是网，还可以再增加一个 weight 域来存储权值。
+
+#### 邻接多重表
+
+边表结点结构
+
+<div style="display: flex;border:1px solid #000;width:300px;text-align: center;margin:0 auto">
+  <span style="flex:1;border-right:1px solid #000">ivex</span>
+  <span style="flex:1;border-right:1px solid #000">ilink</span>
+  <span style="flex:1;border-right:1px solid #000">jvex</span>
+  <span style="flex:1">jlink</span>
+</div>
+
+其中 ivex 和 jvex 是与某条边依附的两个顶点在顶点表中下标。ilink 指向依附顶点 ivex 的下一条边，jlink 指向依附顶点 jvex 的下一条边。这就是邻接多重表结构。
