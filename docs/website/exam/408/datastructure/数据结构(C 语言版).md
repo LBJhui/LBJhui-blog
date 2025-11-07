@@ -1620,3 +1620,505 @@ void CreateALGraph(GraphAdjList *G)
 </div>
 
 其中 ivex 和 jvex 是与某条边依附的两个顶点在顶点表中下标。ilink 指向依附顶点 ivex 的下一条边，jlink 指向依附顶点 jvex 的下一条边。这就是邻接多重表结构。
+
+#### 边集数组
+
+边集数组是由两个一维数组构成。一个是存储顶点的信息；另一个是存储边的信息，这个边数组每个数据元素由一条边的起点下标（begin）​、终点下标（end）和权（weight）组成。
+
+边数组结构
+
+<div style="display: flex;border:1px solid #000;width:300px;text-align: center;margin:0 auto">
+  <span style="flex:1;border-right:1px solid #000">begin</span>
+  <span style="flex:1;border-right:1px solid #000">end</span>
+  <span style="flex:1">weight</span>
+</div>
+
+其中 begin 是存储起点下标，end 是存储终点下标，weight 是存储权值。
+
+### 图的遍历
+
+从图中某一顶点出发访遍图中其余顶点，且使每一个顶点仅被访问一次，这一过程就叫做图的遍历（Traversing Graph）​。
+
+#### 深度优先遍历
+
+深度优先遍历（Depth_First_Search）​，也有称为深度优先搜索，简称为 DFS。它从图中某个顶点 v 出发，访问此顶点，然后从 v 的未被访问的邻接点出发深度优先遍历图，直至图中所有和 v 有路径相通的顶点都被访问到。若图中尚有顶点未被访问，则另选图中一个未曾被访问的顶点作起始点，重复上述过程，直至图中所有顶点都被访问到为止。
+
+```c
+typedef int Boolean;  /* Boolean 是布尔类型，其值是 TRUE 或 FALSE */
+Boolean visited[MAX];  /* 访问标志的数组 */
+
+/* 邻接矩阵的深度优先递归算法 */
+void DFS(MGraph G, int i)
+{
+  int j;
+  visited[i] = TRUE;
+  printf("%c ", G.vexs[i]);  /* 打印顶点，也可以其他操作 */
+  for (j = 0; j < G.numVertexes; j++)
+    if (G.arc[i][j] == 1 &&!visited[j])
+      DFS(G, j);  /* 对为访问的邻接顶点递归调用 */
+}
+
+/* 邻接矩阵的深度遍历操作 */
+void DFSTraverse(MGraph G)
+{
+  int i;
+  for (i = 0; i < G.numVertexes; i++)
+    visited[i] = FALSE;  /* 初始所有顶点状态都是未访问过状态 */
+  for (i = 0; i < G.numVertexes; i++)
+    if (!visited[i]) /* 对未访问过的顶点调用 DFS，若是连通图，只会执行一次 */
+      DFS(G, i);
+}
+```
+
+```c
+/* 邻接表的深度优先递归算法 */
+void DFS(GraphAdjList GL, int i)
+{
+  EdgeNode *p;
+  visited[i] = TRUE;
+  printf("%c ", GL->adjList[i].data); /* 打印顶点，也可以其他操作 */
+  p = GL->adjList[i].firstedge;
+  while (p)
+  {
+    if (!visited[p->adjvex])
+      DFS(GL, p->adjvex); /* 对为访问的邻接顶点递归调用 */
+    p = p->next;
+  }
+}
+
+/* 邻接表的深度遍历操作 */
+void DFSTraverse(GraphAdjList GL)
+{
+  int i;
+  for (i = 0; i < GL->numVertexes; i++)
+    visited[i] = FALSE; /* 初始所有顶点状态都是未访问过状态 */
+  for (i = 0; i < GL->numVertexes; i++)
+    if (!visited[i]) /* 对未访问过的顶点调用 DFS，若是连通图，只会执行一次 */
+      DFS(GL, i);
+}
+```
+
+#### 广度优先遍历
+
+广度优先遍历（Breadth_First_Search）​，又称为广度优先搜索，简称 BFS。
+
+```c
+/* 邻接矩阵的广度遍历算法 */
+void BFSTraverse(MGraph G)
+{
+  int i, j;
+  Queue Q;
+  for (i = 0; i < G.numVertexes; i++)
+    visited[i] = FALSE;
+  InitQueue(&Q);  /* 初始化一辅助用的队列 */
+  for (i = 0; i < G.numVertexes; i++)  /* 对每一个顶点做循环 */
+  {
+    if (!visited[i])  /* 若是未访问过就处理 */
+    {
+      visited[i]=TRUE;  /* 设置当前顶点访问过*/
+      printf("%c ", G.vexs[i]); /* 打印顶点，也可以其他操作 */
+      EnQueue(&Q,i);  /* 将此顶点入队列 */
+      while (!QueueEmpty(Q))  /* 若当前队列不为空 */
+      {
+        DeQueue(&Q,&i);  /* 将队中元素出队列，赋值给 i */
+        for (j=0;j<G.numVertexes;j++)
+        {
+          /* 判断其他顶点若与当前顶点存在边且未访问过 */
+          if (G.arc[i][j] == 1 &&!visited[j])
+          {
+            visited[j]=TRUE;  /* 将找到的此顶点标记为已访问 */
+            printf("%c ", G.vexs[j]);  /* 打印顶点 */
+            EnQueue(&Q,j);  /* 将找到的此顶点入队列 */
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+```c
+/* 邻接表的广度遍历算法 */
+void BFSTraverse(GraphAdjList GL)
+{
+  int i;
+  EdgeNode *p;
+  Queue Q;
+  for (i = 0; i < GL->numVertexes; i++)
+    visited[i] = FALSE;
+  InitQueue(&Q);
+  for (i = 0; i < GL->numVertexes; i++)
+  {
+    if (!visited[i])
+    {
+      visited[i]=TRUE;
+      printf("%c ", GL->adjList[i].data); /* 打印顶点，也可以其他操作 */
+      EnQueue(&Q, i);
+      while (!QueueEmpty(Q))
+      {
+        DeQueue(&Q, &i);
+        p = GL->adjList[i].firstedge; /* 找到当前顶点边表表头指针 */
+        while (p)
+        {
+          if (!visited[p->adjvex])  /* 若此顶点未被访问 */
+          {
+            visited[p->adjvex]=TRUE;
+            printf("%c ", GL->adjList[p->adjvex].data);
+            EnQueue(&Q, p->adjvex);  /* 将此顶点入队列 */
+          }
+          p = p->next;  /* 指针指向下一个邻接点 */
+        }
+      }
+    }
+  }
+}
+```
+
+### 最小生成树
+
+构造连通网的最小代价生成树称为最小生成树（Minimum Cost Spanning Tree）。
+
+#### 普里姆（Prim）算法
+
+```c
+/* Prim算法生成最小生成树 */
+void MiniSpanTree_Prim (MGraph G)
+{
+  int min, i, j, k;
+  int adjvex[MAXVEX];      /* 保存相关顶点下标 */
+  int lowcost[MAXVEX];     /* 保存相关顶点间边的权值 */
+  lowcost[0] = 0;          /* 初始化第一个顶点下标为0，即加入生成树 */
+                           /* lowcost的值为0，在这里就是此下标加入生成树 */
+  adjvex[0] = 0;           /* 初始化第一个顶点下标为0 */
+  for (i = 1; i < G.numVertexes; i++)  /* 循环除下标为0外的全部顶点 */
+  {
+    lowcost[i] = G.arc[0][i]; /* 将顶点与之有权的权值存入数组 */
+    adjvex[i] = 0;          /* 初始化都为v0的下标 */
+  }
+  for (i = 1; i < G.numVertexes; i++)
+  {
+    min = 32767; /* 初始化最小权值为32767，假设权值不超过这个数，也可根据实际情况修改，如65535等 */
+    j = 1;
+    k = 0;
+    while (j < G.numVertexes)  /* 循环全部顶点 */
+    {
+      if (lowcost[j]!= 0 && lowcost[j] < min)
+      { /* 如果权值不为0且权值小于min */
+        min = lowcost[j];  /* 则让当前权值成为最小值 */
+        k = j;             /* 将当前最小值的下标存入k */
+      }
+      j++;
+    }
+    printf("(%d, %d) ", adjvex[k], k); /* 打印当前顶点边中权值最小边 */
+    lowcost[k] = 0; /* 将当前顶点的权值设置为0，表示此顶点已完成任务 */
+    for (j = 1; j < G.numVertexes; j++)  /* 循环所有顶点 */
+    {
+      if (lowcost[j]!= 0 && G.arc[k][j] < lowcost[j])
+      { /* 若下标为k顶点各边权值小于此前这些顶点未被加入生成树权值 */
+        lowcost[j] = G.arc[k][j]; /* 将较小权值存入lowcost */
+        adjvex[j] = k;            /* 将下标为k的顶点存入adjvex */
+      }
+    }
+  }
+}
+```
+
+#### 克鲁斯卡尔（Kruskal）算法
+
+```c
+/* 对边集数组Edge结构的定义 */
+typedef struct
+{
+  int begin;
+  int end;
+  int weight;
+} Edge;
+
+/* Kruskal 算法生成最小生成树 */
+void MiniSpanTree_Kruskal (MGraph G) /* 生成最小生成树 */
+{
+  int i, n, m;
+  Edge edges[MAXEDGE];  /* 定义边集数组*/
+  int parent[MAXVEX];  /* 定义一数组用来判断边与边是否形成环路 */
+  /* 此处省略将邻接矩阵 G 转化为边集数组 edges 并按权由小到大排序的代码*/
+  for (i = 0; i < G.numVertexes; i++)
+    parent[i] = 0;  /* 初始化数组值为 0 */
+  for (i = 0; i < G.numEdges; i++)  /* 循环每一条边 */
+  {
+    n = Find(parent, edges[i].begin);
+    m = Find(parent, edges[i].end);
+    if (n!= m)  /* 假如 n 与 m 不等，说明此边没有与现有生成树形成环路*/
+    {
+      parent[n] = m;  /* 将此边的结尾顶点放入下标为起点的 parent 中*/
+                      /* 表示此顶点已经在生成树集合中 */
+      printf("(%d, %d) %d ", edges[i].begin,
+             edges[i].end, edges[i].weight);
+    }
+  }
+}
+
+int Find(int *parent, int f)  /* 查找连线顶点的尾部下标 */
+{
+  while (parent[f] > 0)
+    f = parent[f];
+  return f;
+}
+```
+
+### 最短路径
+
+对于网图来说，最短路径，是指两顶点之间经过的边上权值之和最少的路径，并且我们称路径上的第一个顶点是源点，最后一个顶点是终点。
+
+#### 迪杰斯特拉（Dijkstra）算法
+
+```c
+#define MAXVEX 9
+#define INFINITY 65535
+
+typedef int Pathmatirx[MAXVEX];  // 用于存储最短路径下标的数组
+typedef int ShortPathTable[MAXVEX];  // 用于存储到各点最短路径的权值和
+
+/* Dijkstra算法，需要传入图的邻接矩阵G、起始顶点v0、最短路径下标数组P、最短路径长度数组D */
+void ShortestPath_Dijkstra(MGraph G, int v0, Pathmatirx *P, ShortPathTable *D)
+{
+  int v, w, min;
+  int final[MAXVEX];  /* final[w]=1 表示求得顶点v0到vw的最短路径 */
+  for (v = 0; v < G.numVertexes; v++)
+  {
+    // 初始化数据
+    final[v] = 0;  // 全部顶点初始化为未知最短路径状态
+    (*D)[v] = G.matirx[v0][v];  // 将与v0点有连线的顶点加上权值
+    (*P)[v] = 0;  // 初始化路径数组为0
+  }
+  (*D)[v0] = 0;  // v0至v0路径为0
+  final[v0] = 1;  // v0至v0不需要求路径
+  // 开始主循环，每次求得v0到某个v顶点的最短路径
+  for (v = 1; v < G.numVertexes; v++)
+  {
+    min = INFINITY;  // 当前所知离v0顶点的最近距离
+    for (w = 0; w < G.numVertexes; w++)  // 寻找离v0最近的顶点
+    {
+      if (!final[w] && (*D)[w] < min)
+      {
+        k = w;
+        min = (*D)[w];  // w顶点离v0顶点更近
+      }
+    }
+    final[k] = 1;  // 将目前找到的最近的顶点置为1
+    for (w = 0; w < G.numVertexes; w++)  // 修正当前最短路径及距离
+    {
+      // 如果经过k顶点路径比现在这条路径长度更短
+      if (!final[w] && (min + G.matirx[k][w] < (*D)[w]))
+      {
+        // 说明找到了更短的路径，修改d[w]和p[w]
+        (*D)[w] = min + G.matirx[k][w];  // 修改当前路径长度
+        (*P)[w] = k;  // 修改前驱顶点
+      }
+    }
+  }
+}
+```
+
+#### 弗洛伊德（Floyd）算法
+
+```c
+typedef int Pathmatirx[MAXVEX][MAXVEX];
+typedef int ShortPathTable[MAXVEX][MAXVEX];
+
+/* Floyd算法，求网图G中各顶点v到其余顶点w最短路径P[v][w]及带权长度D[v][w] */
+void ShortestPath_Floyd(MGraph G, Pathmatirx *P, ShortPathTable *D)
+{
+  int v, w, k;
+  for (v = 0; v < G.numVertexes; ++v)  /* 初始化D与P */
+  {
+    for (w = 0; w < G.numVertexes; ++w)
+    {
+      (*D)[v][w] = G.matirx[v][w];  /* D[v][w]值即为对应点间的权值*/
+      (*P)[v][w] = w;               /* 初始化P */
+    }
+  }
+  for (k = 0; k < G.numVertexes; ++k)
+  {
+    for (v = 0; v < G.numVertexes; ++v)
+    {
+      for (w = 0; w < G.numVertexes; ++w)
+      {
+        if ((*D)[v][w] > (*D)[v][k] + (*D)[k][w])
+        { /* 如果经过下标为k顶点路径比原两点间路径更短 */
+          /* 将当前两点间权值设为更小的一个 */
+          (*D)[v][w] = (*D)[v][k] + (*D)[k][w];
+          (*P)[v][w] = (*P)[v][k];/*路径设置经过下标为k的顶点*/
+        }
+      }
+    }
+  }
+}
+```
+
+求最短路径的显示代码可以这样写。
+
+```c
+for (v = 0; v < G.numVertexes; ++v)
+{
+  for (w = v + 1; w < G.numVertexes; w++)
+  {
+    printf("v%d-v%d weight: %d ", v, w, D[v][w]);
+    k = P[v][w];  /* 获得第一个路径顶点下标 */
+    printf(" path: %d", v);  /* 打印源点 */
+    while (k!= w)  /* 如果路径顶点下标不是终点 */
+    {
+      printf(" -> %d", k);  /* 打印路径顶点 */
+      k = P[k][w];  /* 获得下一个路径顶点下标 */
+    }
+    printf(" -> %d\n", w);  /* 打印终点 */
+  }
+  printf("\n");
+}
+```
+
+### 拓扑排序
+
+在一个表示工程的有向图中，用顶点表示活动，用弧表示活动之间的优先关系，这样的有向图为顶点表示活动的网，我们称为 AOV 网（Activity On Vertex Network）。
+
+设 G=(V,E)是一个具有 n 个顶点的有向图，V 中的顶点序列 v~1~，v~2~，……，v~n~，满足若从顶点 v~i~ 到 v~j~ 有一条路径，则在顶点序列中顶点 v~i~ 必在顶点 v~j~ 之前。则我们称这样的顶点序列为一个拓扑序列。
+
+拓扑排序，其实就是对一个有向图构造拓扑序列的过程。
+
+```c
+typedef struct EdgeNode  /* 边表结点 */
+{
+  int adjvex;          /* 邻接点域，存储该顶点对应的下标 */
+  int weight;          /* 用于存储权值，对于非网图可以不需要 */
+  struct EdgeNode *next;  /* 链域，指向下一个邻接点   */
+} EdgeNode;
+
+typedef struct VertexNode  /* 顶点表结点 */
+{
+  int in;              /* 顶点入度 */
+  int data;            /* 顶点域，存储顶点信息 */
+  EdgeNode *firstedge; /* 边表头指针 */
+} VertexNode, AdjList[MAXVEX];
+
+typedef struct
+{
+  AdjList adjList;
+  int numVertexes, numEdges;  /* 图中当前顶点数和边数 */
+} graphAdjList, *GraphAdjList;
+
+/* 拓扑排序，若 GL 无回路，则输出拓扑排序序列并返回 OK，若有回路返回 ERROR */
+Status TopologicalSort(GraphAdjList GL)
+{
+  EdgeNode *e;
+  int i, k, gettop;
+  int top = 0;  /* 用于栈指针下标 */
+  int count = 0;  /* 用于统计输出顶点的个数 */
+  int *stack;  /* 建栈存储入度为 0 的顶点 */
+  stack = (int *)malloc(GL->numVertexes * sizeof(int));
+  for (i = 0; i < GL->numVertexes; i++)
+  {
+    if (GL->adjList[i].in == 0)
+      stack[++top] = i;  /* 将入度为 0 的顶点入栈 */
+  }
+  while (top != 0)
+  {
+    gettop = stack[top--];  /* 出栈 */
+    printf("%d -> ", GL->adjList[gettop].data);  /* 打印此顶点 */
+    count++;  /* 统计输出顶点数 */
+    for (e = GL->adjList[gettop].firstedge; e; e = e->next)
+    { /* 对此顶点弧表遍历 */
+      k = e->adjvex;
+      if (!(--GL->adjList[k].in)) /*将 k 号顶点邻接点的入度减 1*/
+        stack[++top] = k;  /*若为 0 则入栈，以便于下次循环输出 */
+    }
+  }
+  if (count < GL->numVertexes) /* 如果 count 小于顶点数，说明存在环*/
+    return ERROR;
+  else
+    return OK;
+}
+```
+
+### 关键路径
+
+在一个表示工程的带权有向图中，用顶点表示事件，用有向边表示活动，用边上的权值表示活动的持续时间，这种有向图的边表示活动的网，我们称之为 AOE 网（Activity On Edge Network）。
+
+路径上各个活动所持续的时间之和称为路径长度，从源点到汇点具有最大长度的路径叫关键路径，在关键路径上的活动叫关键活动。
+
+```c
+/* 拓扑排序，用于关键路径计算 */
+Status TopologicalSort(GraphAdjList GL)
+{
+  EdgeNode *e;
+  int i, k, gettop;
+  int top = 0;      /* 用于栈指针下标 */
+  int count = 0;    /* 用于统计输出顶点的个数 */
+  int *stack;       /* 建栈将入度为0的顶点入栈 */
+  stack = (int *)malloc(GL->numVertexes * sizeof(int));
+  for (i = 0; i < GL->numVertexes; i++)
+  {
+    if (0 == GL->adjList[i].in)
+      stack[++top] = i;
+  }
+  int top2 = 0;                /* 初始化为0 */
+  int *etv = (int *)malloc(GL->numVertexes * sizeof(int));/*事件最早发生时间*/
+  for (i = 0; i < GL->numVertexes; i++)
+    etv[i] = 0;                /* 初始化为0 */
+  int *stack2 = (int *)malloc(GL->numVertexes * sizeof(int));/*初始化*/
+  while (top != 0)
+  {
+    gettop = stack[top--];
+    count++;
+    stack2[++top2] = gettop;  /* 将弹出的顶点序号压入拓扑序列的栈 */
+    for (e = GL->adjList[gettop].firstedge; e; e = e->next)
+    {
+      k = e->adjvex;
+      if (!(--GL->adjList[k].in))
+        stack[++top] = k;
+      if ((etv[gettop] + e->weight) > etv[k])/*求各顶点事件最早发生时间值*/
+        etv[k] = etv[gettop] + e->weight;
+    }
+  }
+  if (count < GL->numVertexes)
+    return ERROR;
+  else
+    return OK;
+}
+```
+
+```c
+/* 求关键路径，GL 为有向网，输出 GL 的各项关键活动 */
+void CriticalPath(GraphAdjList GL)
+{
+  EdgeNode *e;
+  int i, gettop, k, j;
+  int ete, lte;  /* 声明活动最早发生时间和最迟发生时间变量 */
+  TopologicalSort(GL);  /* 求拓扑序列，计算数组 etv 和 stack2 的值 */
+  int *ltv = (int *)malloc(GL->numVertexes * sizeof(int));/*事件最晚发生时间*/
+  for (i = 0; i < GL->numVertexes; i++)
+    ltv[i] = etv[GL->numVertexes - 1];  /* 初始化 ltv */
+  while (top2 != 0)  /* 计算 ltv */
+  {
+    gettop = stack2[top2--];  /* 将拓扑序列出栈，后进先出 */
+    for (e = GL->adjList[gettop].firstedge; e; e = e->next)
+    { /* 求各顶点事件的最迟发生时间 ltv 值 */
+      k = e->adjvex;
+      if (ltv[k] - e->weight < ltv[gettop])/*求各顶点事件最迟发生时间 ltv*/
+        ltv[gettop] = ltv[k] - e->weight;
+    }
+  }
+  for (j = 0; j < GL->numVertexes; j++)  /* 求 ete, lte 和关键活动 */
+  {
+    for (e = GL->adjList[j].firstedge; e; e = e->next)
+    {
+      k = e->adjvex;
+      ete = etv[j];                /* 活动最早发生时间 */
+      lte = ltv[k] - e->weight;    /* 活动最迟发生时间 */
+      if (ete == lte)              /* 两者相等即在关键路径上 */
+        printf("<v%d,v%d> length: %d ",
+               GL->adjList[j].data, GL->adjList[k].data, e->weight);
+    }
+  }
+}
+```
+
+## 查找
