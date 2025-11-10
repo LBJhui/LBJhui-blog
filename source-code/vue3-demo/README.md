@@ -1,6 +1,6 @@
 ```powerShell
 # 创建项目
-pnpm create vite
+pnpm create vite my-vue-app --template vue
 ```
 
 [配置 eslint](https://eslint.vuejs.org/user-guide/)
@@ -93,3 +93,39 @@ pnpm commitlint
 ```
 
 当我们 commit 提交信息时，就不能再随意写了，必须是 git commit -m 'fix: xxx' 符合类型的才可以，**需要注意的是类型的后面需要用英文的 :，并且冒号后面是需要空一格的，这个是不能省略的**
+
+[element-plus](https://element-plus.org/zh-CN/)
+
+## src 别名的配置
+
+在开发项目的时候文件与文件关系可能很复杂，因此我们需要给 src 文件夹配置一个别名！！！
+
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import path from 'path'
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': path.resolve('./src'), // 相对路径别名配置，使用 @ 代替 src
+    },
+  },
+})
+```
+
+TypeScript 编译配置
+
+```json
+// tsconfig.app.json
+{
+  "compilerOptions": {
+    "baseUrl": "./", // 解析非相对模块的基地址，默认是当前目录
+    "paths": {
+      //路径映射，相对于baseUrl
+      "@/*": ["src/*"]
+    }
+  }
+}
+```
