@@ -7,6 +7,9 @@
 [阮一峰的网络日志](https://www.ruanyifeng.com/blog/)
 ```
 
+// console.log(util.inspect(array, { showHidden: false, depth: null, colors: true }))
+
+
 ```text
 图片裁剪上传原理
 https://www.zhangxinxu.com/wordpress/2025/04/dom-sethtmlunsafe-parsehtmlunsafe/
