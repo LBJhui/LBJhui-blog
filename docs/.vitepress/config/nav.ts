@@ -1,43 +1,49 @@
-import { navLink } from './urlconfig'
+import { navLinkMap } from './urlConfig'
 
 const nav = [
   { text: '首页', link: '/' },
   {
     text: '前端基础',
     items: [
-      { text: 'HTML', link: navLink['HTML'] },
-      { text: 'CSS', link: navLink['CSS'] },
-      { text: 'JavaScript', link: navLink['JavaScript'] },
-      { text: 'Git', link: navLink['Git'] }
+      { text: 'HTML', link: navLinkMap.get('HTML') },
+      { text: 'CSS', link: navLinkMap.get('CSS') },
+      { text: 'JavaScript', link: navLinkMap.get('JavaScript') },
+      { text: 'Git', link: navLinkMap.get('Git') }
     ]
   },
   {
     text: '框架&库',
     items: [
-      { text: 'Vue', link: navLink['Vue'] },
-      { text: '前端工程化', link: navLink['engineering'] },
-      { text: '浏览器和网络', link: navLink['browser&network'] },
-      { text: '微信环境', link: navLink['wx'] }
+      { text: 'Vue', link: navLinkMap.get('Vue') },
+      { text: '前端工程化', link: navLinkMap.get('engineering') },
+      { text: '浏览器和网络', link: navLinkMap.get('browser&network') },
+      { text: '微信环境', link: navLinkMap.get('wx') }
     ]
   },
   {
     text: '面试题',
-    link: navLink['interview']
+    link: navLinkMap.get('interview')
   },
   {
     text: 'Leetcode算法',
-    link: navLink['Leetcode']
+    link: navLinkMap.get('Leetcode')
   },
   {
     text: '业务场景',
-    link: navLink['work']
+    link: navLinkMap.get('work')
+  },
+  {
+    text: '考研',
+    items: [
+      { text: '数学', link: navLinkMap.get('math') },
+      { text: '408', link: navLinkMap.get('王道笔记') }
+    ]
   },
   {
     text: '更多',
     items: [
-      // { text: 'code', link: getLink(urlsObject.code) },
-      { text: 'python', link: navLink['python'] },
-      { text: '网址收藏', link: navLink['more'] }
+      { text: 'python', link: navLinkMap.get('python') },
+      { text: '网址收藏', link: navLinkMap.get('more') }
     ]
   }
 ]

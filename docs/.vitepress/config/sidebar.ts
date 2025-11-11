@@ -1,12 +1,13 @@
-import { sidebar as sidebarList } from './urlconfig'
-const sidebar = {}
+import { sideBarMap, getNavLinkKey } from './urlConfig'
+
+const sideBar = {}
 
 type mapItem = {
   file: string
   text: string
 }
 
-const map = new Map([
+const mergeSideBarMap = new Map([
   ['CSS', [{ file: 'code', text: 'CSS code' }]],
   [
     'JavaScript',
@@ -24,29 +25,38 @@ const map = new Map([
       { file: 'network', text: '网络' },
       { file: '前端安全', text: '前端安全' }
     ]
+  ],
+  [
+    'math',
+    [
+      { file: '高等数学', text: '高等数学' },
+      { file: '线性代数', text: '线性代数' }
+    ]
   ]
 ])
 
-for (const key in sidebarList) {
-  if (map.has(key)) {
-    const sub = map.get(key) as mapItem[]
-    const subSideBar: any[] = []
-    sub.forEach((item) => {
-      sidebar[sidebarList[item.file].base] = null
-      subSideBar.push({ ...sidebarList[item.file], text: item.text, collapsed: true })
+let needDeleteKey = []
+for (let [key, value] of sideBarMap) {
+  const file = getNavLinkKey(key.slice(0, -1))
+  if (mergeSideBarMap.has(file)) {
+    const subFolder = mergeSideBarMap.get(file) as mapItem[]
+    const subSideBar = []
+    subFolder.forEach((item) => {
+      const subKey = `${key}${item.file}/`
+      subSideBar.push({ ...sideBarMap.get(subKey), text: item.text, collapsed: true })
+      needDeleteKey.push(subKey)
     })
-    sidebar[sidebarList[key].base] = [{ ...sidebarList[key], text: key, collapsed: false }, ...subSideBar]
-  } else {
-    if (sidebar[sidebarList[key].base] !== null) {
-      sidebar[sidebarList[key].base] = { ...sidebarList[key] }
-    }
+    sideBar[key] = [value, ...subSideBar]
+  } else if (!needDeleteKey.includes(key)) {
+    sideBar[key] = value
   }
 }
 
-for (const key in sidebar) {
-  if (sidebar[key] === null) {
-    delete sidebar[key]
-  }
+for (const key of needDeleteKey) {
+  delete sideBar[key]
 }
 
-export default sidebar
+// import util from 'util'
+// console.log(util.inspect(sideBar, { showHidden: false, depth: null, colors: true }))
+
+export default sideBar

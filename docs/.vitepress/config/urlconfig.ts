@@ -1,32 +1,24 @@
 import * as fs from 'node:fs'
 
 const DOC = 'docs'
-const FILEDIRECTORYNAME = 'website'
-const BASE = `${DOC}/${FILEDIRECTORYNAME}`
+const BASE = `${DOC}/website`
+const SIDEBARKEY = Symbol('sidebar')
+const regex = /\d+/g
+const sideBarMap = new Map()
+const navLinkMap = new Map()
 
-const folders = fs.readdirSync(BASE, { withFileTypes: true, recursive: true })
-const urls = {}
-const sidebar = {}
-const navLink = {}
-
+// 排除
+const isExclude = (file: fs.Dirent) => {
+  return file.parentPath.includes('images') || file.parentPath.includes('components') || file.name === 'images' || file.name === 'components'
+}
 // 删除文件后缀名
-const deleteSuffix = (name) => {
+const deleteSuffix = (name: string) => {
   const index = name.lastIndexOf('.')
   return name.slice(0, index)
 }
 
-const getFolderPath = (folder) => {
-  const { path, parentPath } = folder
-  return `/${(path || parentPath).replace(`${DOC}\\`, '').replaceAll('\\', '/')}/`
-}
-
-const getNavKey = (key) => {
-  const str = key.substring(0, key.length - 1)
-  return str.slice(str.lastIndexOf('/') + 1)
-}
-
-const regex = /\d+/g
-const sortList = (list) => {
+// 排序
+const sortList = (list: any[]) => {
   return list.sort((a, b) => {
     const aIndex = +a.text.split('.')[0]
     const bIndex = +b.text.split('.')[0]
@@ -39,27 +31,33 @@ const sortList = (list) => {
   })
 }
 
-for (let i = 0; i < folders.length; i++) {
-  const item = folders[i]
-  if (!item.isDirectory() && item.name.endsWith('.md') && !item.name.includes('(no)')) {
-    const text = deleteSuffix(item.name)
-    const key = getFolderPath(item)
-    const sidebarItem = {
-      text,
-      link: `${item.name}`
+const getNavLinkKey = (path: string) => {
+  return path.split('/').pop()
+}
+
+const getFoldStructure = (path: string) => {
+  let result = {}
+  let item = []
+  const files = fs.readdirSync(path, { withFileTypes: true })
+  for (let file of files) {
+    if (isExclude(file)) continue
+    if (file.isDirectory()) {
+      result[file.name] = getFoldStructure(`${path}/${file.name}`)
+    } else if (file.name.includes('.md')) {
+      item.push({
+        text: deleteSuffix(file.name),
+        link: `${file.name}`
+      })
     }
-    urls[key] ? urls[key].push(sidebarItem) : (urls[key] = [sidebarItem])
   }
+  const key = `${path.replace(DOC, '')}/`
+  const sidebar = { base: `${key}`, items: sortList(item) }
+  sidebar.items.length && sideBarMap.set(key, sidebar)
+  navLinkMap.set(getNavLinkKey(path), sidebar.items.length ? `${key}${sidebar.items[0].link}` : '')
+  result[SIDEBARKEY] = sidebar
+  return result
 }
 
-for (let key in urls) {
-  const navKey = getNavKey(key)
-  const items = sortList(urls[key])
-  sidebar[navKey] = {
-    base: key,
-    items
-  }
-  navLink[navKey] = `${key}${items[0].link}`
-}
+getFoldStructure(BASE)
 
-export { sidebar, navLink }
+export { navLinkMap, sideBarMap, getNavLinkKey }
