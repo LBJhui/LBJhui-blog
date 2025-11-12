@@ -1,4 +1,4 @@
-import { navLinkMap } from './urlConfig'
+import { navLinkMap } from './folder'
 
 const nav = [
   { text: '首页', link: '/' },
@@ -36,7 +36,7 @@ const nav = [
     text: '考研',
     items: [
       { text: '数学', link: navLinkMap.get('math') },
-      { text: '408', link: navLinkMap.get('王道笔记') }
+      { text: '408', link: navLinkMap.get('datastructure') }
     ]
   },
   {
