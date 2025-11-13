@@ -5,7 +5,7 @@ type Item = {
 
 type SideBarItem = {
   base: string
-  items: Item[]
+  items: Array<Item | SideBarItem>
   text?: string // 可选属性，用于合并后的标题
   collapsed?: boolean // 可选属性，表示是否折叠
 }

@@ -35,26 +35,6 @@ const mergeSideBarMap: MergeSideBarConfig = new Map([
     ]
   ]
 ])
-type unionSideBarMapType = {
-  text: string
-  index: number
-}
-const unionSideBarMap = new Map<string, unionSideBarMapType>([
-  [
-    'datastructure',
-    {
-      text: '数据结构',
-      index: 0
-    }
-  ],
-  [
-    'computer-network',
-    {
-      text: '计算机网络',
-      index: 1
-    }
-  ]
-])
 
 // 需要删除的键（存储字符串数组）
 const needDeleteKey: string[] = []
@@ -62,21 +42,7 @@ const needDeleteKey: string[] = []
 // 遍历 sideBarMap 进行合并
 for (const [key, value] of sideBarMap) {
   const file = getNavLinkKey(key.slice(0, -1)) || ''
-  if (unionSideBarMap.has(file)) {
-    const data = unionSideBarMap.get(file) as unionSideBarMapType
-    const key = value.base
-      .split('/')
-      .filter((item) => item !== file)
-      .join('/')
-    const sideBarItem = {
-      ...value,
-      text: data.text, // 使用配置的标题
-      collapsed: true // 默认折叠
-    }
-    !sideBar[key] && (sideBar[key] = [])
-    sideBar[key][data.index] = sideBarItem
-    // 多个目录合并为一个新的目录
-  } else if (mergeSideBarMap.has(file)) {
+  if (mergeSideBarMap.has(file)) {
     // 移动到合并后的目录
     const subFolder = mergeSideBarMap.get(file) as Array<{ file: string; text: string }>
     const subSideBar: SideBarItem[] = []
@@ -106,10 +72,66 @@ for (const [key, value] of sideBarMap) {
   }
 }
 
+type UnionSideBarItem = {
+  text: string
+  base: string
+  children?: Array<UnionSideBarItem>
+}
+
+const unionSideBarMap: Map<string, UnionSideBarItem[]> = new Map([
+  [
+    '/website/exam/408/',
+    [
+      {
+        text: '数据结构',
+        base: '/website/exam/408/datastructure/',
+        children: [{ text: '算法题', base: '/website/exam/408/datastructure/算法题/' }]
+      },
+      { text: '计算机网络', base: '/website/exam/408/network/' }
+    ]
+  ]
+])
+const formatSideBarItem = (data: UnionSideBarItem): { sideBarItem: SideBarItem; deleteKeys: string[] } => {
+  const deleteKeys = []
+  let sideBarItem = {
+    text: data.text,
+    collapsed: true,
+    base: data.base,
+    items: [...(sideBarMap.get(data.base) as SideBarItem).items]
+  }
+  deleteKeys.push(data.base)
+
+  if (data.children) {
+    sideBarItem.items.push(
+      ...data.children.map((item) => {
+        deleteKeys.push(item.base)
+        return {
+          text: item.text,
+          collapsed: true,
+          base: item.base,
+          items: [...(sideBarMap.get(item.base) as SideBarItem).items]
+        }
+      })
+    )
+  }
+
+  return { sideBarItem, deleteKeys }
+}
+
+for (const [key, value] of unionSideBarMap) {
+  sideBar[key] = []
+  for (const item of value) {
+    const { sideBarItem, deleteKeys } = formatSideBarItem(item)
+    needDeleteKey.push(...deleteKeys)
+    sideBar[key].push(sideBarItem)
+  }
+}
+
 // 删除已被合并的子项
 for (const key of needDeleteKey) {
   delete sideBar[key]
 }
+
 // import util from 'util'
 // console.log(util.inspect(sideBar, { showHidden: false, depth: null, colors: true }))
 export default sideBar
