@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
+import markdownIt from 'markdown-it'
+import markdownItSub from 'markdown-it-sub'
 import nav from './config/nav'
 import sidebar from './config/sidebar'
 
@@ -13,6 +15,9 @@ export default withMermaid(
       image: {
         // 默认禁用图片懒加载
         lazyLoading: true
+      },
+      config: (md) => {
+        md.use(markdownItSub)
       }
     },
     vue: {
