@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 import markdownIt from 'markdown-it'
 import markdownItSub from 'markdown-it-sub'
+import markdownItSup from 'markdown-it-sup'
 import nav from './config/nav'
 import sidebar from './config/sidebar'
 
@@ -18,6 +19,7 @@ export default withMermaid(
       },
       config: (md) => {
         md.use(markdownItSub)
+        md.use(markdownItSup)
       }
     },
     vue: {
