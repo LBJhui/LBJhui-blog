@@ -7,7 +7,7 @@ hero:
   text: '随便写写，没什么想法'
   # tagline:
   image:
-    src: './public/bg.jpeg'
+    src: '/bg.jpeg'
   actions:
     - theme: brand
       text: Get Start
