@@ -37,6 +37,7 @@ export default withMermaid(
     mermaidPlugin: {
       // class: '', // 为父容器设置额外的CSS类
     },
+    base: '/LBJhui-blog/',
     title: 'LBJhui-blog',
     description: '',
     cleanUrls: true,
