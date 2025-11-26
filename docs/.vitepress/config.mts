@@ -65,6 +65,7 @@ export default withMermaid(
         prev: false,
         next: false
       }
-    }
+    },
+    ignoreDeadLinks: true
   })
 )

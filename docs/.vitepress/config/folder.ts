@@ -53,7 +53,7 @@ const getFoldStructure = (path: string): SideBar => {
   const key = `${path.replace(DOC, '')}/`
   const sidebar: SideBarItem = { base: `${key}`, items: sortList(item) }
   sidebar.items.length && sideBarMap.set(key, sidebar)
-  navLinkMap.set(getNavLinkKey(path), sidebar.items.length ? `${key}${sidebar.items[0].link}` : '')
+  navLinkMap.set(getNavLinkKey(path), sidebar.items.length ? `${key}${(sidebar.items[0] as Item).link}` : '')
   result[SIDEBARKEY as unknown as string] = sidebar // 如果需要 symbol 键
   return result
 }
