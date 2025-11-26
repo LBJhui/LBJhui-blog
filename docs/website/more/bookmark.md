@@ -2,6 +2,8 @@
 aside: true
 ---
 
+[招生目录](https://gsas.fudan.edu.cn/sszsml2023/index.html)
+
 :::detail 官方文档
 
 [Vue.js - 渐进式 JavaScript 框架 | Vue.js](https://cn.vuejs.org/)
@@ -225,8 +227,6 @@ aside: true
 [职级对标|中国领先的职级薪酬信息平台](https://duibiao.info/)
 
 [ProcessOn 思维导图流程图-在线画思维导图流程图\_在线作图实时协作](https://www.processon.com/)
-
-[招生目录](https://gsas.fudan.edu.cn/sszsml2023/index.html)
 
 [JavaScript 正则表达式可视化工具](<https://jex.im/regulex/#!flags=&re=%5E(a%7Cb)*%3F%24>)
 

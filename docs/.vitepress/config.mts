@@ -37,10 +37,10 @@ export default withMermaid(
     mermaidPlugin: {
       // class: '', // 为父容器设置额外的CSS类
     },
-    base: '/LBJhui-blog/',
     title: 'LBJhui-blog',
     description: '',
     cleanUrls: true,
+    ignoreDeadLinks: true,
     head: [['link', { rel: 'icon', href: '/LBJhui-blog/icon.svg' }]],
     themeConfig: {
       logo: '/my-logo.svg',
@@ -65,7 +65,6 @@ export default withMermaid(
         prev: false,
         next: false
       }
-    },
-    ignoreDeadLinks: true
+    }
   })
 )
