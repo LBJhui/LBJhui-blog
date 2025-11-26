@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
-import sup from 'markdown-it-sup'
+import markdownIt from 'markdown-it'
+import markdownItSub from 'markdown-it-sub'
+import markdownItSup from 'markdown-it-sup'
 import nav from './config/nav'
 import sidebar from './config/sidebar'
 
@@ -15,9 +17,9 @@ export default withMermaid(
         // 默认禁用图片懒加载
         lazyLoading: true
       },
-      // 使用配置项
       config: (md) => {
-        md.use(sup)
+        md.use(markdownItSub)
+        md.use(markdownItSup)
       }
     },
     vue: {
@@ -39,6 +41,7 @@ export default withMermaid(
     title: 'LBJhui-blog',
     description: '',
     cleanUrls: true,
+    ignoreDeadLinks: true,
     head: [['link', { rel: 'icon', href: '/LBJhui-blog/icon.svg' }]],
     themeConfig: {
       logo: '/my-logo.svg',

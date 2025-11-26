@@ -4,7 +4,7 @@
 set -e
 
 # 打包生成静态文件
-pnpm run docs:build
+pnpm run build
 
 # 进入待发布的 dist/ 目录
 cd docs/.vitepress/dist

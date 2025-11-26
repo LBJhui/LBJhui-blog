@@ -2,6 +2,8 @@
 aside: true
 ---
 
+[招生目录](https://gsas.fudan.edu.cn/sszsml2023/index.html)
+
 :::detail 官方文档
 
 [Vue.js - 渐进式 JavaScript 框架 | Vue.js](https://cn.vuejs.org/)
@@ -15,6 +17,8 @@ aside: true
 [wangEditor 5 开源 Web 富文本编辑器，开箱即用，配置简单](https://www.wangeditor.com/)
 
 [ECMAScript 2015 Language Specification – ECMA-262 6th Edition](https://262.ecma-international.org/6.0/)
+
+[Pinia 中文文档](https://pinia.web3doc.top/)
 
 :::
 
@@ -224,8 +228,6 @@ aside: true
 
 [ProcessOn 思维导图流程图-在线画思维导图流程图\_在线作图实时协作](https://www.processon.com/)
 
-[招生目录](https://gsas.fudan.edu.cn/sszsml2023/index.html)
-
 [JavaScript 正则表达式可视化工具](<https://jex.im/regulex/#!flags=&re=%5E(a%7Cb)*%3F%24>)
 
 [开发文档](https://devdocs.io/)
@@ -261,3 +263,19 @@ aside: true
 [codetoimg：在线代码截图工具](https://codetoimg.com/)
 
 [JavaScript drag and drop, resizing, and multi-touch gestures for modern browsers (and also IE9+)](https://interactjs.io/)
+
+[Galacean Engine 行业领先的 Web 3D 引擎 移动优先的游戏和互动应用在线创作平台](https://galacean.antgroup.com/engine/)
+
+[Obsidian - Sharpen your thinking](https://obsidian.md/)
+
+[boardmix 博思白板官网, AIGC 在线生成, 多人协同思维导图, 流程图工具](https://boardmix.cn/)
+
+[帆软报表软件](https://sem.fanruan.com/)
+
+[PinMe - Free IPFS Hosting for Static Websites | Decentralized Frontend Deployment](https://pinme.eth.limo/)
+
+[BootCDN - Bootstrap 中文网开源项目免费 CDN 加速服务 铂特优选](https://www.bootcdn.cn/)
+
+[Astral 3D Editor - 高效的三维可视化编辑工具](https://editor.astraljs.com/#/)
+
+[JavaScript engines zoo](https://zoo.js.org/)
