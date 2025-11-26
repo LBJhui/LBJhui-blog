@@ -40,13 +40,23 @@
   text-decoration: none;
 }
 
+.vp-doc :not(pre) > code {
+  box-decoration-break: clone;
+}
+
+.vp-doc div[class*='language-'],
+.vp-block {
+  width: 100%;
+  margin: 0 auto;
+}
+
 .vp-doc [class*='language-'] code .highlighted {
   background-color: rgba(0, 154, 97, 0.3);
   mix-blend-mode: multiply;
 }
 
 img {
-  margin: auto;
+  margin: 0 auto;
 }
 
 .VPSidebar .nav .item:has(.caret) h3 {
