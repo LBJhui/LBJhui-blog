@@ -10,6 +10,14 @@
 // console.log(util.inspect(array, { showHidden: false, depth: null, colors: true }))
 
 ```text
+https://www.zhangxinxu.com/wordpress/2024/06/css-transition-behavior/
+https://www.zhangxinxu.com/wordpress/2024/07/css-calc-keyword-infinity-pi-e/
+https://www.zhangxinxu.com/wordpress/2023/05/css-margin-trim/
+https://www.zhangxinxu.com/wordpress/2024/08/view-transitions-api/
+https://www.zhangxinxu.com/wordpress/2024/03/js-screen-wake-lock-api/
+https://www.zhangxinxu.com/wordpress/2024/03/css-initial-letter/
+https://www.zhangxinxu.com/wordpress/2024/07/css-custom-highlight-api/
+https://www.zhangxinxu.com/wordpress/2024/08/css-scroll-timeline/
 图片裁剪上传原理
 https://www.zhangxinxu.com/wordpress/2025/04/dom-sethtmlunsafe-parsehtmlunsafe/
 深拷贝structuredClone https://www.zhangxinxu.com/wordpress/2025/01/js-api-structuredclone/
@@ -119,38 +127,6 @@ async function fun(arr) {
    *  async (item1)=>await item1()
    *  async (item2)=>await item2()
    */
-}
-```
-
-```css
-/* CSS锚点定位 https://segmentfault.com/a/1190000045077175 */
-
-/* 隐式锚点 适用于 1v1 */
-.trigger {
-  anchor-name: --my-anchor;
-}
-
-.target {
-  position-anchor: --my-anchor;
-  left: anchor(left);
-  /* 居中对齐 */
-  /* justify-self: anchor-center;  */
-  /* inset-area: bottom; */
-}
-
-/* 显示锚点 适用于多元素定位 */
-.trigger1 {
-  anchor-name: --anchor-a;
-}
-
-.trigger2 {
-  anchor-name: --anchor-b;
-}
-
-.target {
-  position: absolute;
-  left: anchor(--anchor-a right);
-  right: anchor(--anchor-b left);
 }
 ```
 
