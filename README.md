@@ -10,6 +10,9 @@
 // console.log(util.inspect(array, { showHidden: false, depth: null, colors: true }))
 
 ```text
+https://www.zhangxinxu.com/wordpress/2025/04/html-shadowrootmode-shadowrootserializable/
+https://www.zhangxinxu.com/wordpress/2025/08/css-sibling-index-count/
+https://www.zhangxinxu.com/wordpress/2025/07/html-popover-hint/
 https://www.zhangxinxu.com/wordpress/2025/04/dom-caretpositionfrompoint-api/
 https://www.zhangxinxu.com/wordpress/2025/03/html-script-blocking/
 https://www.zhangxinxu.com/wordpress/2025/03/html-element-elementinternals-attachinternals/
