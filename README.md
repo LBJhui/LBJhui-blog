@@ -10,6 +10,26 @@
 // console.log(util.inspect(array, { showHidden: false, depth: null, colors: true }))
 
 ```text
+https://www.zhangxinxu.com/wordpress/2025/07/css-if-function/
+https://www.zhangxinxu.com/wordpress/2025/07/js-regexp-escape/
+https://www.zhangxinxu.com/wordpress/2025/07/css-checkmark-select-customizable/
+https://www.zhangxinxu.com/wordpress/2025/06/css-clip-path-shape/
+https://www.zhangxinxu.com/wordpress/2025/06/text-wrap-pretty-stable-mode-style/
+https://www.zhangxinxu.com/wordpress/2025/06/css-scroll-button-marker/
+https://www.zhangxinxu.com/wordpress/2025/06/js-pageswapevent/
+https://www.zhangxinxu.com/wordpress/2025/05/css-attr-function/
+https://www.zhangxinxu.com/wordpress/2025/04/dom-sethtmlunsafe-parsehtmlunsafe/
+https://www.zhangxinxu.com/wordpress/2025/02/js-set-intersection-union-difference/
+https://www.zhangxinxu.com/wordpress/2025/02/js-array-with/
+https://www.zhangxinxu.com/wordpress/2025/01/js-api-structuredclone/
+https://www.zhangxinxu.com/wordpress/2025/01/js-broadcast-channel-api/
+https://www.zhangxinxu.com/wordpress/2025/01/css-media-cprefers-reduced-transparency/
+https://www.zhangxinxu.com/wordpress/2024/12/html-select-support-hr/
+https://www.zhangxinxu.com/wordpress/2024/12/css-relative-color-from-calc/
+https://www.zhangxinxu.com/wordpress/2022/07/css-font-palette/
+https://www.zhangxinxu.com/wordpress/2024/12/font-palette-animation-palette-mix/
+https://www.zhangxinxu.com/wordpress/2024/11/css-color-mix-function/
+https://www.zhangxinxu.com/wordpress/2025/08/css-container-scroll-state/
 https://www.zhangxinxu.com/wordpress/2025/04/html-shadowrootmode-shadowrootserializable/
 https://www.zhangxinxu.com/wordpress/2025/08/css-sibling-index-count/
 https://www.zhangxinxu.com/wordpress/2025/07/html-popover-hint/
@@ -71,13 +91,11 @@ https://www.zhangxinxu.com/wordpress/2025/02/html-permission-api/
 https://www.zhangxinxu.com/wordpress/2025/02/js-set-intersection-union-difference/
 https://www.zhangxinxu.com/wordpress/2025/02/css-font-size-adjust/
 https://www.zhangxinxu.com/wordpress/2025/04/js-editcontext-api/
-https://www.zhangxinxu.com/wordpress/2025/04/dom-sethtmlunsafe-parsehtmlunsafe/
 https://www.zhangxinxu.com/wordpress/2025/01/css-media-cprefers-reduced-transparency/
 https://www.zhangxinxu.com/wordpress/2025/03/css-offset-path/
-https://www.zhangxinxu.com/wordpress/2025/05/css-attr-function/
 https://www.zhangxinxu.com/wordpress/2025/03/css-first-line-hidden-text/
+https://www.zhangxinxu.com/wordpress/2025/03/css-supports-font-tech-format/
 图片裁剪上传原理
-https://www.zhangxinxu.com/wordpress/2025/04/dom-sethtmlunsafe-parsehtmlunsafe/
 深拷贝structuredClone https://www.zhangxinxu.com/wordpress/2025/01/js-api-structuredclone/
 [Vue3 之 script-setup 全面解析](https://www.jianshu.com/p/5096bfb42e5a)
 纯前端图片压缩 图转base64读出宽高，canvas画图
