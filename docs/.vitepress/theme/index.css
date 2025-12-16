@@ -62,3 +62,7 @@ img {
 .VPSidebar .nav .item:has(.caret) h3 {
   font-weight: 600;
 }
+
+.custom-mermaid-container svg {
+  margin: auto;
+}
