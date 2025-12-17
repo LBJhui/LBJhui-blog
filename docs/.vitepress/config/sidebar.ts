@@ -13,10 +13,10 @@ const mergeSideBarMap: MergeSideBarConfig = new Map([
   [
     'JavaScript',
     [
-      { file: 'Handwritten code', text: '手写代码' },
       { file: 'High-Performance JavaScript', text: 'JavaScript高级程序设计(第4版)' },
+      { file: 'Typescript', text: 'Typescript' },
       { file: 'Node.js', text: 'Node.js' },
-      { file: 'Typescript', text: 'Typescript' }
+      { file: 'Handwritten code', text: '手写代码' }
     ]
   ],
   ['engineering', [{ file: 'webpack', text: 'webpack' }]],

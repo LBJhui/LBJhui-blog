@@ -283,3 +283,5 @@ aside: true
 [小火箭加速器免费下载](https://xhj.info/)
 
 [Inspect with Chrome Developer Tools](chrome://inspect/#devices)
+
+[VueDraggablePlus | 支持 Vue2 和 Vue3 的拖拽组件](https://vue-draggable-plus.pages.dev/)
