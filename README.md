@@ -10,6 +10,8 @@
 // console.log(util.inspect(array, { showHidden: false, depth: null, colors: true }))
 
 ```text
+<script src="https://cdn.bootcdn.net/ajax/libs/tesseract.js/6.0.1/tesseract.esm.min.js"></script> 图片识别
+https://www.zhangxinxu.com/wordpress/2025/08/html-hidden-until-found/
 https://www.zhangxinxu.com/wordpress/2025/07/css-if-function/
 https://www.zhangxinxu.com/wordpress/2025/07/js-regexp-escape/
 https://www.zhangxinxu.com/wordpress/2025/07/css-checkmark-select-customizable/
