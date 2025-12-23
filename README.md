@@ -5336,8 +5336,6 @@ Array.prototype.forEach = function (callback) {
 - service worker 使用
   答：缓存，渐进式应用，拦截处理
   聊到 **worker** 可能还会聊到 **web worker， shared worder** 等等，如果有自信，或者工作对这方面有深入理解，可以秀一下。能体现出自己的优势...
-- 严格模式
-  答：this 的 undefined，禁止 with，arguments 不允许更改，给只读对象赋值抛异常，变量需要先声明，call，apply 第一个参数不会被转换...
 - 原型链以及继承
   答：很常问，但随便找个赞数高的讲解，看一遍就懂了，记住常考点即可。
 - 正则表达式匹配规则？
@@ -6573,20 +6571,7 @@ console.log(newShop.apple)
 - 解释 event loop （听过，不太会）
 - 服务端渲染，计算首屏和白屏时间（不太会……**首屏白屏**[22]
 - 服务器如何强制更新后的文件替代客户端缓存的文件（不太会……好像和 MD5 有关？）
-- 执行代码求输出，并说明为什么，严格模式下输出有变化吗，为什么
 
-  ```javascript
-  var a = function () {
-    this.b = 3
-  }
-  var c = new a()
-  a.prototype.b = 9
-  var b = 7
-  a()
-
-  console.log(b)
-  console.log(c.b)
-  ```
 
 - 请实现以下的函数，可以批量请求数据，所有的 URL 地址在 urls 参数中，同时可以通过 max 参数控制请求的并发度，当所有请求结束之后，需要执行 callback 回调函数。发请求的函数可以直接使用 fetch 即可
 - 实现一个字符串反转：输入：[www.toutiao.com.cn](http://www.toutiao.com.cn) 输出：cn.com.toutiao.www
@@ -10116,7 +10101,6 @@ rem 和 em 单位一样，都是一个相对单位，不同的是 em 是相对�
 最后确定那些数据是需要外部传入就 ok 了。
 
 - HTML5 有哪些新特性？
-- Doctype 作⽤? 严格模式与混杂模式如何区分？它们有何意义?
 - 如何实现浏览器内多个标签页之间的通信？
 - ⾏内元素有哪些？块级元素有哪些？空(void)元素有哪些？⾏内元 素和块级元素有什么区别？
 - 简述⼀下 src 与 href 的区别？
@@ -12299,22 +12283,6 @@ const intersection = function (nums1, nums2) {
   当试图引用对象的属性时会触发 get 操作，第一步时检查对象本身是否有这个属性，如果有就使用它，没有就去原型中查找。一层层向上直到 Object.prototype 顶层
   基于原型扩展描述一下原型链，什么是原型链，原型的继承，ES5 和 ES6 继承与不同点。
 - ES6 新特性
-  1. ES6 引入来严格模式
-     变量必须声明后在使用
-     函数的参数不能有同名属性, 否则报错
-     不能使用 with 语句 (说实话我基本没用过)
-     不能对只读属性赋值, 否则报错
-     不能使用前缀 0 表示八进制数,否则报错 (说实话我基本没用过)
-     不能删除不可删除的数据, 否则报错
-     不能删除变量 delete prop, 会报错, 只能删除属性 delete global\[prop]
-     eval 不会在它的外层作用域引入变量
-     eval 和 arguments 不能被重新赋值
-     arguments 不会自动反映函数参数的变化
-     不能使用 arguments.caller (说实话我基本没用过)
-     不能使用 arguments.callee (说实话我基本没用过)
-     禁止 this 指向全局对象
-     不能使用 fn.caller 和 fn.arguments 获取函数调用的堆栈 (说实话我基本没用过)
-     增加了保留字（比如 protected、static 和 interface）
   2. 关于 let 和 const 新增的变量声明
   3. 变量的解构赋值
   4. 字符串的扩展
@@ -21688,12 +21656,6 @@ nodejs 事件循环略有不同...多了 process.nextTick 等
 
 聊到 **worker** 可能还会聊到 **web worker， shared worder** 等等，如果有自信，或者工作对这方面有深入理解，可以秀一下。能体现出自己的优势...
 
-1. 严格模式
-
-答：this 的 undefined，禁止 with，arguments 不允许更改，给只读对象赋值抛异常，变量需要先声明，call，apply 第一个参数不会被转换...
-
-能答出来一些就行。
-
 1. 原型链以及继承
 
 答：很常问，但随便找个赞数高的讲解，看一遍就懂了，记住常考点即可。
@@ -24310,20 +24272,6 @@ HR 小姐姐似乎对我们学校挺熟悉的，但好像不是校友……
 
 ### 笔试题
 
-一面：
-
-1. 执行代码求输出，并说明为什么，严格模式下输出有变化吗，为什么
-
-```
-var a = function () {this.b = 3;}
-var c = new a();
-a.prototype.b = 9;
-var b = 7;
-a();
-
-console.log(b);
-console.log(c.b);
-```
 
 1. 给定一个升序整型数组[0,1,2,4,5,7,13,15,16],找出其中连续出现的数字区间，输出为["0->2","4->5","7","13","15->16"]
 
@@ -29126,12 +29074,6 @@ console.log(x, y, z);
 
   聊到 **worker** 可能还会聊到 **web worker， shared worder** 等等，如果有自信，或者工作对这方面有深入理解，可以秀一下。能体现出自己的优势...
 
-  1. 严格模式
-
-  答：this 的 undefined，禁止 with，arguments 不允许更改，给只读对象赋值抛异常，变量需要先声明，call，apply 第一个参数不会被转换...
-
-  能答出来一些就行。
-
   1. 原型链以及继承
 
   答：很常问，但随便找个赞数高的讲解，看一遍就懂了，记住常考点即可。
@@ -31256,8 +31198,6 @@ git remote add <remoteURL> // 添加远程分支
 #### HTML
 
 - HTML5 有哪些新特性？
-
-- Doctype 作⽤? 严格模式与混杂模式如何区分？它们有何意义?
 
 - 如何实现浏览器内多个标签页之间的通信？
 
@@ -35405,23 +35345,6 @@ JavaScript中的对象都有一个特殊的 prototype 内置属性，其实就�
 - ES6 新特性
 
 ```
-1.ES6引入来严格模式
-    变量必须声明后在使用
-    函数的参数不能有同名属性, 否则报错
-    不能使用with语句 (说实话我基本没用过)
-    不能对只读属性赋值, 否则报错
-    不能使用前缀0表示八进制数,否则报错 (说实话我基本没用过)
-    不能删除不可删除的数据, 否则报错
-    不能删除变量delete prop, 会报错, 只能删除属性delete global[prop]
-    eval不会在它的外层作用域引入变量
-    eval和arguments不能被重新赋值
-    arguments不会自动反映函数参数的变化
-    不能使用arguments.caller (说实话我基本没用过)
-    不能使用arguments.callee (说实话我基本没用过)
-    禁止this指向全局对象
-    不能使用fn.caller和fn.arguments获取函数调用的堆栈 (说实话我基本没用过)
-    增加了保留字（比如protected、static和interface）
-
 2.关于let和const新增的变量声明
 
 3.变量的解构赋值
@@ -35468,8 +35391,7 @@ JavaScript中的对象都有一个特殊的 prototype 内置属性，其实就�
     class跟let、const一样：不存在变量提升、不能重复声明...
     ES6 的class可以看作只是一个语法糖，它的绝大部分功能
     ES5 都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
-15.Module
-    ES6 的模块自动采用严格模式，不管你有没有在模块头部加上"use strict";。
+
     import和export命令以及export和export default的区别
 ```
 
