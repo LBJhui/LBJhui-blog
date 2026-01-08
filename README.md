@@ -10,6 +10,7 @@
 // console.log(util.inspect(array, { showHidden: false, depth: null, colors: true }))
 
 ```text
+https://www.zhangxinxu.com/wordpress/2025/12/css-anchor-container-query/
 https://www.zhangxinxu.com/wordpress/2025/09/css-function-at-rules/
 https://www.zhangxinxu.com/wordpress/2025/12/css-progress-function/
 <script src="https://cdn.bootcdn.net/ajax/libs/tesseract.js/6.0.1/tesseract.esm.min.js"></script> 图片识别
@@ -6572,7 +6573,6 @@ console.log(newShop.apple)
 - 服务端渲染，计算首屏和白屏时间（不太会……**首屏白屏**[22]
 - 服务器如何强制更新后的文件替代客户端缓存的文件（不太会……好像和 MD5 有关？）
 
-
 - 请实现以下的函数，可以批量请求数据，所有的 URL 地址在 urls 参数中，同时可以通过 max 参数控制请求的并发度，当所有请求结束之后，需要执行 callback 回调函数。发请求的函数可以直接使用 fetch 即可
 - 实现一个字符串反转：输入：[www.toutiao.com.cn](http://www.toutiao.com.cn) 输出：cn.com.toutiao.www
   要求：1.不使用字符串处理函数 2.空间复杂度尽可能小
@@ -12282,39 +12282,35 @@ const intersection = function (nums1, nums2) {
   几乎所有的对象在创建时 prototype 属性都会被赋予一个非空的值，我们可以把这个属性当作一个备用的仓库
   当试图引用对象的属性时会触发 get 操作，第一步时检查对象本身是否有这个属性，如果有就使用它，没有就去原型中查找。一层层向上直到 Object.prototype 顶层
   基于原型扩展描述一下原型链，什么是原型链，原型的继承，ES5 和 ES6 继承与不同点。
-- ES6 新特性
-  2. 关于 let 和 const 新增的变量声明
-  3. 变量的解构赋值
-  4. 字符串的扩展
-     includes()：返回布尔值，表示是否找到了参数字符串。
-     startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。
-     endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。6.函数的扩展
-     函数参数指定默认值 7.数组的扩展
-     扩展运算符 8.对象的扩展
-     对象的解构
-  5. Proxy
-     Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问
-     都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
-     Proxy 这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”。
-     Vue3.0 使用了 proxy
-     12.Promise
-     Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。
-     特点是：
-     对象的状态不受外界影响。
-     一旦状态改变，就不会再变，任何时候都可以得到这个结果。
-     13.async 函数
-     async 函数对 Generator 函数的区别：
-     （1）内置执行器。
-     Generator 函数的执行必须靠执行器，而 async 函数自带执行器。也就是说，async 函数的执行，与普通函数一模一样，只要一行。
-     （2）更好的语义。
-     async 和 await，比起星号和 yield，语义更清楚了。async 表示函数里有异步操作，await 表示紧跟在后面的表达式需要等待结果。
-     （3）正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。
-     （4）返回值是 Promise。
-     async 函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用 then 方法指定下一步的操作。
-     14.Class
-     class 跟 let、const 一样：不存在变量提升、不能重复声明...
-     ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能
-     ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
+- ES6 新特性 2. 关于 let 和 const 新增的变量声明 3. 变量的解构赋值 4. 字符串的扩展
+  includes()：返回布尔值，表示是否找到了参数字符串。
+  startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。
+  endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。6.函数的扩展
+  函数参数指定默认值 7.数组的扩展
+  扩展运算符 8.对象的扩展
+  对象的解构 5. Proxy
+  Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问
+  都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
+  Proxy 这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”。
+  Vue3.0 使用了 proxy
+  12.Promise
+  Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。
+  特点是：
+  对象的状态不受外界影响。
+  一旦状态改变，就不会再变，任何时候都可以得到这个结果。
+  13.async 函数
+  async 函数对 Generator 函数的区别：
+  （1）内置执行器。
+  Generator 函数的执行必须靠执行器，而 async 函数自带执行器。也就是说，async 函数的执行，与普通函数一模一样，只要一行。
+  （2）更好的语义。
+  async 和 await，比起星号和 yield，语义更清楚了。async 表示函数里有异步操作，await 表示紧跟在后面的表达式需要等待结果。
+  （3）正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。
+  （4）返回值是 Promise。
+  async 函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用 then 方法指定下一步的操作。
+  14.Class
+  class 跟 let、const 一样：不存在变量提升、不能重复声明...
+  ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能
+  ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
 - Css3 新特性 1.过渡 transition 2.动画 animation 3.形状转换 transform 4.阴影 box-shadow 5.滤镜 Filter 6.颜色 rgba 7.栅格布局 gird 8.弹性布局 flex
 - 说一说前端性能优化方案
   一：webapck 优化与开启 gzip 压缩
@@ -24271,7 +24267,6 @@ HR 小姐姐似乎对我们学校挺熟悉的，但好像不是校友……
 - 服务器如何强制更新后的文件替代客户端缓存的文件（不太会……好像和 MD5 有关？）
 
 ### 笔试题
-
 
 1. 给定一个升序整型数组[0,1,2,4,5,7,13,15,16],找出其中连续出现的数字区间，输出为["0->2","4->5","7","13","15->16"]
 
