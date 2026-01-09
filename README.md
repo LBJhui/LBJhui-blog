@@ -36858,3 +36858,30 @@ const controller = new AbortController()
 fetch(url, { signal: controller.signal })
 controller.abort() // 立即中断
 ```
+
+```javascript
+// 倒序遍历
+for (let i = arr.length - 1; i >= 0; i--) {}
+// 可简写为
+for (let i = arr.length; i--; ) {}
+
+1 << 2 // 4
+1 << 3 // 8
+1 << 4 // 16
+
+let toggle = 0
+toggle ^= 1 // 1
+toogle ^= 1 // 0
+toggle ^= 1 // 1
+
+~~3.14 // 3
+3.14 >> 0 // 3
+3.14 << 0 // 3
+3.14 | 0 // 3
+;(3 ^ -5) >= 0 // false,符号不同
+;(-3 ^ -5) >= 0 // true,符号相同
+;(3 ^ 5) >= 0 // true,符号相同
+;(-3 ^ 5) >= 0 // false,符号不同
+
+const isPowerOf2 = (n) => (n & (n - 1)) === 0
+```
