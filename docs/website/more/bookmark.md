@@ -90,6 +90,8 @@ aside: true
 
 [H5-Dooring, 让页面制作更简单!](http://www.dooring.cn/)
 
+[Google Chrome - 快速安全的网络浏览器，专为您而打造](https://www.google.cn/chrome/)
+
 [收藏猫插件-Chrome 插件商店,谷歌浏览器插件,谷歌应用商店插件推荐及下载](https://chrome.pictureknow.com/)
 
 [Docker — 从入门到实践 | Docker 从入门到实践](https://vuepress.mirror.docker-practice.com/)
