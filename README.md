@@ -7,6 +7,9 @@
 [阮一峰的网络日志](https://www.ruanyifeng.com/blog/)
 ```
 
+中国计算机技术职业资格网
+系统集成项目管理工程师
+
 // console.log(util.inspect(array, { showHidden: false, depth: null, colors: true }))
 
 ```text
