@@ -36885,3 +36885,19 @@ toggle ^= 1 // 1
 
 const isPowerOf2 = (n) => (n & (n - 1)) === 0
 ```
+
+```javascript
+// 使用 defer 优化白屏时间
+import { ref } from 'vue'
+const count = ref(0)
+function update() {
+  count.value++
+  requestAnimationFrame(update)
+}
+update()
+export function useDefer() {
+  return function (n) {
+    return count.value >= n
+  }
+}
+```
