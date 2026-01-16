@@ -10,6 +10,7 @@
 // console.log(util.inspect(array, { showHidden: false, depth: null, colors: true }))
 
 ```text
+https://www.zhangxinxu.com/wordpress/2025/08/css-corner-shape/
 https://www.zhangxinxu.com/wordpress/2025/12/css-anchor-container-query/
 https://www.zhangxinxu.com/wordpress/2025/09/css-function-at-rules/
 https://www.zhangxinxu.com/wordpress/2025/12/css-progress-function/
