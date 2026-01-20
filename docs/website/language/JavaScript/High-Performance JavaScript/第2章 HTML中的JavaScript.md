@@ -17,7 +17,6 @@
 - crossorigin：配置相关请求的 CORS（跨源资源共享）设置。默认不使用 CORS。crossorigin="anonymous"配置文件请求不必设置凭据标志。crossorigin="use-credentials"设置凭据标志，意味着出站请求会包含凭据。
 
 - defer：可选。表示脚本可以延迟到文档完全被解析和显示之后再执行。只对外部脚本文件有效。在 IE7 及更早的版本中，对行内脚本也可以指定这个属性。立即下载，但延迟执行。
-
   1. 异步下载 `js` 资源，不会阻止 `DOM` 解析，在 `DOM` 解析完后才执行 `js` 脚本，`js` 文件会在 `DOMContentLoaded` 事件调用前执行。
   2. 如果有多个设置了 `defer` 的 `script` 标签存在，则会按照顺序执行所有的 `script`。
   3. 如果 `async` 和 `defer` 同时存在，`async` 优先级更高。
@@ -132,6 +131,32 @@
 使用 defer 属性加载的脚本将按照它们在页面上出现的顺序加载。在页面内容全部加载完毕之前，脚本不会运行，如果脚本依赖于 DOM 的存在（例如，脚本修改了页面上的一个或多个元素），这一点非常有用。
 
 ![async-defer](./images/2/1.jpg)
+![async-defer](<./images/2/1(1).png>)
+
+:::details 补充 prefetch 和 preload
+
+- preload
+
+preload 值允许你在 HTML 的 `<head>` 中声明获取请求，指定页面很快就需要的资源，这些资源是你希望在页面生命周期的早期就开始加载的，早于浏览器的主要渲染机制启动。这可以确保它们更早可用，并且不太可能阻塞页面的渲染，从而提高性能。尽管名称中包含“load”一词，但它并不加载和执行脚本，而只是安排脚本以更高的优先级进行下载和缓存。
+
+预加载，让浏览器提前加载指定资源(加载后并不执行) ，需要执行时再执行，一旦启用后便会告知浏览器应该尽快的加载某个资源，如果提取的资源 3s 内未在当前使用，在谷歌开发工具将会触发警告消息。
+
+```HTML
+<link rel="preload" as="script" href="foo.js" />
+<link rel="preload" as="style" href="bar.css" />
+```
+
+- prefetch
+
+关键字 prefetch 作为元素 <link> 的属性 rel 的值，是为了提示浏览器，用户未来的浏览有可能需要加载目标资源，所以浏览器有可能通过事先获取和缓存对应资源，优化用户体验。告诉浏览器，这个资源将会在未来的某个时刻用到，浏览器会在空闲时下载它。
+
+```HTML
+<link rel="prefetch" href="demo.html" />
+```
+
+![prefetch-preload](./images/2/2.png)
+
+:::
 
 ## 文档模式
 
