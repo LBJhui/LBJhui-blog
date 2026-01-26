@@ -15,7 +15,7 @@ hero:
 features:
   - title: CSS
     details: CSS 世界
-    link: /website/language/CSS/1.小众CSS属性
+    link: /website/language/CSS/1.网格(grid)布局
   - title: JavaScrip
     details: JavaScrip 高级程序设计（第 4 版）
     link: /website/language/JavaScript/High-Performance JavaScript/第1章 什么是JavaScript
