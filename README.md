@@ -12,6 +12,7 @@
 // console.log(util.inspect(array, { showHidden: false, depth: null, colors: true }))
 
 ```text
+https://www.zhangxinxu.com/wordpress/2025/11/css-state-function/
 https://www.zhangxinxu.com/wordpress/2025/09/js-intl-segmenter-string-length/
 https://www.zhangxinxu.com/wordpress/2026/01/css-text-decoration-inset/
 https://www.zhangxinxu.com/wordpress/2025/10/js-canvas-createconicgradient/
@@ -35977,53 +35978,28 @@ module --> chunk --> bundle
 ```
 
 vue 和 react 有什么区别，更喜欢用哪个，为什么
-
 react hook 熟悉吗，解决了什么问题，用 react hook 写一个用户鉴权的组件，所有其他组件都要经过它验证(auth 是一个 promise)
-
 为什么请求放在 useEffect 里，放在外面和放里面有什么区别？在 useEffect 里想使用 async/await 怎么用
-
 谈了谈 useLayoutEffect 和 useEffect 具体执行时机
-
 算法，一个树结构，有 id 和一个子节点数组，要求在所有子节点上增加一个属性为父节点的 parentId
-
 async/await 和 promise 性能差异， 我提到了堆栈追踪，在本人发表的其他文章里有写到
-
 react 写一个时间选择组件，先设计要传什么样的 props 接口，说明原因，外部组件如何使用(其实就是考封装组件库), 如果是手机端的，无线滚动的效果具体如何实现
-
 CommonJS 和 ES6 模块化有什么区别，设计一个方法，让 CommonJS 导出的模块也能改变其内部变量
-
 webpack treeShaking 原理，是靠什么才能实现(ES6 模块的静态导出)
-
 webpack 的构建原理，loader 和 plugin 的区别
-
 讲一下 js 的隐式转换
-
 JSONP 和 ajax 有什么区别，手写一个 JSONP(promise 版的)，window 上挂在的函数如何避免重名
-
 算法，实现一个螺旋矩阵
-
 网络安全，XSS、CSRF、SSRF 的原理，黑客是如何利用这些漏洞的
-
 XSS 如何防御，交给前端做还是交给后端做，如何做
-
 CSRF 如何防御，同源策略解决了什么问题
-
 前端性能优化是怎么做的，各方面考虑(我谈了从网络层面的，浏览器渲染层面的还有 css、js 执行，框架层面的，越详细越好)
-
 http 缓存和 CDN 原理讲一下
-
 老生常谈的问题，用户输入 url 到页面展示经历了哪些步骤(越详细越好，这个问题能讲很久)
-
 http 和 https 的区别，https 有什么好处，https 握手过程，https 是如何做到“安全”的
-
 http2 了解过吗，http2 和 http1 的区别和好处，http2 的头部压缩的原理
-
-鼠标滚动的时候，会触发很多次事件，如何解决的？(我说的防抖和节流) 具体用的防抖还是节流，我答节流
-
 能实现一个节流函数吗？(很快写完了 定时器版) 面试官改进一下要求滚动第一次就触发，于是改成时间戳版。再改进一下，最后一次的延迟也要触发，于是改成了时间戳+定时器版，完美解决
-
 一个场景，鼠标移动到超链接上，有气泡弹出，内容为去后端请求的接口内容(页面有很多个超链接，内容都不一样)
-
 AJAX 的原理，如何实现(手写), http 状态码都有哪些，代表什么意思
 
 ```markdown
@@ -36129,21 +36105,6 @@ vite 优势
 ```
 
 - snapdom
-- vanilla.js
-
-````markdown
-## module
-
-```html
-<script type="module" src="./index.js"></script>
-```
-````
-
-可以做浏览器兼容，一般高版本的浏览器才会加载 `type=module` 文件
-
-```
-
-```
 
 ```text
 requestPictureInPicture
@@ -36154,27 +36115,7 @@ pictureInPictureElement   pictureInPictureEnabled
 PictureInPictureWindow
 ```
 
-```markdown
-%——百分比
-in——寸
-cm——厘米
-mm——毫米
-pt——point，大约 1/72 寸；
-pc——pica，大约 6pt，1/6 寸；
-px——屏幕的一个像素点；
-em——元素的 font-size；
-ex——font-size 的 x-height 值，为小写字母 x 的高度，通常相当于 font-size 的一半。
-
-ch——字符 0(零)的宽度；
-rem——根元素(html 元素)的 font-size；
-vw——viewpoint width，视窗宽度，1vw 等于视窗宽度的 1%；
-vh——viewpoint height，视窗高度，1vh 等于视窗高度的 1%；
-vmin——vw 和 vh 中较小的那个。
-```
-
 - insertAdjacentHTML insertAdjacentText
-
-```javascript
 // 调用系统原生分享功能
 // 浏览器支持率：92%（要求 HTTPS 环境）
 // 典型场景：移动端快速分享文章内容至微信、微博等社交平台
@@ -36333,4 +36274,23 @@ window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',
 ```
 ````
 
--
+```text
+浏览器的构建流程
+1. 读取蓝图 - 解析 HTML 和 CSS 来理解内容和样式。
+   解析与构建
+   html 代码 --> DOM 树（文档对象模型）
+   css 代码 --> CSSOM
+   DOM 树 + CSSOM = 渲染树
+2. 计算布局 - 计算每个元素在屏幕上的确切位置和大小。
+3. 绘制屏幕 - 将所有元素像素化并显示出来
+
+JavaScript 引擎流水线
+
+第一步：解析：源代码被转换成抽象语法树（AST）。
+第二步：解释：AST 被用来生成字节码并开始运行。
+第三步：分析：解释器在运行时收集“热点”函数的数据。
+第四步：优化：热点代码被送到优化编译器，生成高速机器码。
+第五步：去优化：如果假设失败，引擎会退回到字节码。
+
+
+```
