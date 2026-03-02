@@ -66,6 +66,8 @@ aside: true
 
 [Google Chrome 网络浏览器](https://google.cn/intl/zh-CN/chrome/)
 
+[Google Chrome - 快速安全的网络浏览器，专为您而打造](https://www.google.cn/chrome/)
+
 [uView UI，是全面兼容 nvue 的 uni-app 生态框架](https://www.uviewui.com/)
 
 [RegExr: Learn, Build, & Test RegEx](https://regexr.com/)
@@ -89,8 +91,6 @@ aside: true
 [stackoverflow](https://stackoverflow.com/)
 
 [H5-Dooring, 让页面制作更简单!](http://www.dooring.cn/)
-
-[Google Chrome - 快速安全的网络浏览器，专为您而打造](https://www.google.cn/chrome/)
 
 [收藏猫插件-Chrome 插件商店,谷歌浏览器插件,谷歌应用商店插件推荐及下载](https://chrome.pictureknow.com/)
 
