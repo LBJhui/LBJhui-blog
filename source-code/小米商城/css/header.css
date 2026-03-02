@@ -1,0 +1,20 @@
+.header {
+  height: 100px;
+}
+.header-logo h1 {
+  display: none;
+}
+.header-logo {
+  background: url(https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/img/logo-mi2.png);
+  width: 56px;
+  height: 56px;
+  background-size: 100% 100%;
+  margin-top: 22px;
+  margin-right: 172px;
+}
+.header-menu a {
+  height: 100px;
+  line-height: 100px;
+  padding: 0 7px;
+  font-size: 16px;
+}
