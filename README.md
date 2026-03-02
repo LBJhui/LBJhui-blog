@@ -2237,9 +2237,21 @@ mix-blend-mode background-blend-mode
 <!-- 原始尺寸=样式尺寸*缩放倍率 元素尺寸：
 - clientWidth：content + padding
 - offsetWidth：content + padding + scroll(滚动条) + border
+- clientLeft: 元素左边框的宽度
+- offsetLeft：元素左边框与定位的父级元素的距离
+  注意：父元素需要有定位，就是position需要有值
+  如果父级元素没有定位，则会继续往上层元素找到具有定位的元素，直到 body 元素
+- clientX：鼠标相对于浏览器窗口可视区的x坐标（横向）
+- offsetX：鼠标相对于事件源元素的x坐标
+- pageX：鼠标相对于文档的x坐标，而非窗口坐标
+  注意：会计算滚动距离，如果没有滚动距离，则跟clientX是一样的
+- screenX：鼠标相对于显示器屏幕左侧位置的x坐标
+- 元素左边框相对于可视区的距离，有可能为负值 getBoundingClientRect
 - scrollWidth：visible + invisible
 - 可见尺寸 getBoundingClientRect()
-dom.style.width DOM树 getComputedStyle(dom).width CSSOM树 layout tree 布局树 几何信息 -->
+dom.style.width DOM树
+getComputedStyle(dom).width CSSOM树
+layout tree 布局树 几何信息 -->
 ```
 
 ```javascript
