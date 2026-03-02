@@ -64,7 +64,7 @@ aside: true
 
 [CSS Cheat Sheet - Interactive, not a PDF | HTMLCheatSheet.com](https://htmlcheatsheet.com/css/)
 
-[Google Chrome 网络浏览器](https://google.cn/intl/zh-CN/chrome/)
+[Google Chrome - 快速安全的网络浏览器，专为您而打造](https://google.cn/intl/zh-CN/chrome/)
 
 [Google Chrome - 快速安全的网络浏览器，专为您而打造](https://www.google.cn/chrome/)
 
