@@ -48,7 +48,7 @@ export default withMermaid(
       logo: '/my-logo.svg',
       nav,
       sidebar,
-      outline: [2, 4],
+      outline: [2, 3],
       socialLinks: [
         { icon: 'github', link: 'https://github.com/LBJhui/LBJhui-blog' },
         {
