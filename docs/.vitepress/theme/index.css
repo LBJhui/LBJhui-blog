@@ -1,5 +1,4 @@
 :root {
-  /* --vp-sidebar-width:300px;/ */
   font-family: 'Microsoft YaHei', SimSun, sans-serif;
 }
 
@@ -17,11 +16,9 @@
 .vp-doc h2 {
   margin: 30px 0 16px;
 }
-
 .vp-doc h3 {
   margin: 26px 0 0;
 }
-
 .vp-doc h4 {
   font-style: oblique;
   font-size: 1.2em;
@@ -33,39 +30,31 @@
 .vp-doc h5 {
   margin: 20px 0 0;
 }
-
 .vp-doc p {
   text-align: justify;
   line-height: 1.5em;
 }
-
 .vp-doc p a {
   text-decoration: none;
 }
-
 .vp-doc :not(pre) > code {
   box-decoration-break: clone;
 }
-
 .vp-doc div[class*='language-'],
 .vp-block {
   width: 100%;
   margin: 0 auto;
 }
-
 .vp-doc [class*='language-'] code .highlighted {
   background-color: rgba(0, 154, 97, 0.3);
   mix-blend-mode: multiply;
 }
-
 img {
   margin: 0 auto;
 }
-
 .VPSidebar .nav .item:has(.caret) h3 {
   font-weight: 600;
 }
-
 .custom-mermaid-container svg {
   margin: auto;
 }
