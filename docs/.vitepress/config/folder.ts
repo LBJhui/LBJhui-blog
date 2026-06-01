@@ -13,6 +13,10 @@ const isExclude = (file: fs.Dirent): boolean => {
 }
 
 const deleteSuffix = (name: string): string => {
+  // 特殊处理需包含特殊符号的菜单
+  if (name === '第 7 章 输入输出系统.md') {
+    return '第 7 章 输入/输出系统'
+  }
   const index = name.lastIndexOf('.')
   return name.slice(0, index)
 }

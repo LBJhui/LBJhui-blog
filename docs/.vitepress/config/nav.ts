@@ -39,7 +39,7 @@ const nav: NavItem[] = [
     text: '考研',
     items: [
       { text: '数学', link: navLinkMap.get('math') as string },
-      { text: '408', link: navLinkMap.get('datastructure') as string }
+      { text: '408', link: navLinkMap.get('Data-Structure-and-Algorithm') as string }
     ]
   },
   {

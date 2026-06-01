@@ -7,7 +7,7 @@ type MergeSideBarConfig = Map<string, Array<{ file: string; text: string }>>
 // 定义最终的 sideBar 结构（键是字符串，值是 SideBarItem 数组）
 const sideBar: Record<string, SideBarItem[]> = {}
 
-// 定义合并配置（明确类型为 MergeSideBarConfig）
+// 将 Map-Array 项对应的菜单项合并到 Map-string 项
 const mergeSideBarMap: MergeSideBarConfig = new Map([
   ['CSS', [{ file: 'code', text: 'CSS code' }]],
   [
@@ -78,16 +78,18 @@ type UnionSideBarItem = {
   children?: Array<UnionSideBarItem>
 }
 
+// 合并侧边栏
 const unionSideBarMap: Map<string, UnionSideBarItem[]> = new Map([
   [
     '/website/exam/408/',
     [
       {
         text: '数据结构',
-        base: '/website/exam/408/datastructure/',
-        children: [{ text: '算法题', base: '/website/exam/408/datastructure/算法题/' }]
+        base: '/website/exam/408/Data-Structure-and-Algorithm/',
+        children: [{ text: '算法题', base: '/website/exam/408/Data-Structure-and-Algorithm/算法题/' }]
       },
-      { text: '计算机网络', base: '/website/exam/408/network/' }
+      { text: '计算机网络', base: '/website/exam/408/Computer-Networks/' },
+      { text: '计算机组成原理', base: '/website/exam/408/Principles-of-Computer-Composition/' }
     ]
   ]
 ])
