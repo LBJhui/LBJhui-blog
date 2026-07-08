@@ -688,3 +688,12 @@ $$
 \end {aligned}
 $$
 ```
+
+$$
+\begin{flalign}
+&(1)\sin^2x+\cos^2x=1 &\\
+&(2)\sec x=\frac1{\cos x} &\\
+&(3)\csc x=\frac1{\sin x} &\\
+&(4)\sec^2x=1+\tan^2x &\\
+\end{flalign}
+$$
