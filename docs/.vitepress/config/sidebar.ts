@@ -33,7 +33,7 @@ const mergeSideBarMap: MergeSideBarConfig = new Map([
       { file: '高等数学', text: '高等数学' },
       { file: '线性代数', text: '线性代数' }
     ]
-  ]
+  ],
 ])
 
 // 需要删除的键（存储字符串数组）

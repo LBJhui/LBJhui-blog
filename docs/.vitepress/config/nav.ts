@@ -46,7 +46,7 @@ const nav: NavItem[] = [
     text: '更多',
     items: [
       { text: 'python', link: navLinkMap.get('python') as string },
-      { text: '网址收藏', link: navLinkMap.get('more') as string }
+      { text: '其他', link: navLinkMap.get('more') as string }
     ]
   }
 ]
