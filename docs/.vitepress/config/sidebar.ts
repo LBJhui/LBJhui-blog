@@ -9,7 +9,7 @@ const sideBar: Record<string, SideBarItem[]> = {}
 
 // 将 Map-Array 项对应的菜单项合并到 Map-string 项
 const mergeSideBarMap: MergeSideBarConfig = new Map([
-  ['CSS', [{ file: 'code', text: 'CSS code' }]],
+  ['CSS', [{ file: 'SCSS', text: 'SASS' }]],
   [
     'JavaScript',
     [
@@ -30,10 +30,11 @@ const mergeSideBarMap: MergeSideBarConfig = new Map([
   [
     'math',
     [
+      { file: '高等数学/高等数学辅导讲义-基础篇', text: '高等数学辅导讲义-基础篇' },
       { file: '高等数学', text: '高等数学' },
       { file: '线性代数', text: '线性代数' }
     ]
-  ],
+  ]
 ])
 
 // 需要删除的键（存储字符串数组）
