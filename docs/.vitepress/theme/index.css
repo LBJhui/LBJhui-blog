@@ -28,6 +28,9 @@
   text-align: justify;
   line-height: 1.5em;
 }
+.vp-doc p:has(svg) {
+  text-align: initial;
+}
 .vp-doc p a {
   text-decoration: none;
 }
