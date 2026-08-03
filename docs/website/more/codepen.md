@@ -4,6 +4,7 @@
   import DotBallClock  from './components/codepen/DotBallClock.vue'
   import CarLoading  from './components/codepen/CarLoading.vue'
   import BlackWhiteDotsLoader  from './components/codepen/BlackWhiteDotsLoader.vue'
+  import ToggleRadio  from './components/codepen/ToggleRadio.vue'
 </script>
 
 # codepen
@@ -27,3 +28,7 @@
 ## 黑白小球交替的loading效果
 
 <BlackWhiteDotsLoader  />
+
+## 纯CSS3开关样式的自定义单选框
+
+<ToggleRadio />
