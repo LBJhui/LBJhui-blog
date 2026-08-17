@@ -7,6 +7,25 @@
   import ToggleRadio  from './components/codepen/ToggleRadio.vue'
 </script>
 
+<style module>
+.hollow {
+  padding: 10px 20px;
+  background: black;
+  width:fit-content;
+  margin: 0 auto;
+  color: black;
+  text-shadow:
+    1px 0 #fff,
+    1px 1px #fff,
+    1px -1px #fff,
+    0 1px #fff,
+    0 -1px #fff,
+    -1px 0 #fff,
+    -1px -1px #fff,
+    -1px 1px #fff;
+}
+</style>
+
 # codepen
 
 ## HTML5 Canvas 3D 倒计时爆炸特效
@@ -32,3 +51,7 @@
 ## 纯CSS3开关样式的自定义单选框
 
 <ToggleRadio />
+
+## 空心文字
+
+<div :class="$style.hollow">LBJhui</div>
