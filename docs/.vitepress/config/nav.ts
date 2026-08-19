@@ -45,6 +45,7 @@ const nav: NavItem[] = [
   {
     text: '更多',
     items: [
+      { text: '妙码', link: navLinkMap.get('miaoma') as string },
       { text: 'python', link: navLinkMap.get('python') as string },
       { text: '其他', link: navLinkMap.get('more') as string }
     ]
