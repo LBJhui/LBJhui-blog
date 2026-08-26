@@ -11,20 +11,23 @@ const nav: NavItem[] = [
       { text: 'HTML', link: navLinkMap.get('HTML') as string },
       { text: 'CSS', link: navLinkMap.get('CSS') as string },
       { text: 'JavaScript', link: navLinkMap.get('JavaScript') as string },
-      { text: 'Git', link: navLinkMap.get('Git') as string }
+      { text: 'Git', link: navLinkMap.get('Git') as string },
+      { text: '微信小程序', link: navLinkMap.get('wx') as string }
     ]
   },
   {
-    text: '框架&库',
+    text: '前端进阶',
     items: [
       { text: 'Vue', link: navLinkMap.get('Vue') as string },
       { text: '前端工程化', link: navLinkMap.get('engineering') as string },
       { text: '浏览器和网络', link: navLinkMap.get('browser&network') as string },
-      { text: '微信环境', link: navLinkMap.get('wx') as string }
+      { text: '妙码', link: navLinkMap.get('miaoma') as string },
+      { text: '微信环境', link: navLinkMap.get('wx') as string },
+      { text: '业务场景', link: navLinkMap.get('work') as string }
     ]
   },
   {
-    text: '面试题',
+    text: '面试',
     link: navLinkMap.get('interview') as string
   },
   {
@@ -32,11 +35,7 @@ const nav: NavItem[] = [
     link: navLinkMap.get('Leetcode') as string
   },
   {
-    text: '业务场景',
-    link: navLinkMap.get('work') as string
-  },
-  {
-    text: '考研',
+    text: '研究生',
     items: [
       { text: '数学', link: navLinkMap.get('math') as string },
       { text: '408', link: navLinkMap.get('Data-Structure-and-Algorithm') as string }
@@ -45,7 +44,6 @@ const nav: NavItem[] = [
   {
     text: '更多',
     items: [
-      { text: '妙码', link: navLinkMap.get('miaoma') as string },
       { text: 'python', link: navLinkMap.get('python') as string },
       { text: '其他', link: navLinkMap.get('more') as string }
     ]
