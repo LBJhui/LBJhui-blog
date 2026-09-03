@@ -30,7 +30,7 @@ const mergeSideBarMap: MergeSideBarConfig = new Map([
   [
     'math',
     [
-      { file: '高等数学/高等数学辅导讲义-基础篇', text: '高等数学辅导讲义-基础篇' },
+      { file: '高等数学/高等数学辅导讲义-基础篇(2027)', text: '高等数学辅导讲义-基础篇' },
       { file: '高等数学', text: '高等数学' },
       { file: '线性代数', text: '线性代数' }
     ]

@@ -1,3 +1,15 @@
+/* 侧边栏样式 */
+.VPSidebar .nav .item:has(.caret) h3 {
+  font-weight: 600;
+}
+.VPSidebarItem .VPLink {
+  overflow: hidden;
+}
+.VPSidebarItem .VPLink .text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .collapsed .text {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -7,6 +19,7 @@
 ::-webkit-scrollbar {
   width: 0px;
 }
+/* 标题样式 */
 .vp-doc h2 {
   margin: 30px 0 16px;
 }
@@ -24,6 +37,7 @@
 .vp-doc h5 {
   margin: 20px 0 0;
 }
+/* 段落样式 */
 .vp-doc p {
   text-align: justify;
   line-height: 1.5em;
@@ -48,9 +62,6 @@
 }
 img {
   margin: 0 auto;
-}
-.VPSidebar .nav .item:has(.caret) h3 {
-  font-weight: 600;
 }
 .custom-mermaid-container svg {
   margin: auto;
