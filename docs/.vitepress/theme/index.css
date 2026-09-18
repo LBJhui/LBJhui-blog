@@ -72,7 +72,7 @@ img {
   margin: 0 auto;
 }
 
-/* 1. 仅针对行内公式：解决不换行、垂直对齐和行高问题 */
+/* 仅针对行内公式：解决不换行、垂直对齐和行高问题 */
 mjx-container:not([display='true']) {
   display: inline-block !important;
   vertical-align: middle !important;

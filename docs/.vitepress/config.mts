@@ -29,13 +29,30 @@ export default withMermaid(
         }
       }
     },
-    mermaid: {
-      // 配置参考： https://mermaid.js.org/config/configuration.html
-      htmlLabels: false
-    },
-    // 可选地使用MermaidPluginConfig为插件本身设置额外的配置
     mermaidPlugin: {
-      class: 'custom-mermaid-container' // 为父容器设置额外的CSS类
+      class: 'mermaid my-custom-class' // 为 Mermaid 容器添加额外的 CSS 类
+    },
+    // Mermaid 渲染配置
+    mermaid: {
+      // 主题：default / forest / dark / neutral
+      theme: 'default',
+      // 流程图连线样式
+      flowchart: {
+        curve: 'basis' // 连线曲线样式：basis / linear / stepBefore / stepAfter
+      },
+      // 时序图配置
+      sequence: {
+        showSequenceNumbers: true, // 显示消息编号
+        actorMargin: 50 // 参与者间距
+      },
+      // 安全级别：strict / loose / antiscript / sandbox
+      securityLevel: 'loose',
+      // 自定义主题变量（精细控制颜色）
+      themeVariables: {
+        primaryColor: '#4f46e5',
+        lineColor: '#bbb', // 连线颜色
+        fontSize: '16px'
+      }
     },
     base: '/LBJhui-blog/',
     title: 'LBJhui-blog',
