@@ -54,7 +54,7 @@
 .vp-doc div[class*='language-'],
 .vp-block {
   width: 100%;
-  margin: 0 auto;
+  margin: 12px auto;
 }
 .vp-doc [class*='language-'] code .highlighted {
   background-color: rgba(0, 154, 97, 0.3);

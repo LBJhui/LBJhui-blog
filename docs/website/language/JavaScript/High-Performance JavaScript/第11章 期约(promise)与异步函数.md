@@ -307,11 +307,9 @@ p.then(() => console.log('onResolved handler'))
 // 同步输出，证明 then() 已经返回
 console.log('then() returns')
 // 实际的输出：
-// 'then() returns'
+// then() returns
 // onResolved handler
 ```
-
-<span style="color: #e74c3c;">【修正】原注释 `// 'then()returns'` 缺少空格，已改为 `// 'then() returns'`。</span>
 
 先添加处理程序后解决期约也是一样的。如果添加处理程序后，同步代码才改变期约状态，那么处理程序仍然会基于该状态变化表现出非重入特性。下面的例子展示了即使先添加了 `onResolved` 处理程序，再同步调用 `resolve()`，处理程序也不会进入同步线程执行：
 
@@ -334,8 +332,6 @@ console.log('3: synchronousResolve() returns')
 // '3: synchronousResolve() returns'
 // '4: then() handler executes'
 ```
-
-<span style="color: #e74c3c;">【修正】原注释 `// '1: invokingresolve()'`、`// '2: resolve()returns'` 缺少空格，已分别改为 `// '1: invoking resolve()'`、`// '2: resolve() returns'`。</span>
 
 非重入适用于 `onResolved`/`onRejected` 处理程序、`catch()` 处理程序和 `finally()` 处理程序。
 
@@ -428,6 +424,7 @@ console.log('continue synchronous execution')
 // begin synchronous execution
 // caught error Error: foo
 // continue synchronous execution
+
 new Promise((resolve, reject) => {
   console.log('begin asynchronous execution')
   reject(Error('bar'))
@@ -518,8 +515,7 @@ let p2 = Promise.race([3, 4])
 // 空的可迭代对象等价于 new Promise(() => {})
 let p3 = Promise.race([])
 // 无效的语法
-let p4 = Promise.race()
-// TypeError: cannot read Symbol.iterator of undefined
+let p4 = Promise.race() // TypeError: cannot read Symbol.iterator of undefined
 ```
 
 `Promise.race()` 不会对解决或拒绝的期约区别对待。无论是解决还是拒绝，只要是第一个落定的期约，`Promise.race()` 就会包装其解决值或拒绝理由并返回新期约。如果有一个期约拒绝，只要它是第一个落定的，就会成为拒绝合成期约的理由。之后再拒绝的期约不会影响最终期约的拒绝理由。不过，这并不影响所有包含期约正常的拒绝操作。与 `Promise.all()` 类似，合成的期约会静默处理所有包含期约的拒绝操作。
@@ -585,7 +581,7 @@ addTen(8).then(console.log) // 18
   class CancelToken {
     constructor(cancelFn) {
       this.promise = new Promise((resolve, reject) => {
-        cancelCallback(() => {
+        cancelFn(() => {
           setTimeout(console.log, 0, 'delay cancelled')
           resolve()
         })
@@ -608,8 +604,6 @@ addTen(8).then(console.log) // 18
   startButton.addEventListener('click', () => cancellableDelayedResolve(1000))
 </script>
 ```
-
-<span style="color: #f39c12;">【待确认】`CancelToken` 构造函数内形参为 `cancelFn`，回调形参写作 `cancelCallback`，二者名称不一致，建议核对原代码。</span>
 
 #### 2．期约进度通知
 
@@ -682,7 +676,7 @@ console.log(2)
 // 1 2 3
 ```
 
-异步函数的返回值期待（但实际上并不要求）一个实现 thenable 接口的对象，但常规的值也可以。如果返回的是实现 thenable 接口的对象，则这个对象可以由提供给 `then()` 的处理程序 “解包”。如果不是，则返回值就被当作已经解决的期约。
+异步函数的返回值期待（但实际上并不要求）一个实现 `thenable` 接口的对象，但常规的值也可以。如果返回的是实现 `thenable` 接口的对象，则这个对象可以由提供给 `then()` 的处理程序 “解包”。如果不是，则返回值就被当作已经解决的期约。
 
 在异步函数中抛出错误会返回拒绝的期约，不过，拒绝期约的错误不会被异步函数捕获。
 
@@ -698,8 +692,6 @@ console.log(2)
 // 1 2 Uncaught (in promise): 3 4
 ```
 
-<span style="color: #e74c3c;">【修正】原注释 `// 1 2 Uncaught(inpromise): 3 4` 缺少空格，已改为 `// 1 2 Uncaught (in promise): 3 4`。</span>
-
 #### 2．`await`
 
 使用 `await` 关键字可以暂停异步函数代码的执行，等待期约解决。
@@ -708,7 +700,7 @@ console.log(2)
 
 `await` 关键字的用法与 JavaScript 的一元操作一样。它可以单独使用，也可以在表达式中使用。
 
-`await` 关键字期待（但实际上并不要求）一个实现 thenable 接口的对象，但常规的值也可以。如果是实现 thenable 接口的对象，则这个对象可以由 `await` 来 “解包”。如果不是，则这个值就被当作已经解决的期约。
+`await` 关键字期待（但实际上并不要求）一个实现 `thenable` 接口的对象，但常规的值也可以。如果是实现 `thenable` 接口的对象，则这个对象可以由 `await` 来 “解包”。如果不是，则这个值就被当作已经解决的期约。
 
 等待会抛出错误的同步操作，会返回拒绝的期约：
 
@@ -739,6 +731,15 @@ console.log(2)
 // 1 2 3
 ```
 
+**执行结果说明**：
+
+1. 调用 `foo()` 后同步执行到 `console.log(1)`，输出 `1`；
+2. 遇到 `await Promise.reject(3)`，异步函数暂停并让出执行线程，后续的 `console.log(4)` 不会执行；
+3. 回到同步代码，执行 `console.log(2)`，输出 `2`；
+4. 拒绝理由 `3` 被释放（unwrap）到 `foo()` 返回的期约中，由 `catch(console.log)` 接收并输出 `3`。
+
+因此最终输出顺序为 `1 2 3`：`1`、`2` 来自同步执行，`3` 来自异步的拒绝处理程序；被 `await` 的拒绝期约不会成为未捕获错误，而是转交返回期约的拒绝处理程序处理。
+
 #### 3．`await` 的限制
 
 `await` 关键字必须在异步函数中使用，不能在顶级上下文如 `<script>` 标签或模块中使用。不过，定义并立即调用异步函数是没问题的。下面两段代码实际是相同的：
@@ -749,6 +750,7 @@ async function foo() {
 }
 foo()
 // 3
+
 // 立即调用的异步函数表达式
 ;(async function () {
   console.log(await Promise.resolve(3))
@@ -765,6 +767,12 @@ foo()
 JavaScript 运行时在碰到 `await` 关键字时，会记录在哪里暂停执行。等到 `await` 右边的值可用了，JavaScript 运行时会向消息队列中推送一个任务，这个任务会恢复异步函数的执行。因此，即使 `await` 后面跟着一个立即可用的值，函数的其余部分也会被异步求值。
 
 如果 `await` 后面是一个期约，则问题会稍微复杂一些。此时，为了执行异步函数，实际上会有两个任务被添加到消息队列并被异步求值。
+
+```text
+await 前面：同步执行
+await 本身：挂起当前 async 函数，让出主线程
+await 后面：Promise settled 后，作为微任务恢复执行
+```
 
 ```javascript
 async function foo() {
@@ -846,6 +854,15 @@ foo()
 //   foo
 ```
 
-<span style="color: #e74c3c;">【修正】原注释 `//   asyncfunction(async)` 缺少空格，已改为 `//   async function (async)`。</span>
-
 这样一改，栈追踪信息就准确地反映了当前的调用栈。`fooPromiseExecutor()` 已经返回，所以它不在错误信息中。但 `foo()` 此时被挂起了，并没有退出。JavaScript 运行时可以简单地在嵌套函数中存储指向包含函数的指针，就跟对待同步函数调用栈一样。这个指针实际上存储在内存中，可用于在出错时生成栈追踪信息。这样就不会像之前的例子那样带来额外的消耗，因此在重视性能的应用中是可以优先考虑的。
+
+两种写法的对比如下：
+
+| 对比维度     | 纯 `Promise`                   | `async/await`                |
+| ------------ | ------------------------------ | ---------------------------- |
+| 堆栈来源     | 创建期约时拍的旧栈快照         | 报错当下真实的挂起函数链     |
+| 已返回的函数 | 仍可能出现在堆栈里             | 不会出现                     |
+| 内存代价     | 快照要保存整串调用链，开销较大 | 只存挂起函数的指针，开销较小 |
+| 堆栈准确性   | 偏旧、偏全                     | 更贴近真实状态               |
+
+纯 `Promise` 的旧快照信息更多，有时便于查错；但站在内存与性能的角度，快照机制需要额外复制并保存整串旧调用链，而 `async/await` 用挂起状态下的指针引用替代快照，既能还原准确的调用链，又不用额外保存一整份旧栈。
